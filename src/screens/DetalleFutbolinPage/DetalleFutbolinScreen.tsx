@@ -18,7 +18,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { BotoneraCompartir } from "./components/BotoneraCompartir";
 
-export const DetalleFutbolinPage = ({
+const DetalleFutbolinScreen = ({
   futbolin,
   owner,
 }: {
@@ -114,3 +114,5 @@ export const DetalleFutbolinPage = ({
     </GoBackWrapper>
   );
 };
+
+export default DetalleFutbolinScreen;

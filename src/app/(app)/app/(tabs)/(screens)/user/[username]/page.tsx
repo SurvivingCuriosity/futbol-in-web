@@ -1,6 +1,6 @@
 "use client";
 
-import { PerfilPublicoPage } from "@/src/pages/MiPerfilPage copy/PerfilPublicoPage";
+import { PerfilPublicoPage } from "@/src/screens/MiPerfilPage copy/PerfilPublicoPage";
 import { useGetFullUserByUsername } from "@/src/shared/hooks/useGetFullUser";
 import { useParams } from "next/navigation";
 

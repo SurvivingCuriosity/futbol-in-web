@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuth } from "@/src/client/context/AuthContext";
-import { MiPerfilPage } from "@/src/pages/MiPerfilPage/MiPerfilPage";
+import { MiPerfilPage } from "@/src/screens/MiPerfilPage/MiPerfilPage";
 import { useGetFullUser } from "@/src/shared/hooks/useGetFullUser";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

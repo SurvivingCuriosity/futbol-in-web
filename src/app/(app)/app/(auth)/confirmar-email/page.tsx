@@ -1,4 +1,4 @@
-import ConfirmarEmailPage from "@/src/pages/ConfirmarEmailPage/ConfirmarEmailPage";
+import ConfirmarEmailPage from "@/src/screens/ConfirmarEmailPage/ConfirmarEmailPage";
 
 export default function ConfirmarEmailRoute() {
   return <ConfirmarEmailPage />;

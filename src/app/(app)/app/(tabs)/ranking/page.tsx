@@ -1,6 +1,6 @@
 "use client";
 
-import { RankingPage } from "@/src/pages/RankingPage/RankingPage";
+import { RankingPage } from "@/src/screens/RankingPage/RankingPage";
 import { useGetRanking } from "@/src/shared/hooks/useRanking";
 
 export default function RankingRoute() {

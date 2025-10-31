@@ -1,3 +1,5 @@
+"use client"
+
 import { FormField, FormLabel } from "@/src/shared/components/FormField";
 import SelectorBar from "@/src/shared/components/SelectorBar/SelectorBar";
 import SelectorDireccion from "@/src/shared/components/SelectorDireccion/SelectorDireccion";
@@ -55,21 +57,21 @@ export const AgregarPage = () => {
       <h1 className="font-bold text-2xl text-primary mb-3">
         Agregar nuevo futbolín
       </h1>
-      <FormField>
+      {/* <FormField>
         <FormLabel>Ciudad*</FormLabel>
         <SelectorMunicipio onSelect={(e) => setCiudad(String(e.value))} />
-      </FormField>
+      </FormField> */}
 
       <div className="mb-2">
         {noEncuentraElBar ? (
           <FormField>
             <FormLabel>Dirección (incluye número)*</FormLabel>
-            <SelectorDireccion onSelect={setDireccionOBar} />
+            {/* <SelectorDireccion onSelect={setDireccionOBar} /> */}
           </FormField>
         ) : (
           <FormField>
             <FormLabel>Nombre del bar/sala de juegos etc.*</FormLabel>
-            <SelectorBar onSelect={setDireccionOBar} ciudad={ciudad} />
+            {/* <SelectorBar onSelect={setDireccionOBar} ciudad={ciudad} /> */}
           </FormField>
         )}
 
@@ -86,17 +88,17 @@ export const AgregarPage = () => {
       <div className="flex items-center gap-2">
         <FormField>
           <FormLabel>Tipo futbolín</FormLabel>
-          <SelectorTipoFutbolin
+          {/* <SelectorTipoFutbolin
             value={tipoFutbolin}
             onSelect={setTipoFutbolin}
-          />
+          /> */}
         </FormField>
         <FormField>
           <FormLabel>Distribución</FormLabel>
-          <SelectorDistribucion
+          {/* <SelectorDistribucion
             value={distribucion}
             onSelect={setDistribucion}
-          />
+          /> */}
         </FormField>
       </div>
       <FormField>

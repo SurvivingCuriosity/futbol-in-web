@@ -1,7 +1,7 @@
 "use client";
 
+import { OptionType } from "../AsyncSelect/Select";
 import { SelectorMunicipio } from "../SelectorMunicipio/SelectorMunicipio";
-import { TownOption } from "../SelectorMunicipio/types";
 
 export const SearchInputMapa = ({
   onSelect,
@@ -11,8 +11,7 @@ export const SearchInputMapa = ({
   onNewCoords: (coords:google.maps.LatLngLiteral)=>void;
 }) => {
 
-
-  const handleSelectMunicipio = async (m: TownOption | null) => {
+  const handleSelectMunicipio = async (m: OptionType | null) => {
     if (!m) return;
     onSelect()
     const res = await fetch(

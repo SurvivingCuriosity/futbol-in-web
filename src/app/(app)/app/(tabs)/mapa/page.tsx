@@ -1,7 +1,7 @@
 "use client";
 
 import { useAllFutbolines } from "@/src/client/hooks/useGetAllFutbolines";
-import { MapaPage } from "@/src/pages/MapaPage/MapaPage";
+import { MapaPage } from "@/src/screens/MapaPage/MapaPage";
 
 export default function MapaRoute() {
   const { data: futbolines, isLoading, error } = useAllFutbolines();

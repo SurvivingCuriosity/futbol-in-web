@@ -5,7 +5,7 @@ import { useCallback } from "react";
 import { MapsClient } from "./fetchMunicipios";
 
 type Props = {
-  value?: OptionType;
+  value?: OptionType & {subLabel:string};
   onSelect: (selectedOption: OptionType) => void;
   disabled?: boolean;
 };
@@ -14,7 +14,7 @@ export const SelectorMunicipio = ({ value, onSelect, disabled }: Props) => {
   const loadOptions = useCallback(
     async (inputValue: string|number): Promise<OptionType[]> => {
       const res = await MapsClient.searchMunicipio(String(inputValue));
-      return res.map((m) => ({
+      return res.map((m:OptionType & {subLabel:string}) => ({
         label: m.label,
         subLabel: m.subLabel,
         value: m.value,
@@ -30,11 +30,10 @@ export const SelectorMunicipio = ({ value, onSelect, disabled }: Props) => {
       loadOptions={loadOptions}
       placeholder="Buscar municipio..."
       disabled={disabled}
-      searchable
-      renderOption={(o) => (
+      renderOption={(o: OptionType) => (
         <div className="flex items-center justify-between p-2 rounded-lg hover:bg-neutral-800">
           <p className="text-neutral-200">{o.label}</p>
-          <p className="text-xs text-neutral-500 uppercase">{o.subLabel}</p>
+          {/* <p className="text-xs text-neutral-500 uppercase">{o.subLabel}</p> */}
         </div>
       )}
     />

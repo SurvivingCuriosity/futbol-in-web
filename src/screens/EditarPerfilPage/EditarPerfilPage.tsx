@@ -101,6 +101,7 @@ export const EditarPerfilPage = ({ fullUser }: { fullUser: FullUser }) => {
               label: updatedUser.ciudad?.split(",")[0] || "",
               value: updatedUser.ciudad || "",
               imageUrl: "",
+              subLabel: updatedUser.ciudad?.split(",")[1] || "",
             }}
             onSelect={(text) => {
               setUpdatedUser((prev) => ({

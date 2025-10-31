@@ -1,4 +1,3 @@
-
 import { faMapLocationDot, faShare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -7,9 +6,14 @@ export const BotoneraCompartir = ({
   idSpot,
 }: {
   googlePlaceId: string;
-  idSpot:string
+  idSpot: string;
 }) => {
   const handleClickShare = async () => {
+    if (typeof navigator === "undefined" || !navigator.share) {
+      console.warn("Web Share API no disponible");
+      return;
+    }
+
     await navigator.share({
       title: "Futbolin",
       text: "¡Échale un ojo a este futbolín en futbolin.app!",

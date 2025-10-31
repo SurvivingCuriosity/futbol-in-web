@@ -58,8 +58,6 @@ export default function RegisterPage() {
     }
   };
 
-  console.log("qweqweqwe");
-
   return (
     <>
       <form

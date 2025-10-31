@@ -1,6 +1,6 @@
 import { getAllFutbolines } from "@/src/actions/getAllFutbolines";
 import { getRanking } from "@/src/actions/getRanking";
-import { LandingPage } from "@/src/pages/LandingPage/LandingPage";
+import { LandingPage } from "@/src/screens/LandingPage/LandingPage";
 
 export default async function page() {
   const spots = await getAllFutbolines();

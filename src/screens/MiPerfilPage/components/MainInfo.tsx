@@ -35,7 +35,7 @@ export const MainInfo = ({
             <FontAwesomeIcon icon={faMapMarkerAlt} />
             <p className="text-sm md:text-lg text-neutral-500">{user.ciudad?.split(",")[1]}</p>
         </div>
-        <p className="text-sm md:text-lg">Miembro desde {new Date(user?.createdAt).toLocaleDateString()}</p>
+        <p className="text-sm md:text-lg">Miembro desde {new Date(user?.createdAt as unknown as string).toLocaleDateString()}</p>
       </div>
     </div>
   );

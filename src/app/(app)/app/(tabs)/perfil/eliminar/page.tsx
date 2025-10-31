@@ -1,6 +1,6 @@
 "use client"
 
-import { EliminarCuentaPage } from "@/src/pages/EditarPerfilPage/EliminarCuentaPage";
+import { EliminarCuentaPage } from "@/src/screens/EditarPerfilPage/EliminarCuentaPage";
 
 export default function EliminarPerfilRoute() {
 

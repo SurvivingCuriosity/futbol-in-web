@@ -47,10 +47,10 @@ export const MapaPage = ({ futbolines }: Props) => {
       <div className="pointer-events-none absolute inset-0 z-99999">
         {/* Barra de búsqueda */}
         <div className="pointer-events-auto absolute left-2 right-2 top-2 z-99999 md:w-md md:mx-auto">
-          <SearchInputMapa
+          {/* <SearchInputMapa
             onSelect={() => setViajando(true)}
             onNewCoords={onNewCoords}
-          />
+          /> */}
         </div>
         {viajando && (
           <div className="absolute inset-0 z-99999 bg-neutral-950/70 flex flex-col gap-3 items-center justify-center">

@@ -14,6 +14,7 @@ export function MapaLanding({ markers }: { markers: SpotDTO[] }) {
       userLocation={null}
       zoom={5.5}
       restrictToSpain={false}
+      focusCoords={null}
     />
   );
 }

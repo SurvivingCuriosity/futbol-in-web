@@ -1,6 +1,6 @@
 "use client";
 
-import RegisterPage from "@/src/pages/RegisterPage/RegisterPage";
+import RegisterPage from "@/src/screens/RegisterPage/RegisterPage";
 
 export default function RegisterRoute() {
   return <RegisterPage />;

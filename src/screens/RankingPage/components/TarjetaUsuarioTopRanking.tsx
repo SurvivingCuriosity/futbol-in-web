@@ -56,7 +56,6 @@ export default function TarjetaUsuarioTopRanking({
           alt="Imagen de usuario"
         />
 
-        {/* TODO: modificar UsuarioEnRankingDTO */}
         <Image
           src={usuario.imagen ? usuario.imagen : "/default_user.svg"}
           width={50}

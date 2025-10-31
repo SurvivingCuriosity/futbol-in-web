@@ -1,7 +1,7 @@
 "use client"
 
 import { useAuth } from "@/src/client/context/AuthContext";
-import { EditarPerfilPage } from "@/src/pages/EditarPerfilPage/EditarPerfilPage";
+import { EditarPerfilPage } from "@/src/screens/EditarPerfilPage/EditarPerfilPage";
 import { useGetFullUser } from "@/src/shared/hooks/useGetFullUser";
 
 export default function Perfil() {
