@@ -2,6 +2,24 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
+  reactStrictMode: true,
+  images: {
+    remotePatterns: [
+      // Avatares de Google (p. ej. OAuth)
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+        pathname: "/**", // cualquier ruta
+      },
+      // Imágenes firmadas en tu bucket
+      {
+        protocol: "https",
+        hostname: "storage.googleapis.com",
+        pathname: "/futbolin/**", // carpeta del bucket
+        // ⬆️  Al no declarar `search`, Next acepta cualquier query‑string
+      },
+    ],
+  },
 };
 
 export default nextConfig;
