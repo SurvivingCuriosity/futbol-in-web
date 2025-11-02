@@ -113,7 +113,7 @@ type TypewriterProps = {
 };
 
 export default function Typewriter({
-  words = ["Tsunami", "Infinity", "Presas EVO", "Presas 2000"],
+  words = ["Tsunami", "Infinity", "EVO", "REM"],
   typeSpeed = 150,
   deleteSpeed = 50,
   wordDelay = 3000,
@@ -148,7 +148,7 @@ export default function Typewriter({
         >
           {text}
           {cursor && (
-            <span className="text-white inline-block w-px h-5 align-[-2px] bg-current ml-1 animate-pulse" />
+            <span className="text-white inline-block w-px h-10 align-[-2px] bg-current ml-1 animate-pulse" />
           )}
         </p>
         <p className="text-neutral-200  text-5xl font-bold">cerca de ti</p>
