@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import "../globals.css";
-import "react-image-crop/dist/ReactCrop.css";
 import { Toaster } from "react-hot-toast";
+import "react-image-crop/dist/ReactCrop.css";
+import "../globals.css";
 
 export const metadata: Metadata = {
   title: "Futbol-in - Encuentra futbolines en tu ciudad !",
@@ -52,11 +52,12 @@ export default function RootLayout({
       <body
         className={`dark antialiased bg-neutral-950 text-neutral-50 ${roboto.className}`}
       >
-        <Toaster 
+        <Toaster
           toastOptions={{
             duration: 2000,
           }}
         />
+
         {children}
       </body>
     </html>

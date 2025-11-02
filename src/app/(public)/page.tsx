@@ -5,6 +5,7 @@ import { LandingPage } from "@/src/screens/LandingPage/LandingPage";
 export default async function page() {
   const spots = await getAllFutbolines();
   const ranking = await getRanking()
+  
   //   const usersRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`, {
   //     next: { revalidate: 60 },
   //   });

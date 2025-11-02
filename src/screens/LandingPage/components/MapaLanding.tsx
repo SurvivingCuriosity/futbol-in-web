@@ -1,20 +1,32 @@
 "use client";
-import { SpotDTO } from "futbol-in-core/types";
 import { Mapa } from "@/src/shared/components/Mapa/Mapa";
+import { SpotDTO } from "futbol-in-core/types";
 
 export const spainCenter = { lat: 40.416775, lng: -3.70379 };
 
-export function MapaLanding({ markers }: { markers: SpotDTO[] }) {
+type Props = {
+  markers: SpotDTO[];
+  initialCenter?: google.maps.LatLngLiteral | null;
+  zoom?: number;
+  focusCoords?: google.maps.LatLngLiteral | null;
+};
+
+export function MapaLanding({
+  markers,
+  initialCenter = spainCenter,
+  zoom = 5.5,
+  focusCoords = null,
+}: Props) {
   return (
     <Mapa
       markers={markers}
-      initialCenter={spainCenter}
+      initialCenter={initialCenter}
       onSelectMarker={() => {}}
       selectedMarker={null}
       userLocation={null}
-      zoom={5.5}
+      zoom={zoom}
       restrictToSpain={false}
-      focusCoords={null}
+      focusCoords={focusCoords}
     />
   );
 }

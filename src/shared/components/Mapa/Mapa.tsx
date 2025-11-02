@@ -36,6 +36,9 @@ export function Mapa({
   focusCoords
 }: MapaProps) {
 
+
+  console.log("🧪 Mapa", markers);
+
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_MAPS_API_KEY as string,
     id: "google-maps-script",
@@ -56,7 +59,7 @@ export function Mapa({
   
   useEffect(()=>{
     if(!map || !focusCoords) return
-    setUserZoom(16)
+    // setUserZoom(16)
     map.panTo(focusCoords);
   },[focusCoords, map])
 

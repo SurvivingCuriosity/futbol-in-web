@@ -26,11 +26,16 @@ export function MarcadorFutbolin({
   onClick,
   tipoFutbolin,
 }: AdvancedMarkerProps) {
+
+  
   const markerRef = useRef<google.maps.marker.AdvancedMarkerElement | null>(
     null
   );
+  
 
   useEffect(() => {
+    console.log("markerRef", markerRef);
+    console.log("map", map);
     if (!map) return;
 
     // Creamos el contenido del marcador como un elemento HTML
@@ -76,6 +81,7 @@ MarcadorFutbolin.getHTML = (
   tipoFutbolin: TipoFutbolin,
   id?: string
 ): HTMLElement => {
+
   const wrapper = document.createElement("div");
   wrapper.className = `relative marker-wrapper bg-neutral-900 rounded-full border border-transparent size-10 p-0.5 flex items-center justify-center shadow-md shadow-black`;
   if (id) wrapper.dataset.id = id;

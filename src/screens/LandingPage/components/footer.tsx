@@ -31,24 +31,24 @@ export function Footer() {
             <h3 className="font-semibold mb-4">Producto</h3>
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li>
-                <a href="#caracteristicas" className="hover:text-accent transition-colors">
+                <Link href="/#caracteristicas" className="hover:text-accent transition-colors">
                   Características
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#how-it-works" className="hover:text-accent transition-colors">
+                <Link href="/#how-it-works" className="hover:text-accent transition-colors">
                   Cómo funciona
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#ranking" className="hover:text-accent transition-colors">
+                <Link href="/#ranking" className="hover:text-accent transition-colors">
                   Ranking
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#descargar" className="hover:text-accent transition-colors">
+                <Link href="/#faq" className="hover:text-accent transition-colors">
                   Descargar App
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
