@@ -64,17 +64,7 @@ export function Footer() {
               </li>
               <li>
                 <a href="#" className="hover:text-accent transition-colors">
-                  Blog
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-accent transition-colors">
                   Contacto
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-accent transition-colors">
-                  Prensa
                 </a>
               </li>
             </ul>
