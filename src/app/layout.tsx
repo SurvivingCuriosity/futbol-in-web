@@ -15,54 +15,30 @@ export const metadata: Metadata = {
   creator: "Fernando Rodríguez Esteban",
   manifest: "/manifest.json",
   robots: { index: true, follow: true },
+  icons: {
+    icon: "/favicon/favicon.ico",
+    shortcut: "/favicon/favicon.ico",
+    apple: "/favicon/apple-touch-icon.png",
+  },
+  themeColor: "#1a1a1a",
 };
 
-const roboto = Poppins({
+const poppins = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
   subsets: ["latin"],
 });
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#0E172B" />
-        <link rel="shortcut icon" href="/favicon/favicon.ico" />
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/favicon/apple-touch-icon.png"
-        />
-        <meta name="apple-mobile-web-app-title" content="Futbol-in" />
-        <meta
-          name="description"
-          content="Añade y descubre futbolines de tu ciudad. Organiza y gestiona ligas de manera sencilla. Apúntate a torneos y visualiza tus resultados en tiempo real."
-        />
-        <meta
-          property="og:description"
-          content="Añade y descubre futbolines de tu ciudad. Organiza y gestiona ligas de manera sencilla. Apúntate a torneos y visualiza tus resultados en tiempo real."
-        />
-        <meta
-          property="og:image"
-          content="https://futbolin.app/favicon/icon-512x512.png"
-        />
-        <link rel="manifest" href="/favicon/site.webmanifest" />
-        <link rel="icon" href="/favicon/icon-192x192.png" />
-      </head>
+    <html lang="es">
       <body
-        className={`dark antialiased bg-neutral-950 text-neutral-50 ${roboto.className}`}
+        className={`dark antialiased bg-neutral-950 text-neutral-50 ${poppins.className}`}
       >
-        <Toaster
-          toastOptions={{
-            duration: 2000,
-          }}
-        />
-
+        <Toaster toastOptions={{ duration: 2000 }} />
         {children}
       </body>
     </html>
