@@ -34,8 +34,6 @@ export function MarcadorFutbolin({
   
 
   useEffect(() => {
-    console.log("markerRef", markerRef);
-    console.log("map", map);
     if (!map) return;
 
     // Creamos el contenido del marcador como un elemento HTML

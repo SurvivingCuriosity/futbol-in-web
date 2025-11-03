@@ -32,11 +32,9 @@ export function useCambiarPassword() {
       return data;
     },
     onSuccess: () => {
-      console.log("onSuccess");
       toast.success("Contraseña cambiada correctamente");
     },
     onError: (err) => {
-      console.log("onError");
       toast.error(err instanceof Error ? err.message : "Error inesperado");
     },
   });

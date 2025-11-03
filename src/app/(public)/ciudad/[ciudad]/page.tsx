@@ -1,11 +1,19 @@
-import { getBaresFromPlaceIds, getFutbolinesCiudad } from "@/src/actions/getFutbolinesCiudad";
+import {
+  getBaresFromPlaceIds,
+  getFutbolinesCiudad,
+} from "@/src/actions/getFutbolinesCiudad";
 import { ciudades } from "@/src/client/shared/assets/ciudades/ciudades";
 import { LandingCiudadPage } from "@/src/screens/LandingCiudadPage/LandingCiudadPage";
-import { Metadata } from "next";
 import Link from "next/link";
 
-export async function generateMetadata({ params }: { params: { ciudad: string } }): Promise<Metadata> {
-  const ciudadParam = decodeURIComponent(params.ciudad);
+export const revalidate = 3600;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ ciudad: string }>;
+}) {
+  const { ciudad: ciudadParam } = await params;
   const ciudad = ciudades.find((c) => c.name === ciudadParam);
 
   if (!ciudad) {
@@ -16,14 +24,16 @@ export async function generateMetadata({ params }: { params: { ciudad: string } 
     };
   }
 
-  const title = `Futbolines en ${ciudad} | Futbolin.app`;
-  const description = `Descubre todos los futbolines en ${ciudad}. Filtra por tipo, añade nuevos futbolines y compite en el ranking con el resto de jugadores.`;
+  const title = `Futbolines en ${ciudad.name} | Futbolin.app`;
+  const description = `Descubre todos los futbolines en ${ciudad.name}. Filtra por tipo, añade nuevos futbolines y compite en el ranking con el resto de jugadores.`;
 
   return {
     title,
     description,
     alternates: {
-      canonical: `https://futbolin.app/ciudad/${encodeURIComponent(ciudadParam)}`,
+      canonical: `https://futbolin.app/ciudad/${encodeURIComponent(
+        ciudadParam
+      )}`,
     },
     openGraph: {
       title,
@@ -35,7 +45,7 @@ export async function generateMetadata({ params }: { params: { ciudad: string } 
           url: "https://futbolin.app/GraficoDeFunciones.png",
           width: 1200,
           height: 630,
-          alt: `Futbolines en ${ciudad}`,
+          alt: `Futbolines en ${ciudad.name}`,
         },
       ],
       locale: "es_ES",
@@ -55,20 +65,26 @@ export default async function LandingCiudadRoute({
 }: {
   params: Promise<{ ciudad: string }>;
 }) {
-  const { ciudad:ciudadParam } = await params;
-  
-  const ciudad = ciudades.find(c => c.name === ciudadParam);
+  const { ciudad: ciudadParam } = await params;
+
+  const ciudad = ciudades.find((c) => c.name === ciudadParam);
 
   const futbolines = await getFutbolinesCiudad(ciudadParam);
 
-  const bares = await getBaresFromPlaceIds(futbolines.filter(f => f.destacado).map(s => s.googlePlaceId));
+  const bares = await getBaresFromPlaceIds(
+    futbolines.filter((f) => f.destacado).map((s) => s.googlePlaceId)
+  );
 
- if (!ciudad) {
+  if (!ciudad) {
     return (
       <main className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-20 text-center">
-          <h1 className="text-4xl font-bold text-foreground mb-4">Ciudad no encontrada</h1>
-          <p className="text-muted-foreground mb-8">La ciudad que buscas no está disponible en Futbol-in.</p>
+          <h1 className="text-4xl font-bold text-foreground mb-4">
+            Ciudad no encontrada
+          </h1>
+          <p className="text-muted-foreground mb-8">
+            La ciudad que buscas no está disponible en Futbol-in.
+          </p>
           <Link
             href="/#cities"
             className="inline-flex items-center gap-2 bg-accent text-accent-foreground px-6 py-3 rounded-lg font-semibold hover:opacity-90"
@@ -77,8 +93,10 @@ export default async function LandingCiudadRoute({
           </Link>
         </div>
       </main>
-    )
+    );
   }
 
-  return <LandingCiudadPage ciudad={ciudad} futbolines={futbolines} bares={bares} />;
+  return (
+    <LandingCiudadPage ciudad={ciudad} futbolines={futbolines} bares={bares} />
+  );
 }

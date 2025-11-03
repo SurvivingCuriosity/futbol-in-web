@@ -1,10 +1,10 @@
-import { getAllFutbolines } from "@/src/actions/getAllFutbolines";
+import { getAllFutbolines } from "@/src/actions/getAllFutbolines"
 import { getRanking } from "@/src/actions/getRanking";
 import { getUserCount } from "@/src/actions/getUserCount";
 import { LandingPage } from "@/src/screens/LandingPage/LandingPage";
 import { Metadata } from "next";
 
-export const revalidate = 60;
+export const revalidate = 600;
 
 export const metadata: Metadata = {
   title: "Futbolin.app — Encuentra futbolines cerca de ti",

@@ -1,9 +1,7 @@
-"use client";
-
-import { Marca } from "@/src/app/(public)/marcas/[marca]/page";
 import { TarjetaFutbolinStatic } from "@/src/shared/components/TarjetaFutbolin/TarjetaFutbolinStatic";
+import { Marca } from "@/src/shared/db/marcas";
 import { SpotDTO } from "futbol-in-core/types";
-import { MapaLanding } from "../../LandingPage/components/MapaLanding";
+import { MapaLandingClient } from "../../LandingPage/components/MapaLanding";
 
 interface CityFoosballMapProps {
   marca: Marca;
@@ -25,7 +23,7 @@ export function MapaMarca({ marca, futbolines }: CityFoosballMapProps) {
             {/* Map */}
             <div className="lg:col-span-2 min-h-[300px]">
               <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl h-full">
-                <MapaLanding
+                <MapaLandingClient
                   markers={futbolines || []}
                 />
               </div>
@@ -41,7 +39,6 @@ export function MapaMarca({ marca, futbolines }: CityFoosballMapProps) {
                   <TarjetaFutbolinStatic
                     key={f.id}
                     futbolin={f}
-                    onClick={() => {}}
                   />
                 ))}
               </div>

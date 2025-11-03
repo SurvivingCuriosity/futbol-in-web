@@ -7,16 +7,11 @@ import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { UserStatus } from "futbol-in-core/enum";
 import Link from "next/link";
-import { useEffect } from "react";
 
 export default function Perfil() {
   const { user, loading: loadingAuth } = useAuth();
 
   const { data: fullUser, isLoading, error } = useGetFullUser(user?.id || "");
-
-  useEffect(() => {
-    console.log(user);
-  }, [user, loadingAuth]);
 
   if (loadingAuth || isLoading)
     return (

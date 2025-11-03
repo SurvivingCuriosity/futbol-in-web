@@ -1,11 +1,6 @@
 "use client"
 
 import { FormField, FormLabel } from "@/src/shared/components/FormField";
-import SelectorBar from "@/src/shared/components/SelectorBar/SelectorBar";
-import SelectorDireccion from "@/src/shared/components/SelectorDireccion/SelectorDireccion";
-import SelectorDistribucion from "@/src/shared/components/SelectorDistribucion/SelectorDistribucion";
-import { SelectorMunicipio } from "@/src/shared/components/SelectorMunicipio/SelectorMunicipio";
-import SelectorTipoFutbolin from "@/src/shared/components/SelectorTipoFutbolin/SelectorTipoFutbolin";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import {
   DistribucionFutbolin,
@@ -15,7 +10,29 @@ import {
 import { AgregarFutbolin } from "futbol-in-core/schemas";
 import { IMapItem } from "futbol-in-core/types";
 import { Button, TextInput } from "futbol-in-ui";
+import dynamic from "next/dynamic";
 import { useState } from "react";
+
+const SelectorMunicipio = dynamic(
+  () => import("@/src/shared/components/SelectorMunicipio/SelectorMunicipio").then((mod) => mod.SelectorMunicipio),
+  { ssr: false }
+);
+const SelectorTipoFutbolin = dynamic(
+  () => import("@/src/shared/components/SelectorTipoFutbolin/SelectorTipoFutbolin").then((mod) => mod.default),
+  { ssr: false }
+);
+const SelectorDistribucion = dynamic(
+  () => import("@/src/shared/components/SelectorDistribucion/SelectorDistribucion").then((mod) => mod.default),
+  { ssr: false }
+);
+const SelectorBar = dynamic(
+  () => import("@/src/shared/components/SelectorBar/SelectorBar").then((mod) => mod.default),
+  { ssr: false }
+);
+const SelectorDireccion = dynamic(
+  () => import("@/src/shared/components/SelectorDireccion/SelectorDireccion").then((mod) => mod.default),
+  { ssr: false }
+);
 
 export const AgregarPage = () => {
   const [ciudad, setCiudad] = useState<string>("");
@@ -49,7 +66,7 @@ export const AgregarPage = () => {
       distribucion: distribucion,
       comentarios: comentarios,
     };
-    console.log(data);
+
   };
 
   return (
@@ -57,21 +74,21 @@ export const AgregarPage = () => {
       <h1 className="font-bold text-2xl text-primary mb-3">
         Agregar nuevo futbolín
       </h1>
-      {/* <FormField>
+      <FormField>
         <FormLabel>Ciudad*</FormLabel>
         <SelectorMunicipio onSelect={(e) => setCiudad(String(e.value))} />
-      </FormField> */}
+      </FormField>
 
       <div className="mb-2">
         {noEncuentraElBar ? (
           <FormField>
             <FormLabel>Dirección (incluye número)*</FormLabel>
-            {/* <SelectorDireccion onSelect={setDireccionOBar} /> */}
+            <SelectorDireccion onSelect={setDireccionOBar} />
           </FormField>
         ) : (
           <FormField>
             <FormLabel>Nombre del bar/sala de juegos etc.*</FormLabel>
-            {/* <SelectorBar onSelect={setDireccionOBar} ciudad={ciudad} /> */}
+            <SelectorBar onSelect={setDireccionOBar} ciudad={ciudad} />
           </FormField>
         )}
 
@@ -88,17 +105,17 @@ export const AgregarPage = () => {
       <div className="flex items-center gap-2">
         <FormField>
           <FormLabel>Tipo futbolín</FormLabel>
-          {/* <SelectorTipoFutbolin
+          <SelectorTipoFutbolin
             value={tipoFutbolin}
             onSelect={setTipoFutbolin}
-          /> */}
+          />
         </FormField>
         <FormField>
           <FormLabel>Distribución</FormLabel>
-          {/* <SelectorDistribucion
+          <SelectorDistribucion
             value={distribucion}
             onSelect={setDistribucion}
-          /> */}
+          />
         </FormField>
       </div>
       <FormField>

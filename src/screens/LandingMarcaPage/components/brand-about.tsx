@@ -1,5 +1,3 @@
-"use client";
-
 import { Award, Globe, Zap } from "lucide-react";
 
 export function InfoMarca() {

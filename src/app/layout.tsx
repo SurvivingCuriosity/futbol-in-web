@@ -14,6 +14,7 @@ export const metadata: Metadata = {
     "Descubre y agrega futbolines de tu ciudad, crea y participa en torneos y ligas!",
   creator: "Fernando Rodríguez Esteban",
   manifest: "/manifest.json",
+  robots: { index: true, follow: true },
 };
 
 const roboto = Poppins({

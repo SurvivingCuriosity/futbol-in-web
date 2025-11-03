@@ -1,6 +1,8 @@
 "use client";
+
 import { Mapa } from "@/src/shared/components/Mapa/Mapa";
 import { SpotDTO } from "futbol-in-core/types";
+import dynamic from "next/dynamic";
 
 export const spainCenter = { lat: 40.416775, lng: -3.70379 };
 
@@ -11,7 +13,7 @@ type Props = {
   focusCoords?: google.maps.LatLngLiteral | null;
 };
 
-export function MapaLanding({
+export default function MapaLanding({
   markers,
   initialCenter = spainCenter,
   zoom = 5.5,
@@ -30,3 +32,8 @@ export function MapaLanding({
     />
   );
 }
+
+export const MapaLandingClient = dynamic(
+  () => import("@/src/screens/LandingPage/components/MapaLanding"),
+  { ssr: false }
+);

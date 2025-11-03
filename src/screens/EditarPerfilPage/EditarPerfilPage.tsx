@@ -40,8 +40,7 @@ export const EditarPerfilPage = ({ fullUser }: { fullUser: FullUser }) => {
       posicion: updatedUser.posicion,
       name: updatedUser.name,
     };
-    const res = await actualizarUsuario(updateUser);
-    console.log(res);
+    await actualizarUsuario(updateUser);
   };
 
   if (user === undefined || updatedUser === undefined) return null;

@@ -37,8 +37,6 @@ export function Mapa({
 }: MapaProps) {
 
 
-  console.log("🧪 Mapa", markers);
-
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_MAPS_API_KEY as string,
     id: "google-maps-script",
@@ -213,9 +211,7 @@ useEffect(() => {
 
     // ⚠️ Evitamos que el clusterer manipule el viewport automáticamente
     clusterer.onClusterClick = (event, cluster) => {
-      console.log("cluster click", cluster);
       const pos = cluster.position;
-      console.log("pos", pos);
       if (!pos) return;
 
       // Animación manual y suave

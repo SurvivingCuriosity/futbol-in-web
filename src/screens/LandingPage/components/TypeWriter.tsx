@@ -1,5 +1,7 @@
-"use client"
-import React, { useEffect, useMemo, useRef, useState } from "react";
+"use client";
+
+import dynamic from "next/dynamic";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 type UseTypewriterOptions = {
   words: string[];
@@ -156,3 +158,8 @@ export default function Typewriter({
     </div>
   );
 }
+
+export const TypewriterClient = dynamic(
+  () => import("@/src/screens/LandingPage/components/TypeWriter"),
+  { ssr: false }
+);

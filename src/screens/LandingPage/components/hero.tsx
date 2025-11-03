@@ -8,8 +8,8 @@ import { SpotDTO } from "futbol-in-core/types";
 import { MapPin, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { MapaLanding } from "./MapaLanding";
-import Typewriter from "./TypeWriter";
+import { MapaLandingClient } from "./MapaLanding";
+import { TypewriterClient } from "./TypeWriter";
 
 interface HeroProps {
   spots?: SpotDTO[];
@@ -47,7 +47,7 @@ export async function Hero({ spots, users = 0 }: HeroProps) {
             </div> */}
 
             <h1 className="text-5xl md:text-7xl font-bold leading-tight text-balance">
-              <Typewriter />
+              <TypewriterClient />
             </h1>
 
             <p className="xl:text-xl text-neutral-400 leading-relaxed text-pretty sm:py-0 py-4">
@@ -98,7 +98,7 @@ export async function Hero({ spots, users = 0 }: HeroProps) {
             id="mapa-landing"
             className="w-full h-[450px] rounded-xl overflow-hidden scroll-m-10"
           >
-            <MapaLanding markers={spots ?? []} />
+            <MapaLandingClient markers={spots ?? []} />
           </div>
         </div>
       </div>

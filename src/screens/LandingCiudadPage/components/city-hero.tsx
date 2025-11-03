@@ -1,8 +1,4 @@
-"use client";
-
 import { Ciudad } from "@/src/client/shared/assets/ciudades/ciudades";
-
-
 
 export function CityHero({ city }: { city: Ciudad }) {
   return (

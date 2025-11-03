@@ -1,6 +1,3 @@
-"use client";
-
-// import { useIncidenciasBySpot } from "@/src/features/Incidencias/hooks";
 import { faBuilding, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SpotDTO } from "futbol-in-core/types";
@@ -10,11 +7,9 @@ import { LogoFutbolin } from "../LogoFutbolin";
 
 export function TarjetaFutbolinStatic({
   futbolin,
-  onClick,
   bottomText = "",
 }: {
   futbolin: SpotDTO;
-  onClick: () => void;
   bottomText?: string;
 }) {
   if (!futbolin) return null;
@@ -27,7 +22,6 @@ export function TarjetaFutbolinStatic({
 
   return (
     <button
-      onClick={onClick}
       className={cn(
         "w-full relative flex flex-col overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900 text-left"
       )}

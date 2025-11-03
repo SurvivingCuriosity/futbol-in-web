@@ -1,5 +1,6 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { OptionType } from "../AsyncSelect/Select";
 import { SelectorMunicipio } from "../SelectorMunicipio/SelectorMunicipio";
 

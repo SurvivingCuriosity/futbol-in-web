@@ -1,9 +1,7 @@
-"use client";
-
 import { Ciudad } from "@/src/client/shared/assets/ciudades/ciudades";
 import { TarjetaFutbolinStatic } from "@/src/shared/components/TarjetaFutbolin/TarjetaFutbolinStatic";
 import { SpotDTO } from "futbol-in-core/types";
-import { MapaLanding } from "../../LandingPage/components/MapaLanding";
+import { MapaLandingClient } from "../../LandingPage/components/MapaLanding";
 
 interface CityFoosballMapProps {
   ciudad: Ciudad;
@@ -28,7 +26,7 @@ export function MapaCiudad({ ciudad, futbolines }: CityFoosballMapProps) {
             {/* Map */}
             <div className="lg:col-span-2 min-h-[300px]">
               <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl h-full">
-                <MapaLanding
+                <MapaLandingClient
                   markers={futbolines || []}
                   focusCoords={{
                     lat: ciudad.coords[1],
@@ -55,7 +53,6 @@ export function MapaCiudad({ ciudad, futbolines }: CityFoosballMapProps) {
                   <TarjetaFutbolinStatic
                     key={f.id}
                     futbolin={f}
-                    onClick={() => {}}
                   />
                 ))}
               </div>

@@ -1,8 +1,6 @@
-"use client";
-
-import { Marca } from "@/src/app/(public)/marcas/[marca]/page";
+import ButtonClient from "@/src/shared/components/ButtonClient";
+import { Marca } from "@/src/shared/db/marcas";
 import { faMap } from "@fortawesome/free-solid-svg-icons";
-import { Button } from "futbol-in-ui";
 import Image from "next/image";
 
 export function MarcaHero({ marca }: { marca: Marca }) {
@@ -61,7 +59,7 @@ export function MarcaHero({ marca }: { marca: Marca }) {
 
         {/* CTA */}
         <div className="w-70">
-          <Button
+          <ButtonClient
             label="Mapa Tsunami"
             size="lg"
             icon={faMap}

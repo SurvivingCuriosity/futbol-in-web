@@ -1,12 +1,12 @@
 "use client";
 
 import { Mapa } from "@/src/shared/components/Mapa/Mapa";
-import { SearchInputMapa } from "@/src/shared/components/Mapa/SearchInputMapa";
 import { TarjetaFutbolin } from "@/src/shared/components/TarjetaFutbolin/TarjetaFutbolin";
 import { useUserLocation } from "@/src/shared/hooks/useUserLocation";
 import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SpotDTO } from "futbol-in-core/types";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
@@ -15,6 +15,16 @@ import { spainCenter } from "../LandingPage/components/MapaLanding";
 type Props = {
   futbolines: SpotDTO[];
 };
+
+const SearchInputMapa = dynamic(
+  () =>
+    import("@/src/shared/components/Mapa/SearchInputMapa").then(
+      (mod) => mod.SearchInputMapa
+    ),
+  {
+    ssr: false,
+  }
+);
 
 export const MapaPage = ({ futbolines }: Props) => {
   const userLocation = useUserLocation();
@@ -47,10 +57,10 @@ export const MapaPage = ({ futbolines }: Props) => {
       <div className="pointer-events-none absolute inset-0 z-99999">
         {/* Barra de búsqueda */}
         <div className="pointer-events-auto absolute left-2 right-2 top-2 z-99999 md:w-md md:mx-auto">
-          {/* <SearchInputMapa
+          <SearchInputMapa
             onSelect={() => setViajando(true)}
             onNewCoords={onNewCoords}
-          /> */}
+          />
         </div>
         {viajando && (
           <div className="absolute inset-0 z-99999 bg-neutral-950/70 flex flex-col gap-3 items-center justify-center">

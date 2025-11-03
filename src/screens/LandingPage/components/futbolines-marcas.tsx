@@ -1,10 +1,7 @@
-"use client";
 
-import { marcas } from "@/src/app/(public)/marcas/[marca]/page";
+import { marcas } from "@/src/shared/db/marcas";
 import Image from "next/image";
 import Link from "next/link";
-
-
 
 export const FutbolinesMarcas = () => {
   return (

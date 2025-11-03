@@ -1,5 +1,3 @@
-"use client";
-
 import { Ciudad } from "@/src/client/shared/assets/ciudades/ciudades";
 import { Bar } from "futbol-in-core/types";
 import { MapPin, Star } from "lucide-react";

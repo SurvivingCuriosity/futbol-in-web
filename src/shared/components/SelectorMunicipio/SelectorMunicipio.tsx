@@ -33,7 +33,8 @@ export const SelectorMunicipio = ({ value, onSelect, disabled }: Props) => {
       renderOption={(o: OptionType) => (
         <div className="flex items-center justify-between p-2 rounded-lg hover:bg-neutral-800">
           <p className="text-neutral-200">{o.label}</p>
-          {/* <p className="text-xs text-neutral-500 uppercase">{o.subLabel}</p> */}
+          {/* @ts-expect-error sublabel no definido en el tipo */}
+          <p className="text-xs text-neutral-500 uppercase">{o.subLabel}</p>
         </div>
       )}
     />

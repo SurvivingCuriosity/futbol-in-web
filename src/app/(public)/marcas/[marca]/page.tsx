@@ -1,39 +1,18 @@
 import { getFutbolinesMarca } from "@/src/actions/getFutbolinesCiudad";
 import { LandingMarcaPage } from "@/src/screens/LandingMarcaPage/LandingMarcaPage";
-import { fondosFutbolines } from "@/src/shared/components/ImagenFondoFutbolin";
-import { logosFutbolines } from "@/src/shared/components/LogoFutbolin";
-import { Metadata } from "next";
+import { marcas } from "@/src/shared/db/marcas";
 import Link from "next/link";
 
-export const revalidate = 60;
+export const revalidate = 3600;
 
-export interface Marca {
-  label: string;
-  fondo: string;
-  logo: string;
-}
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ marca: string }>;
+}) {
+  const { marca: marcaParam } = await params;
 
-export const marcas: Marca[] = [
-  {
-    label: "Tsunami",
-    fondo: fondosFutbolines.Tsunami,
-    logo: logosFutbolines.Tsunami,
-  },
-  {
-    label: "Infinity",
-    fondo: fondosFutbolines.Infinity,
-    logo: logosFutbolines.Infinity,
-  },
-  {
-    label: "EVO",
-    fondo: fondosFutbolines["Presas Evo"],
-    logo: logosFutbolines["Presas Evo"],
-  },
-];
-
-export async function generateMetadata({ params }: { params: { marca: string } }): Promise<Metadata> {
-  const marcaParam = decodeURIComponent(params.marca);
-  const marca = marcas.find((m) => m.label === marcaParam);
+  const marca = marcas.find((m) => m.label === decodeURIComponent(marcaParam));
 
   if (!marca) {
     return {
