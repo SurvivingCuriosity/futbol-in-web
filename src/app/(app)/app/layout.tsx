@@ -5,13 +5,18 @@ import { queryClient } from "@/src/client/query/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <Protected>{children}</Protected>
-      </AuthProvider>
+      <GoogleOAuthProvider
+        clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string}
+      >
+        <AuthProvider>
+          <Protected>{children}</Protected>
+        </AuthProvider>
+      </GoogleOAuthProvider>
     </QueryClientProvider>
   );
 }

@@ -2,6 +2,7 @@
 
 import { JwtPayload, useAuth } from "@/src/client/context/AuthContext";
 import { FormField, FormLabel } from "@/src/shared/components/FormField";
+import { GoogleSignInButton } from "@/src/shared/components/SignInGoogleButton";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UserStatus } from "futbol-in-core/enum";
 import { LoginBody, loginSchema } from "futbol-in-core/schemas";
@@ -26,7 +27,7 @@ export default function LoginPage() {
 
   const onSubmit = async (data: LoginBody) => {
     try {
-      const r = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
+      const r = await fetch(`http://192.168.0.19:3000/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -64,7 +65,7 @@ export default function LoginPage() {
         autoComplete="on"
         autoCapitalize="none"
         spellCheck={false}
-        className="bg-neutral-950/50 backdrop-blur-xs p-4 md:p-8 max-w-xl mx-auto rounded-lg flex flex-col items-center"
+        className="bg-neutral-950/90 backdrop-blur-xs p-2 pt-0 md:p-8 max-w-xl mx-auto rounded-lg flex flex-col items-center"
       >
         <h1 className="text-3xl font-bold mr-auto mb-4 text-accent">
           Iniciar sesión
@@ -110,13 +111,13 @@ export default function LoginPage() {
           />
         </FormField>
 
-        <div className="my-4 w-full">
+
           <Button
             label="Entrar"
             onClick={handleSubmit(onSubmit)}
             loading={isSubmitting}
           />
-        </div>
+
 
         <Link href="/app/register" className="underline my-5">
           No tengo una cuenta
@@ -124,7 +125,7 @@ export default function LoginPage() {
 
         <Separador />
 
-        {/* <GoogleSignInButton /> */}
+        <GoogleSignInButton context="signin"/>
       </form>
     </>
   );
@@ -132,7 +133,7 @@ export default function LoginPage() {
 
 export const Separador = () => {
   return (
-    <div className="flex items-center gap-1 w-full">
+    <div className="flex items-center gap-1 w-full mb-5">
       <div className="w-1/3 h-0.5 bg-neutral-500"></div>
       <p className="w-1/3 text-center text-neutral-500 text-sm">
         O si prefieres

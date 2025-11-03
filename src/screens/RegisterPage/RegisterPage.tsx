@@ -15,6 +15,7 @@ import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Separador } from "../LoginPage/LoginPage";
 import toast from "react-hot-toast";
+import { GoogleSignInButton } from "@/src/shared/components/SignInGoogleButton";
 
 export default function RegisterPage() {
   const { login } = useAuth();
@@ -64,7 +65,7 @@ export default function RegisterPage() {
         autoComplete="on"
         autoCapitalize="none"
         spellCheck={false}
-        className="bg-neutral-950/80 p-4 md:p-8 max-w-xl mx-auto rounded-lg flex flex-col items-center"
+        className="bg-neutral-950/90 p-2 pt-0 md:p-8 max-w-xl mx-auto rounded-lg flex flex-col items-center"
       >
         <h1 className="text-3xl font-bold mr-auto mb-4 text-accent">
           Registro
@@ -102,7 +103,6 @@ export default function RegisterPage() {
                 placeholder="johny99"
                 onChangeText={field.onChange}
                 autoCapitalize="none"
-                autoComplete="username"
                 value={field.value}
                 errorText={errors.username?.message}
               />
@@ -131,7 +131,9 @@ export default function RegisterPage() {
           </FormField>
 
           <FormField>
-            <FormLabel htmlFor="register-confirm-pass">Confirmar contraseña</FormLabel>
+            <FormLabel htmlFor="register-confirm-pass">
+              Confirmar contraseña
+            </FormLabel>
             <Controller
               control={control}
               name="password"
@@ -148,19 +150,20 @@ export default function RegisterPage() {
             />
           </FormField>
         </div>
-        <div className="my-4 w-full">
-          <Button
-            label="Registrarme"
-            onClick={handleSubmit(onSubmit)}
-            loading={isSubmitting}
-          />
-        </div>
+
+        <Button
+          label="Registrarme"
+          onClick={handleSubmit(onSubmit)}
+          loading={isSubmitting}
+        />
 
         <Link href="/app/login" className="underline my-5">
           Ya tengo una cuenta
         </Link>
 
         <Separador />
+
+        <GoogleSignInButton context="signup" />
 
         {/* <GoogleSignInButton /> */}
         {error && (

@@ -22,7 +22,7 @@ export function useGetFullUser(idUser: string) {
 
 
 export const fetchFullUserByUsername = async (username: string) =>
-  (await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/full?username=${username}`)).json()
+  (await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/byUsername?username=${username}`)).json()
 
 export function useGetFullUserByUsername(username: string) {
   return useQuery({

@@ -8,7 +8,7 @@ export const PerfilPublicoPage = ({ user }: { user: FullUser }) => {
 
   return (
     <GoBackWrapper>
-      <div className="p-3 flex flex-col gap-2 h-full max-w-4xl mx-auto">
+      <div className="p-3 flex flex-col gap-2 h-full max-w-7xl mx-auto w-full pb-19">
         <MainInfo user={user.user} imagen={user.imagen || ""} />
         <MisFutbolines futbolines={user.futbolines} />
       </div>

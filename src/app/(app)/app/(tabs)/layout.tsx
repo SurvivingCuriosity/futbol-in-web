@@ -15,12 +15,16 @@ export default function TabsLayout({
   const { loading, user } = useAuth();
   const router = useRouter();
 
-  const shouldRedirect =
+  const shouldRedirectConfirmEmail =
     !loading && user?.status === UserStatus.MUST_CONFIRM_EMAIL;
 
+    const shouldRedirectCreateUsername =
+    !loading && user?.status === UserStatus.MUST_CREATE_USERNAME;
+
   useEffect(() => {
-    if (shouldRedirect) router.replace("/app/confirmar-email");
-  }, [shouldRedirect, router, pathname]);
+    if (shouldRedirectConfirmEmail) router.replace("/app/confirmar-email");
+    if (shouldRedirectCreateUsername) router.replace("/app/set-username");
+  }, [shouldRedirectConfirmEmail, router, pathname, shouldRedirectCreateUsername]);
 
   return (
     <div className="flex h-svh flex-col md:flex-row-reverse bg-neutral-950 text-white">

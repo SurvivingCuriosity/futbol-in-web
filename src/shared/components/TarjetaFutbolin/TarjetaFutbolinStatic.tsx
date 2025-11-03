@@ -23,7 +23,7 @@ export function TarjetaFutbolinStatic({
   return (
     <button
       className={cn(
-        "w-full relative flex flex-col overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-900 text-left"
+        "w-full relative flex flex-col overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-950 text-left"
       )}
     >
       <ImagenFondoFutbolin tipo={futbolin.tipoFutbolin} />

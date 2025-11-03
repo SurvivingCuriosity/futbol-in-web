@@ -28,10 +28,10 @@ export function ImagenFondoFutbolin({ tipo }: { tipo: TipoFutbolin }) {
           alt={`Imagen de fondo de futbolin ${tipo}`}
           width={200}
           height={200}
-          className="object-contain ml-auto w-auto"
+          className="object-contain ml-auto h-auto"
           priority={false}
         />
-        <div className="absolute inset-0 bg-linear-to-r from-neutral-900 via-neutral-900/80 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-r from-neutral-950 via-neutral-950/90 to-transparent" />
       </div>
     </div>
   );
