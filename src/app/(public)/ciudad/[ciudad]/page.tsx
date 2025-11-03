@@ -18,13 +18,13 @@ export async function generateMetadata({
 
   if (!ciudad) {
     return {
-      title: `Ciudad no encontrada | Futbolin.app`,
+      title: `Ciudad no encontrada`,
       description: `La ciudad ${ciudadParam} no está disponible en Futbolin.app`,
       robots: { index: false },
     };
   }
 
-  const title = `Futbolines en ${ciudad.name} | Futbolin.app`;
+  const title = `Futbolines en ${ciudad.name}`;
   const description = `Descubre todos los futbolines en ${ciudad.name}. Filtra por tipo, añade nuevos futbolines y compite en el ranking con el resto de jugadores.`;
 
   return {

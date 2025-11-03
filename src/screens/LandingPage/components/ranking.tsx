@@ -1,28 +1,31 @@
-import { UsuarioEnRanking } from "futbol-in-core/types"
-import { Trophy, Medal, Award, TrendingUp } from "lucide-react"
-import Image from "next/image"
+import { UsuarioEnRanking } from "futbol-in-core/types";
+import { Trophy, Medal, Award, TrendingUp } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 interface RankingProps {
-  ranking: UsuarioEnRanking[]
+  ranking: UsuarioEnRanking[];
 }
 
-
 export function Ranking({ ranking }: RankingProps) {
-  
   const getRankIcon = (rank: number) => {
     switch (rank) {
       case 0:
-        return <Trophy className="w-6 h-6 text-yellow-500" />
+        return <Trophy className="w-6 h-6 text-yellow-500" />;
       case 1:
-        return <Medal className="w-6 h-6 text-gray-400" />
+        return <Medal className="w-6 h-6 text-gray-400" />;
       case 2:
-        return <Award className="w-6 h-6 text-amber-700" />
+        return <Award className="w-6 h-6 text-amber-700" />;
       default:
-        return <span className="text-lg font-bold text-muted-foreground">#{rank+1}</span>
+        return (
+          <span className="text-lg font-bold text-muted-foreground">
+            #{rank + 1}
+          </span>
+        );
     }
-  }
+  };
 
-  const topFive = ranking.slice(0, 5)
+  const topFive = ranking.slice(0, 5);
 
   return (
     <section id="ranking" className="py-24 relative overflow-hidden">
@@ -33,7 +36,9 @@ export function Ranking({ ranking }: RankingProps) {
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 mb-6">
             <TrendingUp className="w-4 h-4 text-accent" />
-            <span className="text-sm font-medium text-accent">Ranking en Vivo</span>
+            <span className="text-sm font-medium text-accent">
+              Ranking en Vivo
+            </span>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-balance">
             Top Contribuidores{" "}
@@ -56,22 +61,33 @@ export function Ranking({ ranking }: RankingProps) {
               >
                 <div className="flex items-center gap-3 md:gap-6">
                   {/* Rank */}
-                  <div className="shrink-0 md:w-12 flex items-center justify-center">{getRankIcon(user.posicion)}</div>
+                  <div className="shrink-0 md:w-12 flex items-center justify-center">
+                    {getRankIcon(user.posicion)}
+                  </div>
 
                   {/* Avatar */}
                   <div className="size-12 md:size-16">
-                    <Image src={"/default_user.svg"} alt={user.usuario} width={100} height={100}/>
+                    <Image
+                      src={"/default_user.svg"}
+                      alt={`Imagen de perfil de ${user.usuario}`}
+                      width={100}
+                      height={100}
+                    />
                   </div>
 
                   {/* User Info */}
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-xl font-semibold mb-1">{user.usuario}</h3>
+                    <h3 className="text-xl font-semibold mb-1">
+                      {user.usuario}
+                    </h3>
                     {/* <p className="text-sm text-muted-foreground">{user.city}</p> */}
                   </div>
 
                   {/* Stats */}
                   <div className="text-right">
-                    <div className="text-3xl font-bold text-accent">{user.spotsCreados}</div>
+                    <div className="text-3xl font-bold text-accent">
+                      {user.spotsCreados}
+                    </div>
                     <p className="text-sm text-muted-foreground">futbolines</p>
                   </div>
                 </div>
@@ -86,12 +102,14 @@ export function Ranking({ ranking }: RankingProps) {
 
           {/* View Full Ranking Button */}
           <div className="text-center mt-12">
-            <button className="px-8 py-4 rounded-xl bg-card border border-border hover:border-accent/50 hover:bg-accent/5 transition-all font-medium">
-              Ver Ranking Completo
-            </button>
+            <Link href={"/app/ranking"}>
+              <button className="px-8 py-4 rounded-xl bg-card border border-border hover:border-accent/50 hover:bg-accent/5 transition-all font-medium">
+                Ver Ranking Completo
+              </button>
+            </Link>
           </div>
         </div>
       </div>
     </section>
-  )
+  );
 }

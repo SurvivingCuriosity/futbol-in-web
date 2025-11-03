@@ -10,7 +10,7 @@ interface CityFoosballMapProps {
 
 export function MapaMarca({ marca, futbolines }: CityFoosballMapProps) {
   return (
-    <section className="py-16 bg-background/50 backdrop-blur-sm border-y border-border">
+    <section id="mapa-marca" className="py-16 bg-background/50 backdrop-blur-sm border-y border-border">
       <div className="container mx-auto px-4">
         <div className="mb-8">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-3">

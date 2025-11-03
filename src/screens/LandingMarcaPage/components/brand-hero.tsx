@@ -2,6 +2,7 @@ import ButtonClient from "@/src/shared/components/ButtonClient";
 import { Marca } from "@/src/shared/db/marcas";
 import { faMap } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
+import Link from "next/link";
 
 export function MarcaHero({ marca }: { marca: Marca }) {
   return (
@@ -20,11 +21,16 @@ export function MarcaHero({ marca }: { marca: Marca }) {
 
       {/* Content */}
       <div className="relative z-10 container px-4 sm:px-8 text-center max-w-4xl flex flex-col items-start justify-center mb-auto md:mb-0">
-        <Image src={marca.logo} alt={marca.label} width={200} height={200} />
+        <Image
+          src={marca.logo}
+          alt={`Logo de ${marca.label}`}
+          width={200}
+          height={200}
+        />
 
         <h1 className="text-6xl lg:text-7xl font-bold text-left text-neutral-200 mb-10 text-shadow-lg text-shadow-neutral-900">
           Futbolines
-          <span className="block mt-2 text-primary">{marca.label}</span>
+          <span className="block mt-2 text-primary"> {marca.label}</span>
         </h1>
         {/* 
         <p className="text-2xl text-accent font-semibold mb-6">{brand.tagline}</p>
@@ -59,12 +65,14 @@ export function MarcaHero({ marca }: { marca: Marca }) {
 
         {/* CTA */}
         <div className="w-70">
-          <ButtonClient
-            label="Mapa Tsunami"
-            size="lg"
-            icon={faMap}
-            variant="neutral-outline"
-          />
+          <Link href={"#mapa-marca"}>
+            <ButtonClient
+              label={`Mapa ${marca.label}`}
+              size="lg"
+              icon={faMap}
+              variant="neutral-outline"
+            />
+          </Link>
         </div>
       </div>
     </section>

@@ -21,7 +21,7 @@ export function LogoFutbolin({ tipo, size = 64 }: { tipo: TipoFutbolin; size?: n
   return (
     <Image
       src={src}
-      alt={tipo}
+      alt={`Logo de futbolin ${tipo}`}
       width={size}
       height={size}
       className="object-contain"

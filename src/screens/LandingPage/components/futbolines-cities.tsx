@@ -26,7 +26,7 @@ export const FutbolinesCities = () => {
             >
               <Image
                 src={city.image}
-                alt={city.name}
+                alt={`Imagen de ${city.name}`}
                 width={400}
                 height={300}
                 className="aspect-video absolute w-full h-full"

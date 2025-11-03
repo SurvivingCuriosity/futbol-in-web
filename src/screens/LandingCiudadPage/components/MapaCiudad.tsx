@@ -10,11 +10,11 @@ interface CityFoosballMapProps {
 
 export function MapaCiudad({ ciudad, futbolines }: CityFoosballMapProps) {
   return (
-    <section className="py-16 bg-background/50 backdrop-blur-sm border-y border-border">
+    <section id="mapa-ciudad" className="py-16 bg-background/50 backdrop-blur-sm border-y border-border">
       <div className="container mx-auto px-4">
         <div className="mb-8">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-3">
-            <span className="text-balance">Futbolines en {ciudad.name}</span>
+            <span className="text-balance">Mapa de {ciudad.name}</span>
           </h2>
           <p className="text-muted-foreground text-lg">
             Explora las mesas disponibles en {ciudad.name}

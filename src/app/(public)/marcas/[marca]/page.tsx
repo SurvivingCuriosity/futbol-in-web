@@ -16,13 +16,13 @@ export async function generateMetadata({
 
   if (!marca) {
     return {
-      title: `Marca no encontrada | Futbolin.app`,
+      title: `Marca no encontrada`,
       description: `La marca ${marcaParam} no está disponible en Futbolin.app`,
       robots: { index: false },
     };
   }
 
-  const title = `Futbolines ${marca.label} | Futbolin.app`;
+  const title = `Futbolines ${marca.label}`;
   const description = `Descubre los futbolines de la marca ${marca.label}. Consulta ubicaciones, estilos y modelos destacados de futbolines ${marca.label}.`;
 
   return {

@@ -70,12 +70,14 @@ export default function LoginPage() {
           Iniciar sesión
         </h1>
         <FormField>
-          <FormLabel>Email</FormLabel>
+          <FormLabel htmlFor="login-email">Email</FormLabel>
           <Controller
             control={control}
             name="email"
             render={({ field }) => (
               <TextInput
+                id="login-email"
+                aria-label="Email"
                 placeholder="Email"
                 onChangeText={field.onChange}
                 autoCapitalize="none"
@@ -89,12 +91,14 @@ export default function LoginPage() {
         </FormField>
 
         <FormField>
-          <FormLabel>Contraseña</FormLabel>
+          <FormLabel htmlFor="login-pass">Contraseña</FormLabel>
           <Controller
             control={control}
             name="password"
             render={({ field }) => (
               <PasswordInput
+                id="login-pass"
+                aria-label="Contraseña"
                 placeholder="Contraseña"
                 onChangeText={field.onChange}
                 value={field.value}

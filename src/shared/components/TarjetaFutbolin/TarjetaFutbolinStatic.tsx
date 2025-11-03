@@ -32,18 +32,18 @@ export function TarjetaFutbolinStatic({
       <div className="relative flex flex-col gap-1 p-3 sm:p-4">
         <div className="flex items-center gap-2">
           <LogoFutbolin tipo={futbolin.tipoFutbolin} size={32} />
-          <h3 className="text-lg font-bold text-white leading-tight">
+          <p className="text-lg font-bold text-white leading-tight">
             {futbolin.tipoFutbolin}
-          </h3>
+          </p>
         </div>
 
         <div className="flex items-center gap-2 text-sm text-neutral-400">
-          <FontAwesomeIcon icon={faMapMarkerAlt} />
+          <FontAwesomeIcon icon={faMapMarkerAlt} width={20} height={20}/>
           <span className="truncate">{ciudad}</span>
         </div>
 
         <div className="flex items-center gap-2 text-sm text-neutral-400">
-          <FontAwesomeIcon icon={faBuilding} />
+          <FontAwesomeIcon icon={faBuilding} width={20} height={20} />
           <span className="truncate w-52">{futbolin.nombre}</span>
         </div>
       </div>

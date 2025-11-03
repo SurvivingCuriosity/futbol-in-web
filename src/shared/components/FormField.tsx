@@ -6,9 +6,9 @@ export const FormField = ({children, inline = false, className = ""}:{children:R
     )
 }
 
-export const FormLabel = ({children}:{children:React.ReactNode}) => {
+export const FormLabel = ({children, htmlFor}:{children:React.ReactNode, htmlFor?:string}) => {
     return (
-        <label className="text-sm">
+        <label htmlFor={htmlFor} className="text-sm text-muted-foreground">
             {children}
         </label>
     )

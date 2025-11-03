@@ -2,7 +2,7 @@ import ButtonClient from "@/src/shared/components/ButtonClient";
 import {
   faLocationDot,
   faMagnifyingGlass,
-  faPlus
+  faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { SpotDTO } from "futbol-in-core/types";
 import { MapPin, Users } from "lucide-react";
@@ -56,14 +56,14 @@ export async function Hero({ spots, users = 0 }: HeroProps) {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-4 max-w-xl">
-              <Link href="/app/mapa" className="w-full hidden lg:block">
+              <Link href="/app/mapa" className="w-full hidden md:block">
                 <ButtonClient
                   label="Mapa completo"
                   size="lg"
                   icon={faMagnifyingGlass}
                 />
               </Link>
-              <Link href="/#mapa-landing" className="w-full lg:hidden">
+              <Link href="/#mapa-landing" className="w-full md:hidden">
                 <ButtonClient label="Ver mapa" size="lg" icon={faLocationDot} />
               </Link>
               <Link href="/app/agregar" className="w-full">
@@ -100,6 +100,14 @@ export async function Hero({ spots, users = 0 }: HeroProps) {
           >
             <MapaLandingClient markers={spots ?? []} />
           </div>
+            <Link href="/app/mapa" className="w-full md:hidden">
+              <ButtonClient
+                label="Mapa completo"
+                size="lg"
+                icon={faMagnifyingGlass}
+                variant="neutral-outline"
+              />
+            </Link>
         </div>
       </div>
 

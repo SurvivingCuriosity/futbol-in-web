@@ -10,6 +10,11 @@ const nextConfig: NextConfig = {
         hostname: "lh3.googleusercontent.com",
         pathname: "/**", // cualquier ruta
       },
+      {
+        protocol: "https",
+        hostname: "futbolin.app",
+        pathname: "/**", // cualquier ruta
+      },
       // Imágenes firmadas en tu bucket
       {
         protocol: "https",

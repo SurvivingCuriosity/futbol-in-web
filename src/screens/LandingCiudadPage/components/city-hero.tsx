@@ -1,4 +1,5 @@
 import { Ciudad } from "@/src/client/shared/assets/ciudades/ciudades";
+import Link from "next/link";
 
 export function CityHero({ city }: { city: Ciudad }) {
   return (
@@ -20,12 +21,13 @@ export function CityHero({ city }: { city: Ciudad }) {
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 text-center max-w-4xl">
         <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold text-foreground mb-10 leading-none my-10 text-shadow-sm text-shadow-black">
-          <span className="whitespace-nowrap ">Futbolines en</span>
+          <span className="whitespace-nowrap ">Futbolines en </span>
           <span className="block text-accent mt-2 text-5xl md:text-6xl lg:text-8xl">
             {city.name}
           </span>
         </h1>
 
+        <Link href={'#mapa-ciudad'}>
         <button className="inline-flex items-center gap-2 bg-accent text-accent-foreground px-8 py-4 rounded-lg font-semibold text-lg hover:opacity-90 transition-opacity">
           Explorar Futbolines
           <svg
@@ -33,15 +35,16 @@ export function CityHero({ city }: { city: Ciudad }) {
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
-          >
+            >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth={2}
               d="M13 7l5 5m0 0l-5 5m5-5H6"
-            />
+              />
           </svg>
         </button>
+              </Link>
       </div>
     </section>
   );

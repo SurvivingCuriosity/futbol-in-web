@@ -29,6 +29,9 @@ export const SelectorMunicipio = ({ value, onSelect, disabled }: Props) => {
       onSelect={onSelect}
       loadOptions={loadOptions}
       placeholder="Buscar municipio..."
+      noOptionsMessage="Sin resultados"
+      emptyInputMessage="Escribe para buscar..."
+      loadingMessage="Buscando..."
       disabled={disabled}
       renderOption={(o: OptionType) => (
         <div className="flex items-center justify-between p-2 rounded-lg hover:bg-neutral-800">

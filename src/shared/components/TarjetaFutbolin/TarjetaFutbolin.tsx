@@ -49,14 +49,14 @@ export function TarjetaFutbolin({
         </div>
 
         <div className="flex items-center gap-2 text-sm text-neutral-400">
-          <FontAwesomeIcon icon={faMapMarkerAlt} />
+          <FontAwesomeIcon icon={faMapMarkerAlt} width={24} height={24}/>
           <span className="truncate">
             {ciudad}
           </span>
         </div>
 
         <div className="flex items-center gap-2 text-sm text-neutral-400">
-          <FontAwesomeIcon icon={faBuilding} />
+          <FontAwesomeIcon icon={faBuilding} width={24} height={24}/>
           <span className="truncate">{futbolin.nombre}</span>
         </div>
 

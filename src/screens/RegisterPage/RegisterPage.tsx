@@ -70,12 +70,14 @@ export default function RegisterPage() {
           Registro
         </h1>
         <FormField>
-          <FormLabel>Email</FormLabel>
+          <FormLabel htmlFor="register-email">Email</FormLabel>
           <Controller
             control={control}
             name="email"
             render={({ field }) => (
               <TextInput
+                id="register-email"
+                aria-label="Email"
                 placeholder="Email"
                 onChangeText={field.onChange}
                 autoCapitalize="none"
@@ -89,12 +91,14 @@ export default function RegisterPage() {
         </FormField>
 
         <FormField>
-          <FormLabel>Nombre de usuario</FormLabel>
+          <FormLabel htmlFor="register-username">Nombre de usuario</FormLabel>
           <Controller
             control={control}
             name="username"
             render={({ field }) => (
               <TextInput
+                id="register-username"
+                aria-label="Username"
                 placeholder="johny99"
                 onChangeText={field.onChange}
                 autoCapitalize="none"
@@ -108,12 +112,14 @@ export default function RegisterPage() {
 
         <div className="md:grid grid-cols-2 gap-2 w-full">
           <FormField>
-            <FormLabel>Contraseña</FormLabel>
+            <FormLabel htmlFor="register-pass">Contraseña</FormLabel>
             <Controller
               control={control}
               name="password"
               render={({ field }) => (
                 <PasswordInput
+                  id="register-pass"
+                  aria-label="Contraseña"
                   placeholder="Contraseña"
                   onChangeText={field.onChange}
                   value={field.value}
@@ -125,12 +131,14 @@ export default function RegisterPage() {
           </FormField>
 
           <FormField>
-            <FormLabel>Confirmar contraseña</FormLabel>
+            <FormLabel htmlFor="register-confirm-pass">Confirmar contraseña</FormLabel>
             <Controller
               control={control}
               name="password"
               render={({ field }) => (
                 <PasswordInput
+                  id="register-confirm-pass"
+                  aria-label="Confirmar contraseña"
                   placeholder="Confirmar contraseña"
                   onChangeText={field.onChange}
                   value={field.value}

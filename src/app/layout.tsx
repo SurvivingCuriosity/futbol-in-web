@@ -20,7 +20,6 @@ export const metadata: Metadata = {
     shortcut: "/favicon/favicon.ico",
     apple: "/favicon/apple-touch-icon.png",
   },
-  themeColor: "#1a1a1a",
 };
 
 const poppins = Poppins({
