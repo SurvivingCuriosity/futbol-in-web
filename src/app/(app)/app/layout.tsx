@@ -21,7 +21,7 @@ function Protected({ children }: { children: React.ReactNode }) {
   const router = useRouter();
 
   useEffect(() => {
-    if (!loading && !token) router.push("/app/login");
+    if (!loading && !token) router.replace("/app/login");
   }, [token, router, loading]);
 
   return <>{children}</>;

@@ -1,10 +1,56 @@
 import { getBaresFromPlaceIds, getFutbolinesCiudad } from "@/src/actions/getFutbolinesCiudad";
 import { ciudades } from "@/src/client/shared/assets/ciudades/ciudades";
 import { LandingCiudadPage } from "@/src/screens/LandingCiudadPage/LandingCiudadPage";
+import { Metadata } from "next";
 import Link from "next/link";
 
+export async function generateMetadata({ params }: { params: { ciudad: string } }): Promise<Metadata> {
+  const ciudadParam = decodeURIComponent(params.ciudad);
+  const ciudad = ciudades.find((c) => c.name === ciudadParam);
 
-export default async function Page({
+  if (!ciudad) {
+    return {
+      title: `Ciudad no encontrada | Futbolin.app`,
+      description: `La ciudad ${ciudadParam} no está disponible en Futbolin.app`,
+      robots: { index: false },
+    };
+  }
+
+  const title = `Futbolines en ${ciudad} | Futbolin.app`;
+  const description = `Descubre todos los futbolines en ${ciudad}. Filtra por tipo, añade nuevos futbolines y compite en el ranking con el resto de jugadores.`;
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `https://futbolin.app/ciudad/${encodeURIComponent(ciudadParam)}`,
+    },
+    openGraph: {
+      title,
+      description,
+      url: `https://futbolin.app/ciudad/${encodeURIComponent(ciudadParam)}`,
+      siteName: "Futbolin.app",
+      images: [
+        {
+          url: "https://futbolin.app/GraficoDeFunciones.png",
+          width: 1200,
+          height: 630,
+          alt: `Futbolines en ${ciudad}`,
+        },
+      ],
+      locale: "es_ES",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: ["https://futbolin.app/"],
+    },
+  };
+}
+
+export default async function LandingCiudadRoute({
   params,
 }: {
   params: Promise<{ ciudad: string }>;

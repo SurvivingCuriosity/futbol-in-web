@@ -8,10 +8,18 @@ import { Ranking } from "./components/ranking";
 import { FutbolinesCities } from "./components/futbolines-cities";
 import { FutbolinesMarcas } from "./components/futbolines-marcas";
 
-export const LandingPage = ({ spots,ranking }: { spots: SpotDTO[], ranking: UsuarioEnRanking[] }) => {
+export const LandingPage = ({
+  spots,
+  ranking,
+  nUsuarios,
+}: {
+  spots: SpotDTO[];
+  ranking: UsuarioEnRanking[];
+  nUsuarios: number;
+}) => {
   return (
     <main className="min-h-screen">
-      <Hero spots={spots} />
+      <Hero spots={spots} users={nUsuarios}/>
       <Features />
       <HowItWorks />
       <Ranking ranking={ranking} />

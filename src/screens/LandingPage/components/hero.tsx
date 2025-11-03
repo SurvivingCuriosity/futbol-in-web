@@ -1,16 +1,15 @@
 import ButtonClient from "@/src/shared/components/ButtonClient";
+import {
+  faLocationDot,
+  faMagnifyingGlass,
+  faPlus
+} from "@fortawesome/free-solid-svg-icons";
 import { SpotDTO } from "futbol-in-core/types";
 import { MapPin, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { MapaLanding } from "./MapaLanding";
 import Typewriter from "./TypeWriter";
-import {
-  faLocationDot,
-  faMagnifyingGlass,
-  faMapPin,
-  faPlus,
-} from "@fortawesome/free-solid-svg-icons";
 
 interface HeroProps {
   spots?: SpotDTO[];

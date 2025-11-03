@@ -5,7 +5,11 @@ import "react-image-crop/dist/ReactCrop.css";
 import "../globals.css";
 
 export const metadata: Metadata = {
-  title: "Futbol-in - Encuentra futbolines en tu ciudad !",
+  metadataBase: new URL("https://futbolin.app"),
+  title: {
+    default: "Futbolin.app",
+    template: "%s | Futbolin.app",
+  },
   description:
     "Descubre y agrega futbolines de tu ciudad, crea y participa en torneos y ligas!",
   creator: "Fernando Rodríguez Esteban",
