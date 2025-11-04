@@ -1,6 +1,7 @@
 "use client";
 
 import { JwtPayload, useAuth } from "@/src/client/context/AuthContext";
+import { API_URL } from "@/src/config";
 import {
   Context,
   GoogleCredentialResponse,
@@ -23,7 +24,7 @@ export const GoogleSignInButton = ({ context }: { context?: Context }) => {
 
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/google`,
+        `${API_URL}/auth/google`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

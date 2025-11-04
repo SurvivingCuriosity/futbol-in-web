@@ -1,4 +1,5 @@
 import { useAuth } from "@/src/client/context/AuthContext";
+import { API_URL } from "@/src/config";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { SetUsernameBody } from "futbol-in-core/schemas";
 import { UserDTO } from "futbol-in-core/types";
@@ -8,7 +9,7 @@ export function useInitUsernameService() {
   const { token } = useAuth();
 
   return async (payload: SetUsernameBody): Promise<UserDTO> => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/cambiar-email`, {
+    const res = await fetch(`${API_URL}/user/cambiar-email`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

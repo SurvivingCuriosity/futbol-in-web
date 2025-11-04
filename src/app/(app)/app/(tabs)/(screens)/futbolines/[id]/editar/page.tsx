@@ -1,7 +1,7 @@
 "use client";
 
 import { useAllFutbolines } from "@/src/client/hooks/useGetAllFutbolines";
-import DetalleFutbolinPage from "@/src/screens/DetalleFutbolinPage/DetalleFutbolinScreen";
+import { EditarFutbolinPage } from "@/src/screens/EditarFutbolinPage/EditarFutbolinPage";
 import { useGetFullUser } from "@/src/shared/hooks/useGetFullUser";
 import { useParams } from "next/navigation";
 
@@ -42,5 +42,5 @@ export default function Page() {
       </p>
     );
 
-  return <DetalleFutbolinPage futbolin={futbolin} owner={owner.user} />;
+  return <EditarFutbolinPage futbolin={futbolin} owner={owner.user} />;
 }

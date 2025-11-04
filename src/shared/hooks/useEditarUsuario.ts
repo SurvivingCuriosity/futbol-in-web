@@ -1,4 +1,5 @@
 import { useAuth } from "@/src/client/context/AuthContext";
+import { API_URL } from "@/src/config";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { EditarUserBody } from "futbol-in-core/schemas";
 import { UserDTO } from "futbol-in-core/types";
@@ -8,7 +9,7 @@ function useEditarUsuarioService() {
   const { token } = useAuth();
 
   return async (payload: EditarUserBody): Promise<UserDTO> => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/editar`, {
+    const res = await fetch(`${API_URL}/user/editar`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { FormField, FormLabel } from "@/src/shared/components/FormField";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -14,23 +14,38 @@ import dynamic from "next/dynamic";
 import { useState } from "react";
 
 const SelectorMunicipio = dynamic(
-  () => import("@/src/shared/components/SelectorMunicipio/SelectorMunicipio").then((mod) => mod.SelectorMunicipio),
+  () =>
+    import("@/src/shared/components/SelectorMunicipio/SelectorMunicipio").then(
+      (mod) => mod.SelectorMunicipio
+    ),
   { ssr: false }
 );
 const SelectorTipoFutbolin = dynamic(
-  () => import("@/src/shared/components/SelectorTipoFutbolin/SelectorTipoFutbolin").then((mod) => mod.default),
+  () =>
+    import(
+      "@/src/shared/components/SelectorTipoFutbolin/SelectorTipoFutbolin"
+    ).then((mod) => mod.default),
   { ssr: false }
 );
 const SelectorDistribucion = dynamic(
-  () => import("@/src/shared/components/SelectorDistribucion/SelectorDistribucion").then((mod) => mod.default),
+  () =>
+    import(
+      "@/src/shared/components/SelectorDistribucion/SelectorDistribucion"
+    ).then((mod) => mod.default),
   { ssr: false }
 );
 const SelectorBar = dynamic(
-  () => import("@/src/shared/components/SelectorBar/SelectorBar").then((mod) => mod.default),
+  () =>
+    import("@/src/shared/components/SelectorBar/SelectorBar").then(
+      (mod) => mod.default
+    ),
   { ssr: false }
 );
 const SelectorDireccion = dynamic(
-  () => import("@/src/shared/components/SelectorDireccion/SelectorDireccion").then((mod) => mod.default),
+  () =>
+    import("@/src/shared/components/SelectorDireccion/SelectorDireccion").then(
+      (mod) => mod.default
+    ),
   { ssr: false }
 );
 
@@ -66,7 +81,6 @@ export const AgregarPage = () => {
       distribucion: distribucion,
       comentarios: comentarios,
     };
-
   };
 
   return (
@@ -120,12 +134,14 @@ export const AgregarPage = () => {
       </div>
       <FormField>
         <FormLabel>Comentarios</FormLabel>
-        <TextInput
-          placeholder="Ciudad"
-          className="w-full"
+        <textarea
           value={comentarios}
-          onChangeText={setComentarios}
-        />
+          onChange={(c) => {
+            setComentarios(c.target.value);
+          }}
+          className="border border-neutral-500 rounded-xl min-h-20 max-h-40 p-2 text-sm"
+          placeholder="Escribe aquí detalles útiles para el resto de usuarios"
+        ></textarea>
       </FormField>
       <Button label="Agregar" onClick={handleSubmit} icon={faPlus} />
     </div>

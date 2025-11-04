@@ -1,6 +1,7 @@
 "use client";
 
 import { JwtPayload, useAuth } from "@/src/client/context/AuthContext";
+import { API_URL } from "@/src/config";
 import { FormField, FormLabel } from "@/src/shared/components/FormField";
 import { GoogleSignInButton } from "@/src/shared/components/SignInGoogleButton";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -27,7 +28,7 @@ export default function LoginPage() {
 
   const onSubmit = async (data: LoginBody) => {
     try {
-      const r = await fetch(`http://192.168.0.19:3000/auth/login`, {
+      const r = await fetch(`${API_URL}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),

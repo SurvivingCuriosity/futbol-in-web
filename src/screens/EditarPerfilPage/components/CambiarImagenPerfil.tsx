@@ -4,6 +4,7 @@ import { UserStatus } from "futbol-in-core/enum";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { ImagenEditableConCrop } from "./ImagenEditableConCrop";
+import { API_URL } from "@/src/config";
 
 interface CambiarImagenPerfilProps {
   url: string;
@@ -30,7 +31,7 @@ export function CambiarImagenPerfil({
     try {
       setLoading(true);
 
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/imagen`, {
+      const res = await fetch(`${API_URL}/user/imagen`, {
         method: "PATCH",
         body: formData,
         headers: {

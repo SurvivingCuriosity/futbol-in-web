@@ -29,7 +29,7 @@ export const BottomNav = () => {
 
   return (
     <nav
-      className={`h-16 md:h-full w-full md:w-50 flex items-center transition-[width] duration-300`}
+      className={`h-13 md:h-full w-full md:w-50 flex items-center transition-[width] duration-300`}
     >
       
       <ul className="flex justify-between md:justify-center items-center w-full h-full px-4 md:flex-col md:gap-3 relative">

@@ -11,7 +11,7 @@ export interface OptionType {
 }
 
 export interface PlaceOption extends OptionType {
-  data: google.maps.places.AutocompletePrediction;
+  data?: google.maps.places.AutocompletePrediction;
 }
 
 export default function SelectorBar({
@@ -37,6 +37,7 @@ export default function SelectorBar({
   const handleSelect = async (place: SingleValue<PlaceOption>) => {
     if (!place) return;
     const coords = await getCoordinatesFromPlaceId(place.value);
+    if(!place.data) return
     const selected: Pick<
       IMapItem,
       "nombre" | "direccion" | "lat" | "lng" | "googlePlaceId"

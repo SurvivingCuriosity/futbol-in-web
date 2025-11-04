@@ -16,6 +16,7 @@ import { Controller, useForm } from "react-hook-form";
 import { Separador } from "../LoginPage/LoginPage";
 import toast from "react-hot-toast";
 import { GoogleSignInButton } from "@/src/shared/components/SignInGoogleButton";
+import { API_URL } from "@/src/config";
 
 export default function RegisterPage() {
   const { login } = useAuth();
@@ -32,7 +33,7 @@ export default function RegisterPage() {
 
   const onSubmit = async (data: LoginBody) => {
     try {
-      const r = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
+      const r = await fetch(`${API_URL}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),

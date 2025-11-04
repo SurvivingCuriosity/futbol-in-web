@@ -1,0 +1,50 @@
+import { useBottomSheet } from "@/src/shared/context/UIProvider/hooks/useUI";
+import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { SpotDTO } from "futbol-in-core/types";
+import { DetalleIncidencia } from "./DetalleIncidencia";
+import { useIncidenciasBySpot } from "./hooks";
+import { IncidenciaDTO } from "./types";
+
+export const Incidencias = ({ futbolin }: { futbolin: SpotDTO }) => {
+  const { data: incidencias, isLoading } = useIncidenciasBySpot(futbolin.id);
+
+  const { openSheet, closeSheet } = useBottomSheet();
+
+  if (isLoading) return <p>Cargando incidencias...</p>;
+  if (!incidencias || incidencias.length === 0) return null;
+
+  const handleOpenDetalleIncidencia = (i: IncidenciaDTO) => {
+    openSheet(
+      <DetalleIncidencia
+        futbolin={futbolin}
+        incidencia={i}
+        onClose={closeSheet}
+      />
+    );
+  };
+
+  return (
+    <div className="flex items-center gap-2 m-2 overflow-x-auto overflow-y-hidden h-full">
+      {incidencias.length > 0 &&
+        incidencias?.map((i) => (
+          <div
+            onClick={() => handleOpenDetalleIncidencia(i)}
+            key={i.id}
+            className="h-18 w-10/12 bg-red-800/20 p-2 rounded-lg shrink-0 flex items-center gap-2"
+          >
+            <FontAwesomeIcon
+              icon={faExclamationTriangle}
+              className="text-red-500"
+            />
+            <div>
+              <p className="truncate text-xs text-neutral-500">
+                Un usuario reporta:
+              </p>
+              <p className="text-sm line-clamp-2">{i.texto}</p>
+            </div>
+          </div>
+        ))}
+    </div>
+  );
+};

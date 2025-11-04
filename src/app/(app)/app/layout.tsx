@@ -6,6 +6,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { UIProvider } from "@/src/shared/context/UIProvider/components/UIProviders";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -14,7 +15,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string}
       >
         <AuthProvider>
-          <Protected>{children}</Protected>
+          <UIProvider>
+            <Protected>{children}</Protected>
+          </UIProvider>
         </AuthProvider>
       </GoogleOAuthProvider>
     </QueryClientProvider>

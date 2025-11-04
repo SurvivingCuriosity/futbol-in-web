@@ -1,6 +1,6 @@
 "use client";
 
-import dynamic from "next/dynamic";
+import { API_URL } from "@/src/config";
 import { OptionType } from "../AsyncSelect/Select";
 import { SelectorMunicipio } from "../SelectorMunicipio/SelectorMunicipio";
 
@@ -16,7 +16,7 @@ export const SearchInputMapa = ({
     if (!m) return;
     onSelect()
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/maps/getCoordinatesFromString?string=` + encodeURIComponent(m.value),
+      `${API_URL}/maps/getCoordinatesFromString?string=` + encodeURIComponent(m.value),
     );
     const {data} = await res.json();
     onNewCoords({ lat: data.lat, lng: data.lng });

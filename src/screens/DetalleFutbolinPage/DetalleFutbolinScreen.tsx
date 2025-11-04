@@ -12,11 +12,15 @@ import {
   faPerson,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { UserRole } from "futbol-in-core/enum";
 import { SpotDTO, UserDTO } from "futbol-in-core/types";
 import { Button } from "futbol-in-ui";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { BotoneraCompartir } from "./components/BotoneraCompartir";
+import { BotonReportar } from "./components/BotonReportar";
+import { Incidencias } from "./incidencias/Incidencias";
 
 const DetalleFutbolinScreen = ({
   futbolin,
@@ -25,12 +29,16 @@ const DetalleFutbolinScreen = ({
   futbolin: SpotDTO;
   owner: UserDTO;
 }) => {
-  const { user } = useAuth();
-  const isOwner = user?.id === owner.id;
+  const { user: loggedInuSER } = useAuth();
+  const isOwner = loggedInuSER?.id === owner.id;
+  const isAdmin = loggedInuSER?.role.includes(UserRole.ADMIN);
+
+  const router = useRouter();
 
   return (
     <GoBackWrapper>
       <div className="max-w-xl mx-auto w-full flex flex-col gap-1">
+        <Incidencias futbolin={futbolin} />
         <div className="flex items-center gap-2 p-2">
           <LogoFutbolin tipo={futbolin.tipoFutbolin} size={50} />
           <h1 className="text-2xl font-bold md:text-3xl">
@@ -101,14 +109,18 @@ const DetalleFutbolinScreen = ({
           <div className="absolute inset-0 bg-linear-to-t from-neutral-950 via-neutral-950/30 to-transparent" />
         </div>
         <div className="flex items-center gap-2 p-3 mt-10">
-          {isOwner && (
-            <Button label="Editar" icon={faPen} variant="neutral" size="sm" />
+          {(isOwner || isAdmin) && (
+            <Button
+              label="Editar"
+              icon={faPen}
+              variant="neutral"
+              size="sm"
+              onClick={() =>
+                router.push(`/app/futbolines/${futbolin.id}/editar`)
+              }
+            />
           )}
-          <Button
-            size="sm"
-            label="Reportar"
-            variant="danger-outline"
-          />
+          <BotonReportar futbolin={futbolin} />
         </div>
       </div>
     </GoBackWrapper>

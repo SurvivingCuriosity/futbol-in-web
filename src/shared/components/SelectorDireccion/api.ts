@@ -1,10 +1,11 @@
+import { API_URL } from "@/src/config";
 import { PlaceOption } from "./SelectorDireccion";
 
 
 export async function fetchDirecciones(input: string|number): Promise<PlaceOption[]> {
   if (!input) return [];
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/maps/direcciones-autocomplete?input=${encodeURIComponent(input)}`
+    `${API_URL}/maps/direcciones-autocomplete?input=${encodeURIComponent(input)}`
   );
   const {data} = await res.json();
   if (data.status !== "OK") return [];

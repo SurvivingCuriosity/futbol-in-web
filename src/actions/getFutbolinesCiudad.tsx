@@ -1,7 +1,8 @@
 import { ApiResponse, Bar, SpotDTO } from "futbol-in-core/types";
+import { API_URL } from "../config";
 
 export const getFutbolinesCiudad = async (ciudad:string) => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/futbolines/ciudad/${ciudad}`, {
+  const res = await fetch(`${API_URL}/futbolines/ciudad/${ciudad}`, {
     next: { revalidate: 60 },
   });
   const { data } = (await res.json()) as ApiResponse<SpotDTO[]>;
@@ -9,7 +10,7 @@ export const getFutbolinesCiudad = async (ciudad:string) => {
 };
 
 export const getFutbolinesMarca = async (marca:string) => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/futbolines/marca/${marca}`, {
+  const res = await fetch(`${API_URL}/futbolines/marca/${marca}`, {
     next: { revalidate: 60 },
   });
   const { data } = (await res.json()) as ApiResponse<SpotDTO[]>;
@@ -17,7 +18,7 @@ export const getFutbolinesMarca = async (marca:string) => {
 };
 
 export const getBaresFromPlaceIds = async (placeIds:string[]) => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/maps/getBaresFromPlaceIds?placeIds=${placeIds.join(",")}`, {
+  const res = await fetch(`${API_URL}/maps/getBaresFromPlaceIds?placeIds=${placeIds.join(",")}`, {
     next: { revalidate: 60 },
   });
   const { data } = (await res.json()) as ApiResponse<Bar[]>;

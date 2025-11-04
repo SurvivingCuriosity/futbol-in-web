@@ -1,6 +1,7 @@
 "use client";
 
 import { JwtPayload, useAuth } from "@/src/client/context/AuthContext";
+import { API_URL } from "@/src/config";
 import { FormField, FormLabel } from "@/src/shared/components/FormField";
 import { AppLogo } from "@/src/shared/components/NavLayout/AppLogo";
 import { Button, TextInput } from "futbol-in-ui";
@@ -98,7 +99,7 @@ export default function ConfirmarEmailPage() {
     setError(null);
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/resend-code`, {
+      const res = await fetch(`${API_URL}/auth/resend-code`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: validEmail }),

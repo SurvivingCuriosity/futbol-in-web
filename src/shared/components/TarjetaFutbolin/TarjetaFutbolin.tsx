@@ -60,7 +60,7 @@ export function TarjetaFutbolin({
           <span className="truncate">{futbolin.nombre}</span>
         </div>
 
-        <IconoIncidencias futbolin={futbolin} />
+
       </div>
       {bottomText && (
         <p className="text-primary font-semibold mt-0 m-2 p-1 px-2 bg-neutral-950/80 rounded w-fit text-xs z-20">
@@ -68,18 +68,5 @@ export function TarjetaFutbolin({
         </p>
       )}
     </button>
-  );
-}
-
-function IconoIncidencias({ futbolin }: { futbolin: SpotDTO }) {
-  const { data: incidencias, isLoading } = useIncidenciasBySpot(futbolin.id);
-
-  if (isLoading) return null;
-  if (!incidencias?.length) return null;
-
-  return (
-    <div className="absolute right-3 top-3 flex items-center gap-1">
-      <FontAwesomeIcon icon={faExclamationCircle} className="text-red-600" />
-    </div>
   );
 }

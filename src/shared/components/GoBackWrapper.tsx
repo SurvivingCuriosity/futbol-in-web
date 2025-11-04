@@ -16,12 +16,12 @@ export const GoBackWrapper = ({
 
   return (
     <div className="md:pb-12 flex flex-col h-full">
-      <div className="flex items-center justify-between gap-2 p-3 border-b border-neutral-800 max-w-5xl mx-auto w-full">
+      <div className="flex items-center justify-between gap-2 p-1 px-2 border-b border-neutral-800 max-w-5xl mx-auto w-full">
         <div className="flex items-center gap-2">
           <button
             aria-label="Volver"
             onClick={() => router.back()}
-            className="size-10 shrink-0 rounded-full bg-neutral-800 flex items-center justify-center"
+            className="size-8 shrink-0 rounded-full bg-neutral-800 flex items-center justify-center m-1"
           >
             <FontAwesomeIcon icon={faArrowLeft} />
           </button>

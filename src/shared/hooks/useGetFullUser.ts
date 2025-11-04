@@ -1,3 +1,4 @@
+import { API_URL } from "@/src/config";
 import { useQuery } from "@tanstack/react-query";
 import { SpotDTO, UserDTO } from "futbol-in-core/types";
 
@@ -22,7 +23,7 @@ export function useGetFullUser(idUser: string) {
 
 
 export const fetchFullUserByUsername = async (username: string) =>
-  (await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/byUsername?username=${username}`)).json()
+  (await fetch(`${API_URL}/user/byUsername?username=${username}`)).json()
 
 export function useGetFullUserByUsername(username: string) {
   return useQuery({

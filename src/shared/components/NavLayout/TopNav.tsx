@@ -8,12 +8,14 @@ export const TopNav = () => {
         <AppLogo href="/" />
         <div className="flex items-center gap-20">
           {/* TODO: Links para navegación */}
-          {/* <ul className="flex items-center gap-2">
-            <Link href={"/#ciudades"} className="text-neutral-300 p-2 px-5 rounded-xl bg-neutral-900/50 hover:bg-neutral-900">Ciudades</Link>
-            <Link href={"/#marcas"} className="text-neutral-300 p-2 px-5 rounded-xl bg-neutral-900/50 hover:bg-neutral-900">Marcas</Link>
-            <Link href={"/#ciudades"} className="text-neutral-300 p-2 px-5 rounded-xl bg-neutral-900/50 hover:bg-neutral-900">Ciudades</Link>
-            <Link href={"/#ciudades"} className="text-neutral-300 p-2 px-5 rounded-xl bg-neutral-900/50 hover:bg-neutral-900">Ciudades</Link>
-          </ul> */}
+          <ul className="items-center gap-2 lg:flex hidden">
+            <Link href={"/#caracteristicas"} className="text-neutral-300 p-2 px-5 rounded-xl hover:bg-neutral-900">Características</Link>
+            <Link href={"/#how-it-works"} className="text-neutral-300 p-2 px-5 rounded-xl hover:bg-neutral-900">Cómo funciona</Link>
+            <Link href={"/#ranking"} className="text-neutral-300 p-2 px-5 rounded-xl hover:bg-neutral-900">Ranking</Link>
+            <Link href={"/#cities"} className="text-neutral-300 p-2 px-5 rounded-xl hover:bg-neutral-900">Ciudades</Link>
+            <Link href={"/#marcas"} className="text-neutral-300 p-2 px-5 rounded-xl hover:bg-neutral-900">Marcas</Link>
+            <Link href={"/#descargar"} className="text-neutral-300 p-2 px-5 rounded-xl hover:bg-neutral-900">Descargar</Link>
+          </ul>
           <Link href={"/app/login"} className="text-accent">
             Acceder
           </Link>
