@@ -7,14 +7,16 @@ import { SelectorMunicipio } from "../SelectorMunicipio/SelectorMunicipio";
 export const SearchInputMapa = ({
   onSelect,
   onNewCoords,
+  value
 }: {
-  onSelect: () => void;
+  onSelect: (m: OptionType | null) => void;
   onNewCoords: (coords:google.maps.LatLngLiteral)=>void;
+  value: (OptionType & { subLabel: string; }) | undefined;
 }) => {
 
   const handleSelectMunicipio = async (m: OptionType | null) => {
     if (!m) return;
-    onSelect()
+    onSelect(m)
     const res = await fetch(
       `${API_URL}/maps/getCoordinatesFromString?string=` + encodeURIComponent(m.value),
     );
@@ -24,7 +26,7 @@ export const SearchInputMapa = ({
 
   return (
     <div style={{ zIndex: 2 }}>
-      <SelectorMunicipio onSelect={handleSelectMunicipio} />
+      <SelectorMunicipio onSelect={handleSelectMunicipio} value={value}/>
     </div>
   );
 };

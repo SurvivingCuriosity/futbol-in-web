@@ -10,7 +10,7 @@ export const logosFutbolines: Record<TipoFutbolin, string> = {
   [TipoFutbolin.PRESAS_EVO]: "/logos/presas_evo_200x200.png",
   [TipoFutbolin.PRESAS]: "/logos/presas_200x200.png",
   [TipoFutbolin.TSUNAMI]: "/logos/tsunami_200x200.png",
-  [TipoFutbolin.REM]: "/logos/rem_l_200x200.png",
+  [TipoFutbolin.REM]: "/logos/rem_200x200.png",
   [TipoFutbolin.CUALQUIERA]: "/logos/desconocido_200x200.png",
 };
 
