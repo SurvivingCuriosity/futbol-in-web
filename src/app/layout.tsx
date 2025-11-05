@@ -37,8 +37,8 @@ export default function RootLayout({
       <body
         className={`dark antialiased bg-neutral-950 text-neutral-50 ${poppins.className}`}
       >
-        <Toaster toastOptions={{ duration: 2000 }} />
-        {children}
+          <Toaster toastOptions={{ duration: 2000 }} />
+          {children}
       </body>
     </html>
   );

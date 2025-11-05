@@ -48,6 +48,7 @@ const ImagenFondoFixed = () => {
         height={540}
         className="object-contain grayscale mx-auto blur-[2px] pt-3"
         priority={false}
+        loading="eager"
       />
       <div className="absolute inset-0 bg-linear-to-t from-neutral-950/80 via-neutral-950/90 to-neutral-950" />
       <div className="hidden sm:block absolute inset-0 bg-linear-to-r from-neutral-950 via-neutral-950/10  to-transparent" />

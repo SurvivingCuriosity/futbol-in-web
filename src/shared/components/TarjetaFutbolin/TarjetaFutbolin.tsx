@@ -3,15 +3,13 @@
 // import { useIncidenciasBySpot } from "@/src/features/Incidencias/hooks";
 import {
   faBuilding,
-  faExclamationCircle,
-  faMapMarkerAlt,
+  faMapMarkerAlt
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SpotDTO } from "futbol-in-core/types";
 import { cn } from "../../utils/cn";
 import { ImagenFondoFutbolin } from "../ImagenFondoFutbolin";
 import { LogoFutbolin } from "../LogoFutbolin";
-import { useIncidenciasBySpot } from "../../hooks/useIncidenciasBySpot";
 
 export function TarjetaFutbolin({
   futbolin,
@@ -22,6 +20,7 @@ export function TarjetaFutbolin({
   onClick: () => void;
   bottomText?: string;
 }) {
+
   if (!futbolin) return null;
 
   const ciudad =

@@ -161,5 +161,20 @@ export default function Typewriter({
 
 export const TypewriterClient = dynamic(
   () => import("@/src/screens/LandingPage/components/TypeWriter"),
-  { ssr: false }
+  {
+    ssr: false,
+    loading: () => (
+      <div className="flex flex-col items-start gap-2">
+        <p className="text-neutral-200 text-5xl font-bold">Futbolines</p>
+        <p
+          className="text-5xl font-bold text-accent"
+          aria-live="polite"
+          aria-atomic
+        >
+          Tsunami
+        </p>
+        <p className="text-neutral-200  text-5xl font-bold">cerca de ti</p>
+      </div>
+    ),
+  }
 );

@@ -112,13 +112,11 @@ export default function LoginPage() {
           />
         </FormField>
 
-
-          <Button
-            label="Entrar"
-            onClick={handleSubmit(onSubmit)}
-            loading={isSubmitting}
-          />
-
+        <Button
+          label="Entrar"
+          onClick={handleSubmit(onSubmit)}
+          loading={isSubmitting}
+        />
 
         <Link href="/app/register" className="underline my-5">
           No tengo una cuenta
@@ -126,7 +124,7 @@ export default function LoginPage() {
 
         <Separador />
 
-        <GoogleSignInButton context="signin"/>
+        <GoogleSignInButton context="signin" />
       </form>
     </>
   );
