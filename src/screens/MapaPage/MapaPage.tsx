@@ -40,9 +40,7 @@ export const MapaPage = ({ futbolines }: Props) => {
     useState<google.maps.LatLngLiteral | null>(null);
 
   const handleSelect = useCallback((futbolin: SpotDTO | null) => {
-    if (futbolin !== null) {
-      setSelected({ id: new Date().getTime(), futbolin });
-    }
+    setSelected(futbolin ? { id: new Date().getTime(), futbolin } : null);
     setShowTarjeta(futbolin ? true : false);
   }, []);
 

@@ -1,14 +1,17 @@
 "use client";
 
-import {
-  MarkerClusterer,
-  SuperClusterAlgorithm,
-} from "@googlemaps/markerclusterer";
-import { GoogleMap, Libraries, useLoadScript } from "@react-google-maps/api";
+import { Libraries, useLoadScript } from "@react-google-maps/api";
 import { SpotDTO } from "futbol-in-core/types";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { MarcadorFutbolin } from "./MarcadorFutbolin";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { MarcadorUsuario } from "./MarcadorUsuario";
+import { loadCamera, saveCamera } from "./cameraState";
+import { useMapCamera } from "./hooks/useMapCamera";
+import { useMapInteractions } from "./hooks/useMapInteractions";
+import { useMarkerCluster } from "./hooks/useMarkerCluster";
+import { useMarkers } from "./hooks/useMarkers";
+import { useSelectedOverlay } from "./hooks/useSelectedOverlay";
+import { detachMapDiv, ensureMapInstance } from "./singletonMap";
+import { createClusterRenderer } from "./utils/createClusterRenderer";
 
 export interface MapaProps {
   markers: SpotDTO[];
@@ -21,9 +24,8 @@ export interface MapaProps {
   focusCoords: google.maps.LatLngLiteral | null;
 }
 
-const markerLibrary = ["marker"] as Libraries;
+const libraries: Libraries = ["marker"];
 const DEFAULT_ZOOM = 6;
-
 
 export function Mapa({
   markers,
@@ -33,239 +35,88 @@ export function Mapa({
   initialCenter,
   zoom = DEFAULT_ZOOM,
   restrictToSpain = true,
-  focusCoords
+  focusCoords,
 }: MapaProps) {
-
-
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_MAPS_API_KEY as string,
     id: "google-maps-script",
-    libraries: markerLibrary,
+    libraries,
   });
-  const [userZoom, setUserZoom] = useState<number>(zoom);
+
+  const containerRef = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<google.maps.Map | null>(null);
 
-  const memoCenter = useMemo(() => initialCenter, [initialCenter]);
-  const clusterRef = useRef<MarkerClusterer | null>(null);
-
-
+  // 1) Monta/reatacha el mapa (instancia única) cuando el script está listo.
   useEffect(() => {
-    if (!map || !selectedMarker) return;
-    const [lng, lat] = selectedMarker.coordinates;
-    map.panTo({ lat: lat - 0.0005, lng });
-  }, [map, selectedMarker]);
-  
-  useEffect(()=>{
-    if(!map || !focusCoords) return
-    // setUserZoom(16)
-    map.panTo(focusCoords);
-  },[focusCoords, map])
+    if (!isLoaded || !containerRef.current) return;
 
-  useEffect(() => {
-    if (!isLoaded) return;
-
-    document.querySelectorAll(".marker-wrapper").forEach((el) => {
-      el.classList.remove(
-        "border-2!",
-        "border-primary!",
-        "bg-neutral-700!",
-        "animate-bounce!"
-      );
-    });
-
-    if (selectedMarker) {
-      const el = document.querySelector(
-        `.marker-wrapper[data-id="${selectedMarker.id}"]`
-      );
-      if (el) {
-        el.classList.add(
-          "border-2!",
-          "border-primary!",
-          "bg-neutral-700!",
-          "animate-bounce!"
-        );
-      }
-    }
-  }, [selectedMarker, isLoaded]);
-
-useEffect(() => {
-  if (!map || !selectedMarker) return;
-
-  // Limpia si ya existía
-  const existing = document.querySelector("#selected-marker");
-  if (existing) existing.remove();
-
-  // Crea un clon visual del marcador
-  const el = MarcadorFutbolin.getHTML(selectedMarker.tipoFutbolin, selectedMarker.id);
-  el.id = "selected-marker";
-  el.classList.add("animate-bounce", "border-2!", "border-primary!", "bg-neutral-800");
-
-  const overlay = new google.maps.OverlayView();
-
-  overlay.onAdd = function () {
-    const panes = this.getPanes();
-    if (!panes) return;
-    const layer = panes.overlayMouseTarget;
-    if (layer) layer.appendChild(el);
-  };
-
-  overlay.draw = function () {
-    const projection = this.getProjection();
-    if (!projection) return;
-    const pos = new google.maps.LatLng(
-      selectedMarker.coordinates[1],
-      selectedMarker.coordinates[0]
-    );
-    const point = projection.fromLatLngToDivPixel(pos);
-    if (point && el.style) {
-      el.style.position = "absolute";
-      el.style.left = `${point.x - 20}px`;
-      el.style.top = `${point.y - 40}px`;
-      el.style.zIndex = "99999";
-    }
-  };
-
-  overlay.onRemove = function () {
-    el.remove();
-  };
-
-  overlay.setMap(map);
-
-  return () => {
-    overlay.setMap(null);
-  };
-}, [map, selectedMarker]);
-
-  /* --------------------- 4. Cluster config & renderer ---------------------- */
-  const clusterAlgorithm = useMemo(
-    () =>
-      new SuperClusterAlgorithm({
-        radius: 60,
-        minPoints: 2,
-        maxZoom: 15,
-      }),
-    []
-  );
-
-  const clusterRenderer = useMemo(() => {
-    return {
-      render: ({
-        count,
-        position,
-      }: {
-        count: number;
-        position: google.maps.LatLng;
-      }) => {
-        const svg = `
-        <svg viewBox="0 0 40 40" width="40" height="40">
-          <circle cx="20" cy="20" r="18"
-            fill="var(--color-neutral-900)"
-            stroke="var(--color-neutral-700)" stroke-width="2" />
-          <text x="20" y="25" text-anchor="middle"
-            font-size="14" font-weight="700" font-family="Poppins"
-            fill="var(--color-background)">${count}</text>
-        </svg>`;
-
-        const div = document.createElement("div");
-        div.innerHTML = svg;
-
-        return new google.maps.marker.AdvancedMarkerElement({
-          position,
-          content: div,
-          zIndex: 1000,
-        });
-      },
-    };
-  }, []);
-
-  /* ------------------------- 5. Crear marcadores ---------------------------- */
-  const googleMarkers = useMemo(() => {
-    if (!isLoaded) return [];
-    return markers.map((spot) => {
-      const marker = new google.maps.marker.AdvancedMarkerElement({
-        position: { lat: spot.coordinates[1], lng: spot.coordinates[0] },
-        content: MarcadorFutbolin.getHTML(spot.tipoFutbolin, spot.id),
-      });
-
-      marker.addListener("click", () => onSelectMarker(spot));
-      return marker;
-    });
-  }, [isLoaded, markers, onSelectMarker]);
-
-  /* ------------------- 6. Crear / actualizar cluster ------------------------ */
-  /* ------------------- 6. Crear / actualizar cluster ------------------------ */
-  useEffect(() => {
-    if (!map) return;
-
-    // A) Limpieza del anterior
-    clusterRef.current?.clearMarkers();
-    clusterRef.current?.setMap(null);
-
-    // B) Crear nuevo clúster — pero sin control automático de zoom ni re-fit
-    const clusterer = new MarkerClusterer({
-      map,
-      markers: googleMarkers,
-      algorithm: clusterAlgorithm,
-      renderer: clusterRenderer,
-    });
-
-    // ⚠️ Evitamos que el clusterer manipule el viewport automáticamente
-    clusterer.onClusterClick = (event, cluster) => {
-      const pos = cluster.position;
-      if (!pos) return;
-
-      // Animación manual y suave
-      const currentZoom = map.getZoom() ?? zoom;
-      const targetZoom = Math.min(currentZoom + 1.5, 18);
-
-      map.panTo(pos);
-      setUserZoom(targetZoom)
+    const persisted = loadCamera();
+    const baseOptions: google.maps.MapOptions = {
+      center: persisted?.center ??
+        initialCenter ?? { lat: 40.4168, lng: -3.7038 },
+      zoom: persisted?.zoom ?? zoom,
+      disableDefaultUI: true,
+      gestureHandling: "greedy",
+      minZoom: 4,
+      maxZoom: 20,
+      mapId: "729d891f5d94366",
+      restriction: restrictToSpain
+        ? {
+            latLngBounds: { north: 45, south: 25, west: -20.5, east: 4 },
+            strictBounds: false,
+          }
+        : undefined,
     };
 
-    clusterRef.current = clusterer;
+    const instance = ensureMapInstance(containerRef.current, baseOptions);
+    setMap(instance);
+
+    // listener para persistir cámara
+    const idleListener = instance.addListener("idle", () => {
+      const c = instance.getCenter();
+      if (!c) return;
+      saveCamera({ lat: c.lat(), lng: c.lng() }, instance.getZoom() ?? 6);
+    });
 
     return () => {
-      clusterRef.current?.clearMarkers();
-      clusterRef.current?.setMap(null);
-      clusterRef.current = null;
+      google.maps.event.removeListener(idleListener);
+      detachMapDiv();
     };
-  }, [map, googleMarkers, clusterAlgorithm, clusterRenderer, zoom]);
+  }, [isLoaded, initialCenter, zoom, restrictToSpain]);
 
-  /* ----------------------- 7. Click fuera = limpiar ------------------------- */
-  const handleMapClick = useCallback((e: google.maps.MapMouseEvent) => {
-    onSelectMarker(null);
-    e.stop()
-  }, [onSelectMarker]);
+  // 3) Renderer de clusters: memoizado y sólo cuando exista window.google/map
+  const clusterRenderer = useMemo(() => {
+    if (!map || typeof window === "undefined" || !window.google) return null;
+    return createClusterRenderer(window.google);
+  }, [map]);
 
-  /* ------------------------------- 8. Render ------------------------------- */
-  if (loadError) return <div className="text-center pt-20 text-red-500">Error cargando mapa {String(loadError)}</div>;
-  if (!isLoaded) return <div className="text-center pt-20 text-neutral-500">Cargando mapa...</div>;
-  if (!initialCenter || !memoCenter) return <div className="text-center pt-20 text-neutral-500">Navegando...</div>;
-  
+  // 4) Hooks en top-level (sin condicionales) — no hacen nada si map es null.
+  const googleMarkers = useMarkers(map, markers, onSelectMarker);
+  useMarkerCluster(map, googleMarkers, clusterRenderer, zoom);
+  useMapCamera(map, selectedMarker, focusCoords);
+  useMapInteractions(map, { onBackgroundClick: () => onSelectMarker(null) });
+  useSelectedOverlay(map, selectedMarker);
+
+  if (loadError) {
+    return (
+      <div className="text-center pt-20 text-red-500">
+        Error cargando mapa {String(loadError)}
+      </div>
+    );
+  }
+
+  if (!isLoaded || !initialCenter) {
+    return (
+      <div className="text-center pt-20 text-neutral-500">Cargando mapa…</div>
+    );
+  }
+
   return (
-    <GoogleMap
-      onLoad={setMap}
-      onUnmount={() => setMap(null)}
-      mapContainerStyle={{ width: "100%", height: "100%", zIndex: 1 }}
-      center={memoCenter}
-      zoom={userZoom}
-      options={{
-        disableDefaultUI: true,
-        gestureHandling: "greedy",
-        minZoom: 4,
-        maxZoom: 20,
-        zoomControl: false,
-        mapId: "729d891f5d94366",
-        restriction: restrictToSpain
-          ? {
-              latLngBounds: { north: 45, south: 25, west: -20.5, east: 4 },
-              strictBounds: false,
-            }
-          : undefined,
-      }}
-      onClick={handleMapClick}
+    <div
+      ref={containerRef}
+      style={{ width: "100%", height: "100%", zIndex: 1 }}
     >
-      <MarcadorUsuario map={map} position={userLocation} show={true} />
-    </GoogleMap>
+      {map && <MarcadorUsuario map={map} position={userLocation} show={true} />}
+    </div>
   );
 }
