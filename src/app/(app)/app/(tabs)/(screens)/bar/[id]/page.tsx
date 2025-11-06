@@ -9,7 +9,7 @@ import { useParams } from "next/navigation";
 export default function Page() {
   const params = useParams();
 
-  const { data: allFuitbolines, isLoading, error } = useAllFutbolines();
+  const { data: allFuitbolines, error } = useAllFutbolines();
 
   const futbolin = allFuitbolines?.find((futboline) => futboline.id === params?.id);
   const futbolines = allFuitbolines?.filter((futboline) => futboline.googlePlaceId === futbolin?.googlePlaceId);
@@ -37,5 +37,7 @@ export default function Page() {
     if (!futbolin) return <p className="text-center p-10 text-red-500">Ups...Parece que este futbolín ya no existe</p>;
     if (!bar) return <p className="text-center p-10 text-red-500">Ups...Parece que este bar ya no existe</p>;
     if (!futbolines) return <p className="text-center p-10 text-red-500">Ups...parece que este bar no tiene futbolines</p>;
+
+    
   return <DetalleBarScreen futbolines={futbolines} owner={owner} bar={bar} />;
 }

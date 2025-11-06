@@ -46,6 +46,26 @@ export function TarjetaBar({
     (f) => f.googlePlaceId === bar.placeId
   );
 
+  const handleShare = async () => {
+    const text = `${bar.nombre} en ${futbolin.ciudad} futbolines disponibles en Futbol-in`;
+    const url = typeof window !== "undefined" ? window.location.href : "";
+
+    if (navigator.share) {
+      await navigator.share({
+        title: bar.nombre,
+        text: text,
+        url: url,
+      });
+    } else {
+      // Fallback: copy to clipboard
+      await navigator.clipboard.writeText(`${text}\n${url}`);
+    }
+  };
+
+  const handleOpenMaps = () => {
+    window.open(bar.mapsUrl, "_blank");
+  };
+
   return (
     <article key={bar.placeId} className="mt-10 w-full pointer-events-auto">
       <div
@@ -115,11 +135,13 @@ export function TarjetaBar({
           style={{ flexShrink: "0", width: 34 }}
           variant="neutral"
           size="sm"
+          onClick={handleShare}
         />
         <Button
           label="Cómo llegar"
           icon={faShare}
           variant="neutral"
+          onClick={handleOpenMaps}
           size="sm"
           style={{ flexShrink: "0", width: 150 }}
         />
