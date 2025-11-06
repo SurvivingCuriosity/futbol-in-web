@@ -17,7 +17,7 @@ export const BotoneraCompartir = ({
     await navigator.share({
       title: "Futbolin",
       text: "¡Échale un ojo a este futbolín en futbolin.app!",
-      url: `https://futbolin.app/app/futbolines/${idSpot}`,
+      url: `https://futbolin.app/app/bar/${idSpot}`,
     });
   };
 

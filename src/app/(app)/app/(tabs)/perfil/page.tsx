@@ -2,7 +2,7 @@
 
 import { useAuth } from "@/src/client/context/AuthContext";
 import { MiPerfilPage } from "@/src/screens/MiPerfilPage/MiPerfilPage";
-import { useGetFullUser } from "@/src/shared/hooks/useGetFullUser";
+import { FullUser, useGetFullUser } from "@/src/shared/hooks/useGetFullUser";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { UserStatus } from "futbol-in-core/enum";
@@ -40,7 +40,7 @@ export default function Perfil() {
           </Link>
         </div>
       )}
-      <MiPerfilPage user={fullUser} />
+      <MiPerfilPage user={fullUser as FullUser} />
     </>
   );
 }

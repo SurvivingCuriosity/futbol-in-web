@@ -55,7 +55,9 @@ export const Modal = ({
   return (
     <div
       className={`fixed inset-0 z-60 flex items-center justify-center transition-opacity duration-200 ${
-        isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        isOpen
+          ? "opacity-100 pointer-events-auto"
+          : "opacity-0 pointer-events-none"
       }`}
       aria-hidden={!isOpen}
     >
@@ -71,27 +73,31 @@ export const Modal = ({
         aria-label={title}
         tabIndex={-1}
         ref={panelRef}
-        className={`relative bg-neutral-900 rounded-2xl shadow-xl w-full ${sizeToMaxW[size]} mx-4 outline-none transform transition-transform duration-200 ${
+        className={`relative bg-neutral-900 rounded-2xl shadow-xl px-1 w-full ${
+          sizeToMaxW[size]
+        } mx-4 outline-none transform transition-transform duration-200 ${
           isOpen ? "scale-100" : "scale-95"
         }`}
         onClick={(e) => e.stopPropagation()}
       >
         {(title || showCloseButton) && (
-          <div className="flex items-center justify-between px-5 pt-4">
+          <div className="flex items-center justify-between p-3">
             <h2 className="text-lg font-semibold text-primary">{title}</h2>
             {showCloseButton && (
               <button
                 onClick={onClose}
-                aria-label="Cerrar"
-                className="p-2 rounded-full hover:bg-neutral-200 active:scale-95 transition"
+                className="pointer-events-auto p-2 bg-neutral-800/50 size-10 rounded-full aspect-square z-10 flex items-center justify-center"
               >
-                <FontAwesomeIcon icon={faXmark} className="w-5 h-5 text-neutral-700" />
+                <FontAwesomeIcon
+                  icon={faXmark}
+                  className="text-neutral-400 hover:text-neutral-700"
+                />
               </button>
             )}
           </div>
         )}
 
-        <div className="px-5 py-4">{children}</div>
+        <div className="p-3 pt-0">{children}</div>
       </div>
     </div>
   );

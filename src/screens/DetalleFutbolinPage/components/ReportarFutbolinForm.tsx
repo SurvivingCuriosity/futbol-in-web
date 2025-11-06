@@ -57,7 +57,7 @@ export const ReportarFutbolinForm = ({
         value={text}
         onChange={(e) => setText(e.target.value)}
         placeholder="Indica si el futbolín ya no se encuentra en el lugar o si encuentras alguna información errónea."
-        className="bg-transparent border border-neutral-700 w-full rounded-xl p-2 text-neutral-200 min-h-20 max-h-40 placeholder:font-light placeholder:text-neutral-600 text-sm"
+        className="bg-transparent border border-neutral-500 w-full rounded-xl p-2 text-neutral-200 min-h-20 max-h-40 placeholder:font-light placeholder:text-neutral-500 text-sm"
       ></textarea>
       <div className="flex items-center gap-1">
         <Button

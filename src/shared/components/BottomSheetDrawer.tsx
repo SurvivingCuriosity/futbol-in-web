@@ -37,14 +37,14 @@ export const BottomSheetDrawer = ({
           isOpen ? "translate-y-0" : "translate-y-full"
         }`}
       >
-        <div className="p-4 relative">
-          <button onClick={onClose} className="absolute top-1 right-1 p-2">
+        <div className="relative">
+          <button onClick={onClose} className="pointer-events-auto absolute top-2 right-2 p-2 bg-neutral-800/50 size-10 rounded-full aspect-square z-10 flex items-center justify-center">
             <FontAwesomeIcon
               icon={faXmark}
-              className="text-neutral-600 hover:text-neutral-700"
+              className="text-neutral-400 hover:text-neutral-700"
             />
           </button>
-          {title && <h2 className="text-xl font-bold mb-2 text-primary">{title}</h2>}
+          {title && <h2 className="text-xl font-bold mb-2 text-primary p-3 pb-0">{title}</h2>}
           {children}
         </div>
       </div>

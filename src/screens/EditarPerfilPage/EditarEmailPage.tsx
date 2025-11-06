@@ -4,8 +4,8 @@ import { GoBackWrapper } from "@/src/shared/components/GoBackWrapper";
 import { UserDTO } from "futbol-in-core/types";
 import { CambiarEmail } from "./components/CambiarEmail";
 
-export const EditarEmailPage = ({ user }: { user: UserDTO }) => {
-  if (user === undefined) return null;
+export const EditarEmailPage = ({ user }: { user: UserDTO|undefined }) => {
+  if (user === undefined) return <p>Ups... Parece que no tienes perfil</p>;
 
   return (
     <GoBackWrapper heading="Editar perfil">

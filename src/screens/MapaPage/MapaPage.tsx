@@ -20,7 +20,6 @@ export const MapaPage = ({ futbolines }: { futbolines: SpotDTO[] }) => {
   const selected = useMapaStore((s) => s.selected);
   const select = useMapaStore((s) => s.select);
   const focusCoords = useMapaStore((s) => s.focusCoords);
-  const view = useMapaStore((s) => s.view);
 
   useEffect(() => {
     setFutbolines(futbolines);
@@ -33,19 +32,17 @@ export const MapaPage = ({ futbolines }: { futbolines: SpotDTO[] }) => {
   return (
     <div className="relative h-full w-full">
       <MapaPageOverlay />
-      <div
-        className={`w-full h-full ${view === "list" ? "hidden md:block" : ""}`}
-      >
-        <Mapa
-          markers={filtered}
-          initialCenter={spainCenter}
-          onSelectMarker={select}
-          selectedMarker={selected || null}
-          userLocation={userLocation}
-          restrictToSpain={false}
-          focusCoords={focusCoords}
-        />
-      </div>
+
+
+      <Mapa
+        markers={filtered}
+        initialCenter={spainCenter}
+        onSelectMarker={select}
+        selectedMarker={selected || null}
+        userLocation={userLocation}
+        restrictToSpain={false}
+        focusCoords={focusCoords}
+      />
     </div>
   );
 };

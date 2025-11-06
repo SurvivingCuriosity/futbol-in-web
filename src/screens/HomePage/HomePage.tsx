@@ -37,7 +37,7 @@ export const HomePage = () => {
               >
                 <TarjetaFutbolin
                   futbolin={f}
-                  onClick={() => router.push(`/app/futbolines/${f.id}`)}
+                  onClick={() => router.push(`/app/bar/${f.id}`)}
                   bottomText={`Agregado hace ${timeAgo(new Date(f.createdAt))}`}
                 />
               </div>
@@ -64,7 +64,7 @@ export const HomePage = () => {
               >
                 <TarjetaFutbolin
                   futbolin={f}
-                  onClick={() => router.push(`/app/futbolines/${f.id}`)}
+                  onClick={() => router.push(`/app/bar/${f.id}`)}
                   bottomText={`Está a ${distancesInMeters[index]} metros`}
                 />
               </div>

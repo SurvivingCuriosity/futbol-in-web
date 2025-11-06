@@ -1,13 +1,16 @@
 import { useEffect } from "react";
 import { SpotDTO } from "futbol-in-core/types";
 import { MarcadorFutbolin } from "../MarcadorFutbolin";
+import { useMapaStore } from "@/src/screens/MapaPage/store/useMapaStore";
 
 export function useSelectedOverlay(
   map: google.maps.Map | null,
   selectedMarker: SpotDTO | null
 ) {
+  const showTarjeta = useMapaStore((state) => state.showTarjeta);
+
   useEffect(() => {
-    if (!map || !selectedMarker || !window.google) return;
+    if (!map || !selectedMarker || !window.google || !showTarjeta) return;
 
     const prev = document.querySelector("#selected-marker");
     if (prev) prev.remove();
@@ -44,5 +47,5 @@ export function useSelectedOverlay(
     overlay.setMap(map);
 
     return () => overlay.setMap(null);
-  }, [map, selectedMarker]);
+  }, [map, selectedMarker, showTarjeta]);
 }

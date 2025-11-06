@@ -16,7 +16,7 @@ export const MisFutbolines = ({ futbolines }: { futbolines: SpotDTO[] }) => {
             <div key={futbolin.id}>
               <TarjetaFutbolin
                 futbolin={futbolin}
-                onClick={() => router.push(`/app/futbolines/${futbolin.id}`)}
+                onClick={() => router.push(`/app/bar/${futbolin.id}`)}
               />
             </div>
           ))

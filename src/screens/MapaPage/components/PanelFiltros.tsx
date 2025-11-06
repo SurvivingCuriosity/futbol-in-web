@@ -11,9 +11,7 @@ export const PanelFiltros = ({
 
   return (
     <div className="p-4">
-      <h2 className="text-lg font-semibold mb-3">Filtros</h2>
-
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3 mt-5">
         <div>
           <label className="block text-sm text-neutral-400 mb-1">Marca</label>
           <select
@@ -40,17 +38,6 @@ export const PanelFiltros = ({
           </select>
         </div>
 
-        <div>
-          <label className="block text-sm text-neutral-400 mb-1">Ciudad</label>
-          <input
-            value={filters.ciudad || ""}
-            onChange={(e) =>
-              setFilters({ ciudad: e.target.value || undefined })
-            }
-            placeholder="Madrid, Barcelona..."
-            className="bg-neutral-800 text-white border border-neutral-600 rounded-lg px-3 py-1.5 w-full"
-          />
-        </div>
       </div>
     </div>
   );

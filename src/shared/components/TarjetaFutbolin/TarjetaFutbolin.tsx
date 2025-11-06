@@ -1,10 +1,7 @@
 "use client";
 
 // import { useIncidenciasBySpot } from "@/src/features/Incidencias/hooks";
-import {
-  faBuilding,
-  faMapMarkerAlt
-} from "@fortawesome/free-solid-svg-icons";
+import { faBuilding, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SpotDTO } from "futbol-in-core/types";
 import { cn } from "../../utils/cn";
@@ -15,12 +12,13 @@ export function TarjetaFutbolin({
   futbolin,
   onClick,
   bottomText = "",
+  isSelected = false,
 }: {
   futbolin: SpotDTO;
   onClick: () => void;
   bottomText?: string;
+  isSelected?: boolean;
 }) {
-
   if (!futbolin) return null;
 
   const ciudad =
@@ -33,10 +31,17 @@ export function TarjetaFutbolin({
     <button
       onClick={onClick}
       className={cn(
-        "w-full relative flex flex-col overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-950 text-left"
+        `w-full relative flex flex-col overflow-hidden rounded-2xl border ${
+          isSelected
+            ? "border-primary bg-neutral-900"
+            : "border-neutral-800 bg-neutral-950"
+        }   text-left`
       )}
     >
-      <ImagenFondoFutbolin tipo={futbolin.tipoFutbolin} />
+      <ImagenFondoFutbolin
+        tipo={futbolin.tipoFutbolin}
+        isSelected={isSelected}
+      />
 
       {/* Contenido */}
       <div className="relative flex flex-col gap-1 p-3 sm:p-4">
@@ -48,18 +53,14 @@ export function TarjetaFutbolin({
         </div>
 
         <div className="flex items-center gap-2 text-sm text-neutral-400">
-          <FontAwesomeIcon icon={faMapMarkerAlt} width={24} height={24}/>
-          <span className="truncate">
-            {ciudad}
-          </span>
+          <FontAwesomeIcon icon={faMapMarkerAlt} width={24} height={24} />
+          <span className="truncate">{ciudad}</span>
         </div>
 
         <div className="flex items-center gap-2 text-sm text-neutral-400">
-          <FontAwesomeIcon icon={faBuilding} width={24} height={24}/>
+          <FontAwesomeIcon icon={faBuilding} width={24} height={24} />
           <span className="truncate">{futbolin.nombre}</span>
         </div>
-
-
       </div>
       {bottomText && (
         <p className="text-primary font-semibold mt-0 m-2 p-1 px-2 bg-neutral-950/80 rounded w-fit text-xs z-20">

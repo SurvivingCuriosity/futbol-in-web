@@ -22,5 +22,5 @@ export default function Perfil() {
       <p className="text-center p-10 text-red-500">Ups...{String(error)}</p>
     );
 
-  return <EditarEmailPage user={fullUser.user} />;
+  return <EditarEmailPage user={fullUser?.user} />;
 }

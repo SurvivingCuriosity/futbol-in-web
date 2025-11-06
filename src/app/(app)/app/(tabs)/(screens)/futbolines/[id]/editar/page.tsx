@@ -42,5 +42,5 @@ export default function Page() {
       </p>
     );
 
-  return <EditarFutbolinPage futbolin={futbolin} owner={owner.user} />;
+  return <EditarFutbolinPage futbolin={futbolin} owner={owner?.user} />;
 }

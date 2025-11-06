@@ -93,10 +93,6 @@ export const DetalleIncidencia = ({
 
   return (
     <div className="flex flex-col gap-2 min-h-[200px]">
-      <div className="flex items-center gap-2 text-red-500">
-        <FontAwesomeIcon icon={faExclamationTriangle} />
-        <p>Incidencia</p>
-      </div>
       <div className="flex items-center gap-2 text-neutral-500">
         <FontAwesomeIcon icon={faIdBadge} />
         {isAdmin && (
@@ -157,7 +153,7 @@ export const DetalleIncidencia = ({
               size="sm"
               icon={faPen}
               disabled={isEliminandoFutbolin || isBorrandoIncidencia}
-              onClick={()=>router.push(`/app/futbolines/${futbolin.id}/editar`)}
+              onClick={()=>router.push(`/app/bar/${futbolin.id}/editar`)}
             />
           )}
         </div>

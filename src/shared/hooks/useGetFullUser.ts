@@ -15,7 +15,7 @@ export function useGetFullUser(idUser: string) {
   return useQuery({
     queryKey: ["fullUser", idUser],
     queryFn: () => fetchFullUser(idUser),
-    select: (data) => data.data,
+    select: (data) => data.data as FullUser,
     staleTime: 60_000,
     enabled: !!idUser
   });

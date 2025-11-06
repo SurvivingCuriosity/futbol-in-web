@@ -50,7 +50,7 @@ const SelectorBar = dynamic(
 
 type Props = {
   futbolin: SpotDTO;
-  owner: UserDTO;
+  owner: UserDTO|undefined;
 };
 
 export const EditarFutbolinPage = ({ futbolin, owner }: Props) => {
@@ -62,7 +62,7 @@ export const EditarFutbolinPage = ({ futbolin, owner }: Props) => {
   const { confirm } = useConfirmDialog();
   const router = useRouter();
 
-  const isOwner = user?.id === owner.id;
+  const isOwner = user?.id === owner?.id;
   const isAdmin = user?.role.includes(UserRole.ADMIN);
   const [hayCambios, setHayCambios] = useState(false);
 

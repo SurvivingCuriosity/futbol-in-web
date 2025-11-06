@@ -22,6 +22,12 @@ const nextConfig: NextConfig = {
         pathname: "/futbolin/**", // carpeta del bucket
         // ⬆️  Al no declarar `search`, Next acepta cualquier query‑string
       },
+      {
+        protocol: "https",
+        hostname: "maps.googleapis.com",
+        pathname: "/**", // carpeta del bucket
+        // ⬆️  Al no declarar `search`, Next acepta cualquier query‑string
+      },
     ],
   },
 };

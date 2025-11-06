@@ -1,4 +1,4 @@
-import { useBottomSheet } from "@/src/shared/context/UIProvider/hooks/useUI";
+import { useModal } from "@/src/shared/context/UIProvider/hooks/useUI";
 import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SpotDTO } from "futbol-in-core/types";
@@ -9,29 +9,33 @@ import { IncidenciaDTO } from "./types";
 export const Incidencias = ({ futbolin }: { futbolin: SpotDTO }) => {
   const { data: incidencias, isLoading } = useIncidenciasBySpot(futbolin.id);
 
-  const { openSheet, closeSheet } = useBottomSheet();
+  const { openModal, closeModal } = useModal();
 
   if (isLoading) return <p>Cargando incidencias...</p>;
   if (!incidencias || incidencias.length === 0) return null;
 
   const handleOpenDetalleIncidencia = (i: IncidenciaDTO) => {
-    openSheet(
+    openModal(
       <DetalleIncidencia
         futbolin={futbolin}
         incidencia={i}
-        onClose={closeSheet}
-      />
+        onClose={closeModal}
+      />, {
+        title: "Incidencia",
+      }
     );
   };
 
   return (
-    <div className="flex items-center gap-2 m-2 overflow-x-auto overflow-y-hidden h-full">
+    <div className="flex items-center gap-2 m-2 overflow-x-auto overflow-y-hidden">
       {incidencias.length > 0 &&
         incidencias?.map((i) => (
           <div
             onClick={() => handleOpenDetalleIncidencia(i)}
             key={i.id}
-            className="h-18 w-10/12 bg-red-800/20 p-2 rounded-lg shrink-0 flex items-center gap-2"
+            className={`h-18 ${
+              incidencias.length > 1 ? "w-10/12" : "w-full"
+            } bg-red-800/20 p-2 rounded-lg shrink-0 flex items-center gap-2`}
           >
             <FontAwesomeIcon
               icon={faExclamationTriangle}

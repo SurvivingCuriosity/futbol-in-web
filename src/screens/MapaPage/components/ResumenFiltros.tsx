@@ -15,7 +15,7 @@ export const ResumenFiltros = () => {
         <span className="bg-neutral-900 text-neutral-300 px-3 py-1 rounded-md flex items-center gap-1">
           {filters.marca}
           <LogoFutbolin tipo={filters.marca} size={23} />
-          <button onClick={() => setFilters({ marca: undefined })}>
+          <button className="pointer-events-auto" onClick={() => setFilters({ marca: undefined })}>
             <FontAwesomeIcon icon={faXmark} className="text-neutral-300" />
           </button>
         </span>
@@ -23,7 +23,7 @@ export const ResumenFiltros = () => {
       {filters.ciudad && (
         <span className="bg-neutral-900 text-neutral-300 px-3 py-1 rounded-md flex items-center gap-1">
           Ciudad: {filters.ciudad}
-          <button onClick={() => setFilters({ ciudad: undefined })}>
+          <button className="pointer-events-auto" onClick={() => setFilters({ ciudad: undefined })}>
             <FontAwesomeIcon icon={faXmark} className="text-neutral-300" />
           </button>
         </span>

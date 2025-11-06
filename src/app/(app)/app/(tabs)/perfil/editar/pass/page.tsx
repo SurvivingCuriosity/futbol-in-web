@@ -3,6 +3,7 @@
 import { useAuth } from "@/src/client/context/AuthContext";
 import { EditarPassPage } from "@/src/screens/EditarPerfilPage/EditarPassPage";
 import { useGetFullUser } from "@/src/shared/hooks/useGetFullUser";
+import { UserDTO } from "futbol-in-core/types";
 
 export default function Perfil() {
   const {user,loading:loadingAuth} = useAuth()
@@ -13,5 +14,5 @@ export default function Perfil() {
   if(isLoading) return <p className="text-center p-10 text-neutral-500">Cargando perfil...</p>
   if(error) return <p className="text-center p-10 text-red-500">Ups...{String(error)}</p>
 
-  return <EditarPassPage user={fullUser.user} />
+  return <EditarPassPage user={fullUser?.user as UserDTO} />
 }

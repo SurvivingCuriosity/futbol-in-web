@@ -1,8 +1,8 @@
 "use client";
 
-import { create } from "zustand";
-import { SpotDTO } from "futbol-in-core/types";
 import { TipoFutbolin } from "futbol-in-core/enum";
+import { SpotDTO } from "futbol-in-core/types";
+import { create } from "zustand";
 
 type MapView = "map" | "list";
 
@@ -21,7 +21,9 @@ interface MapaState {
 
   // Actions
   setFutbolines: (spots: SpotDTO[]) => void;
-  setFilters: (filters: Partial<{ marca?: TipoFutbolin; ciudad?: string }>) => void;
+  setFilters: (
+    filters: Partial<{ marca?: TipoFutbolin; ciudad?: string }>
+  ) => void;
   select: (spot: SpotDTO | null) => void;
   setFocusCoords: (coords: google.maps.LatLngLiteral | null) => void;
   toggleView: () => void;
@@ -46,13 +48,21 @@ export const useMapaStore = create<MapaState>((set, get) => ({
     const merged = { ...get().filters, ...filters };
     const filtered = all.filter((f) => {
       if (merged.marca && f.tipoFutbolin !== merged.marca) return false;
-      if (merged.ciudad && f.ciudad.split(',')[1].trim() !== merged.ciudad.trim()) return false;
+      if (
+        merged.ciudad &&
+        f.ciudad.split(",")[1].trim() !== merged.ciudad.trim()
+      )
+        return false;
       return true;
     });
     set({ filters: merged, filtered });
   },
 
-  select: (spot) => set({ selected: spot, showTarjeta: !!spot }),
+  select: (spot) =>
+    set((state) => ({
+      selected: spot ?? state.selected,
+      showTarjeta: !!spot,
+    })),
   setFocusCoords: (coords) => set({ focusCoords: coords }),
   toggleView: () => set((s) => ({ view: s.view === "map" ? "list" : "map" })),
   setViajando: (v) => set({ viajando: v }),
