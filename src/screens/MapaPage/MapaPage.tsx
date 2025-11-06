@@ -1,14 +1,18 @@
 "use client";
 
-import { useEffect } from "react";
+import { Mapa } from "@/src/shared/components/Mapa/Mapa";
 import { useUserLocation } from "@/src/shared/hooks/useUserLocation";
 import { SpotDTO } from "futbol-in-core/types";
-import { Mapa } from "@/src/shared/components/Mapa/Mapa";
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 import { spainCenter } from "../LandingPage/components/MapaLanding";
 import { MapaPageOverlay } from "./components/MapaPageOverlay";
 import { useMapaStore } from "./store/useMapaStore";
 
 export const MapaPage = ({ futbolines }: { futbolines: SpotDTO[] }) => {
+  const searchParams = useSearchParams();
+  const idSelected = searchParams.get("selected");
+
   const userLocation = useUserLocation();
 
   const filtered = useMapaStore((s) => s.filtered);
@@ -22,10 +26,16 @@ export const MapaPage = ({ futbolines }: { futbolines: SpotDTO[] }) => {
     setFutbolines(futbolines);
   }, [futbolines]);
 
+  useEffect(() => {
+    select(futbolines.find((f) => f.id === idSelected) as SpotDTO);
+  }, [idSelected, futbolines]);
+
   return (
     <div className="relative h-full w-full">
       <MapaPageOverlay />
-      <div className={`w-full h-full ${view === "list" ? "hidden md:block" : ""}`}>
+      <div
+        className={`w-full h-full ${view === "list" ? "hidden md:block" : ""}`}
+      >
         <Mapa
           markers={filtered}
           initialCenter={spainCenter}

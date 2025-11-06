@@ -10,6 +10,7 @@ interface Props {
 }
 
 export const ListaFutbolines = ({ futbolines, onClickItem }: Props) => {
+  
   if (!futbolines.length) {
     return (
       <div className="text-center text-neutral-400 py-10">

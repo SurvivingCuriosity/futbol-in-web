@@ -54,7 +54,7 @@ export const Modal = ({
 
   return (
     <div
-      className={`fixed inset-0 z-[60] flex items-center justify-center transition-opacity duration-200 ${
+      className={`fixed inset-0 z-60 flex items-center justify-center transition-opacity duration-200 ${
         isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
       }`}
       aria-hidden={!isOpen}
@@ -71,14 +71,14 @@ export const Modal = ({
         aria-label={title}
         tabIndex={-1}
         ref={panelRef}
-        className={`relative bg-neutral-100 rounded-2xl shadow-xl w-full ${sizeToMaxW[size]} mx-4 outline-none transform transition-transform duration-200 ${
+        className={`relative bg-neutral-900 rounded-2xl shadow-xl w-full ${sizeToMaxW[size]} mx-4 outline-none transform transition-transform duration-200 ${
           isOpen ? "scale-100" : "scale-95"
         }`}
         onClick={(e) => e.stopPropagation()}
       >
         {(title || showCloseButton) && (
           <div className="flex items-center justify-between px-5 pt-4">
-            <h2 className="text-lg font-semibold text-neutral-900">{title}</h2>
+            <h2 className="text-lg font-semibold text-primary">{title}</h2>
             {showCloseButton && (
               <button
                 onClick={onClose}

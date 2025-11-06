@@ -2,6 +2,7 @@
 
 import { useAllFutbolines } from "@/src/client/hooks/useGetAllFutbolines";
 import { MapaPage } from "@/src/screens/MapaPage/MapaPage";
+import { Suspense } from "react";
 
 export default function MapaRoute() {
   const { data: futbolines, isLoading, error } = useAllFutbolines();
@@ -18,6 +19,8 @@ export default function MapaRoute() {
     );
 
   return (
+    <Suspense fallback={<p>Cargando...</p>}>
       <MapaPage futbolines={futbolines ?? []} />
+    </Suspense>
   );
 }
