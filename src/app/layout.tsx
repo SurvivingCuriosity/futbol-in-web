@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
+import Script from "next/script";
 import { Toaster } from "react-hot-toast";
 import "react-image-crop/dist/ReactCrop.css";
 import "../globals.css";
@@ -37,8 +38,13 @@ export default function RootLayout({
       <body
         className={`dark antialiased bg-neutral-950 text-neutral-50 ${poppins.className}`}
       >
-          <Toaster toastOptions={{ duration: 2000 }} />
-          {children}
+        <Script
+          src="https://cloud.umami.is/script.js"
+          data-website-id="a27f7392-1ad5-4dd2-b60d-282e9cecfa69"
+          strategy="afterInteractive"
+        />
+        <Toaster toastOptions={{ duration: 2000 }} />
+        {children}
       </body>
     </html>
   );
