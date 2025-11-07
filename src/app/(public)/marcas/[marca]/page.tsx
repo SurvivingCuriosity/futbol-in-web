@@ -1,7 +1,6 @@
 import { getFutbolinesMarca } from "@/src/actions/getFutbolinesCiudad";
 import { LandingMarcaPage } from "@/src/screens/LandingMarcaPage/LandingMarcaPage";
 import { marcas } from "@/src/shared/db/marcas";
-import Head from "next/head";
 import Link from "next/link";
 
 export const revalidate = 3600;
@@ -105,12 +104,12 @@ export default async function MarcaRoute({
 
   return (
     <>
-      <Head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-      </Head>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
       <LandingMarcaPage marca={marca} futbolines={futbolines} />
     </>
   );

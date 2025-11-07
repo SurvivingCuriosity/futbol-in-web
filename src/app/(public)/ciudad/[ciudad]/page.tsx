@@ -4,7 +4,6 @@ import {
 } from "@/src/actions/getFutbolinesCiudad";
 import { ciudades } from "@/src/client/shared/assets/ciudades/ciudades";
 import { LandingCiudadPage } from "@/src/screens/LandingCiudadPage/LandingCiudadPage";
-import Head from "next/head";
 import Link from "next/link";
 
 export const revalidate = 3600;
@@ -124,12 +123,12 @@ export default async function LandingCiudadRoute({
 
   return (
     <>
-      <Head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-      </Head>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
       <LandingCiudadPage ciudad={ciudad} futbolines={futbolines} bares={bares} />
     </>
   );
