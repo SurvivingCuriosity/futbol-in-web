@@ -4,8 +4,9 @@ import {
 } from "@/src/actions/getFutbolinesCiudad";
 import { ciudades } from "@/src/client/shared/assets/ciudades/ciudades";
 import { LandingCiudadPage } from "@/src/screens/LandingCiudadPage/LandingCiudadPage";
+import Head from "next/head";
 import Link from "next/link";
-
+import { ItemList, WithContext } from "schema-dts";
 export const revalidate = 3600;
 
 export async function generateMetadata({
@@ -23,7 +24,6 @@ export async function generateMetadata({
       robots: { index: false },
     };
   }
-
 
   const title = `Futbolines en ${ciudad.name}`;
   const description = `Descubre todos los futbolines en ${ciudad.name}. Filtra por tipo, añade nuevos futbolines y compite en el ranking con el resto de jugadores.`;
@@ -97,39 +97,46 @@ export default async function LandingCiudadRoute({
     );
   }
 
-  
-  const jsonLd = {
+  const jsonLd: WithContext<ItemList> = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    "name": `Futbolines en ${ciudad.name}`,
-    "description": `Descubre futbolines en ${ciudad.name}. Filtra por tipo, añade nuevos futbolines y compite en el ranking con el resto de jugadores.`,
-    "url": `https://futbolin.app/ciudad/${encodeURIComponent(ciudadParam)}`,
-    "numberOfItems": futbolines.length,
-    "itemListElement": futbolines.slice(0, 10).map((f, i) => ({
+    name: `Futbolines en ${ciudad.name}`,
+    description: `Descubre futbolines en ${ciudad.name}. Filtra por tipo, añade nuevos futbolines y compite en el ranking con el resto de jugadores.`,
+    url: `https://futbolin.app/ciudad/${encodeURIComponent(ciudadParam)}`,
+    numberOfItems: futbolines.length,
+    itemListElement: futbolines.slice(0, 10).map((f, i) => ({
       "@type": "SportsActivityLocation",
-      "position": i + 1,
-      "name": f.nombre || "Futbolín",
-      "address": {
+      position: i + 1,
+      name: f.nombre || "Futbolín",
+      address: {
         "@type": "PostalAddress",
-        "addressLocality": ciudad.name,
+        addressLocality: ciudad.name,
       },
-      "geo": f.coordinates ? {
-        "@type": "GeoCoordinates",
-        "latitude": f.coordinates[1],
-        "longitude": f.coordinates[0],
-      } : undefined,
+      geo: f.coordinates
+        ? {
+            "@type": "GeoCoordinates",
+            latitude: f.coordinates[1],
+            longitude: f.coordinates[0],
+          }
+        : undefined,
     })),
   };
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
-        }}
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
+      </Head>
+      <LandingCiudadPage
+        ciudad={ciudad}
+        futbolines={futbolines}
+        bares={bares}
       />
-      <LandingCiudadPage ciudad={ciudad} futbolines={futbolines} bares={bares} />
     </>
   );
 }
