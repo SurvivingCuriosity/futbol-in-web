@@ -1,9 +1,9 @@
 "use client";
 
 import { useAllFutbolines } from "@/src/client/hooks/useGetAllFutbolines";
+import { Incidencias } from "@/src/screens/DetalleFutbolinPage/incidencias/Incidencias";
 import {
   faEye,
-  faPen,
   faPhone,
   faShare,
   faShareNodes,
@@ -13,12 +13,7 @@ import { Button } from "futbol-in-ui";
 import { Star } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useGetBarInfo } from "../../hooks/useGetBarInfo";
-import { TarjetaFutbolin } from "./TarjetaFutbolin";
-import { useIncidenciasBySpot } from "@/src/screens/DetalleFutbolinPage/incidencias/hooks";
-import { Incidencias } from "@/src/screens/DetalleFutbolinPage/incidencias/Incidencias";
-import { BotonReportar } from "@/src/screens/DetalleFutbolinPage/components/BotonReportar";
-import { useAuth } from "@/src/client/context/AuthContext";
-import { UserRole } from "futbol-in-core/enum";
+import { TarjetaFutbolinEnBar } from "./TarjetaFutbolinEnBar";
 
 export function TarjetaBar({
   futbolin,
@@ -27,9 +22,6 @@ export function TarjetaBar({
   futbolin: SpotDTO;
   closeCallback?: () => void;
 }) {
-  const { user } = useAuth();
-  const isAdmin = user?.role.includes(UserRole.ADMIN);
-  const isOwner = user?.id === futbolin?.addedByUserId;
   const router = useRouter();
   const {
     data: bar,
@@ -67,9 +59,9 @@ export function TarjetaBar({
   };
 
   return (
-    <article key={bar.placeId} className="mt-10 w-full pointer-events-auto">
+    <article key={bar.placeId} className="mt-3 w-full pointer-events-auto pb-4">
       <div
-        className={`w-full relative pointer-events-none ${
+        className={`w-full relative pointer-events-none flex flex-col items-center justify-between ${
           !bar.fotoUrl ? "" : "h-40"
         }`}
         style={{
@@ -78,11 +70,18 @@ export function TarjetaBar({
           backgroundPosition: "center",
         }}
       >
-        <div className="p-3 flex items-center justify-between w-10/12  absolute left-2 -top-10 z-10">
-          <div className="flex flex-col gap-1 w-full">
+        <div className="p-3 flex items-center justify-between z-10 relative w-full">
+          <div className="flex flex-col gap-1 w-10/12">
             <h3 className="text-xl font-bold text-neutral-200 truncate">
               {bar.nombre}
             </h3>
+
+            <p
+              title={bar.direccion}
+              className="text-sm text-neutral-200 truncate"
+            >
+              {bar.direccion}
+            </p>
 
             <div className="flex items-center gap-1">
               {bar.abiertoAhora && (
@@ -104,87 +103,71 @@ export function TarjetaBar({
                     className={`w-4 h-4 ${
                       i < Math.floor(bar.puntuacion)
                         ? "fill-primary text-primary"
-                        : "fill-neutral-700 text-neutral-700"
+                        : "fill-primary/20 text-primary/20"
                     }`}
                   />
                 ))}
             </div>
           </div>
         </div>
-
-        <div className="absolute inset-0 bg-linear-to-b from-neutral-900 via-neutral-900/80 to-transparent" />
-      </div>
-      <Incidencias futbolin={futbolin} />
-      <div
-        className={`p-2 px-3 flex items-center gap-1 overflow-x-auto w-full pointer-events-auto ${
-          !bar.fotoUrl ? "mt-6" : ""
-        }`}
-      >
-        <Button
-          icon={faEye}
-          size="sm"
-          variant="neutral"
-          style={{ flexShrink: "0", width: 34 }}
-          onClick={() => {
-            router.push(`/app/bar/${futbolin?.id}`);
-            closeCallback?.();
-          }}
-        />
-        <Button
-          icon={faShareNodes}
-          style={{ flexShrink: "0", width: 34 }}
-          variant="neutral"
-          size="sm"
-          onClick={handleShare}
-        />
-        <Button
-          label="Cómo llegar"
-          icon={faShare}
-          variant="neutral"
-          onClick={handleOpenMaps}
-          size="sm"
-          style={{ flexShrink: "0", width: 150 }}
-        />
-        {bar.telefono && (
+        <div
+          className={`p-2 flex items-center gap-1 overflow-x-auto overflow-y-hidden w-full pointer-events-auto z-10`}
+        >
           <Button
-            label="Llamar"
-            icon={faPhone}
+            icon={faEye}
             size="sm"
             variant="neutral-outline"
-            style={{ flexShrink: "0", width: 150 }}
-          />
-        )}
-      </div>
-      <div className="p-3 space-y-1">
-        <p className="font-bold text-xl">Futbolines:</p>
-
-        <ul className="flex items-center gap-2 overflow-x-auto pointer-events-auto">
-          {futbolines?.map((futbolin) => (
-            <li
-              key={futbolin.id}
-              className={`${
-                futbolines.length > 1 ? "w-9/12" : "w-full"
-              }  shrink-0`}
-            >
-              <TarjetaFutbolin futbolin={futbolin} onClick={() => {}} />
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className="p-3 space-y-1">
-        {(isOwner || isAdmin) && (
-          <Button
-            label="Editar"
-            icon={faPen}
-            variant="neutral"
-            size="sm"
+            style={{ flexShrink: "0", width: 34 }}
             onClick={() => {
-              router.push(`/app/futbolines/${futbolin.id}/editar`);
+              router.push(`/app/bar/${futbolin?.id}`);
               closeCallback?.();
             }}
           />
-        )}
-        <BotonReportar futbolin={futbolin} />
+          <Button
+            icon={faShareNodes}
+            style={{ flexShrink: "0", width: 34 }}
+            variant="neutral-outline"
+            size="sm"
+            onClick={handleShare}
+          />
+          <Button
+            label="Cómo llegar"
+            icon={faShare}
+            variant="neutral-outline"
+            onClick={handleOpenMaps}
+            size="sm"
+            style={{ flexShrink: "0", width: 150 }}
+          />
+          {bar.telefono && (
+            <Button
+              label="Llamar"
+              icon={faPhone}
+              size="sm"
+              variant="neutral-outline"
+              style={{ flexShrink: "0", width: 150 }}
+            />
+          )}
+        </div>
+        <div className="absolute inset-0 bg-linear-to-b from-neutral-900 via-neutral-900/80 to-transparent" />
+      </div>
+      <Incidencias futbolin={futbolin} />
+
+      <div className="p-3 space-y-1">
+        <p className="font-bold text-xl">Futbolines:</p>
+
+        <ul className="flex items-start gap-2 overflow-x-auto pointer-events-auto">
+          {futbolines?.map((futbolin) => (
+            <li
+              onClick={()=>closeCallback?.()}
+              key={futbolin.id}
+              className={`${
+                futbolines.length > 1 ? "w-10/12" : "w-full"
+              } h-full shrink-0`}
+            >
+              <TarjetaFutbolinEnBar futbolin={futbolin} onClick={() => {}} />
+            </li>
+          ))}
+        </ul>
       </div>
     </article>
   );

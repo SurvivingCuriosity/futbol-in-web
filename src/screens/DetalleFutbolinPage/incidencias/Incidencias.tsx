@@ -27,25 +27,23 @@ export const Incidencias = ({ futbolin }: { futbolin: SpotDTO }) => {
   };
 
   return (
-    <div className="flex items-center gap-2 m-2 overflow-x-auto overflow-y-hidden">
+    <div className="flex items-center gap-2 overflow-x-auto overflow-y-hidden w-fit">
       {incidencias.length > 0 &&
         incidencias?.map((i) => (
           <div
             onClick={() => handleOpenDetalleIncidencia(i)}
             key={i.id}
-            className={`h-18 ${
+            className={`max-h-18 ${
               incidencias.length > 1 ? "w-10/12" : "w-full"
-            } bg-red-800/20 p-2 rounded-lg shrink-0 flex items-center gap-2`}
+            } bg-red-800/20 p-2 px-3 rounded-lg shrink-0 flex items-center gap-2`}
           >
             <FontAwesomeIcon
               icon={faExclamationTriangle}
               className="text-red-500"
             />
             <div>
-              <p className="truncate text-xs text-neutral-500">
-                Un usuario reporta:
-              </p>
-              <p className="text-sm line-clamp-2">{i.texto}</p>
+              <p className="text-sm line-clamp-2 text-neutral-400">{i.texto}</p>
+              <p className="text-xs font-light">{new Date(i.createdAt).toLocaleDateString()}</p>
             </div>
           </div>
         ))}

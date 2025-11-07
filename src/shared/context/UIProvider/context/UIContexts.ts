@@ -1,7 +1,7 @@
 import { createContext, type ReactNode } from "react";
 
 export type SheetContextType = {
-  openSheet: (content: ReactNode, title?: string) => void;
+  openSheet: (content: ReactNode, options:{title?: string, darken?: boolean}) => void;
   closeSheet: () => void;
 };
 

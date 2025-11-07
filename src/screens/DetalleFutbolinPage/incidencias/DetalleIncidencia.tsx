@@ -6,7 +6,6 @@ import { useEliminarFutbolin } from "@/src/shared/hooks/useEliminarFutbolin";
 import { useGetFullUser } from "@/src/shared/hooks/useGetFullUser";
 import {
   faCalendar,
-  faExclamationTriangle,
   faIdBadge,
   faPen,
   faSkull,
@@ -16,10 +15,10 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SpotDTO } from "futbol-in-core/types";
 import { Button } from "futbol-in-ui";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 import { useBorrarIncidencia } from "./hooks";
 import { IncidenciaDTO } from "./types";
-import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
 
 export const DetalleIncidencia = ({
   futbolin,
@@ -30,7 +29,7 @@ export const DetalleIncidencia = ({
   incidencia: IncidenciaDTO;
   onClose: () => void;
 }) => {
-  const router = useRouter()
+  const router = useRouter();
   const { confirm } = useConfirmDialog();
   const { user } = useAuth();
   const isAdmin = user?.role.includes("admin");
@@ -92,10 +91,10 @@ export const DetalleIncidencia = ({
   }
 
   return (
-    <div className="flex flex-col gap-2 min-h-[200px]">
-      <div className="flex items-center gap-2 text-neutral-500">
-        <FontAwesomeIcon icon={faIdBadge} />
-        {isAdmin && (
+    <div className="flex flex-col gap-2">
+      {isAdmin && (
+        <div className="flex items-center gap-2 text-neutral-500">
+          <FontAwesomeIcon icon={faIdBadge} />
           <p
             className="select-text text-sm"
             onClick={() => {
@@ -106,8 +105,8 @@ export const DetalleIncidencia = ({
           >
             Futbolin: {futbolin.id}
           </p>
-        )}
-      </div>
+        </div>
+      )}
       <div className="flex items-center justify-between text-sm">
         {loadingUser ? (
           <p>Cargando usuario...</p>
@@ -153,7 +152,7 @@ export const DetalleIncidencia = ({
               size="sm"
               icon={faPen}
               disabled={isEliminandoFutbolin || isBorrandoIncidencia}
-              onClick={()=>router.push(`/app/bar/${futbolin.id}/editar`)}
+              onClick={() => router.push(`/app/bar/${futbolin.id}/editar`)}
             />
           )}
         </div>

@@ -8,11 +8,11 @@ export const UIProvider = ({ children }: { children: React.ReactNode }) => {
   // ---- Bottom Sheet ----
   const [sheetOpen, setSheetOpen] = useState(false);
   const [sheetContent, setSheetContent] = useState<React.ReactNode>(null);
-  const [sheetTitle, setSheetTitle] = useState<string | undefined>();
+  const [sheetOptions, setSheetOptions] = useState<{title?: string, darken?: boolean}|undefined>();
 
-  const openSheet = (content: React.ReactNode, title?: string) => {
+  const openSheet = (content: React.ReactNode, options?: { title?: string, darken?: boolean }) => {
     setSheetContent(content);
-    setSheetTitle(title);
+    setSheetOptions(options);
     setSheetOpen(true);
   };
   const closeSheet = () => setSheetOpen(false);
@@ -110,7 +110,7 @@ export const UIProvider = ({ children }: { children: React.ReactNode }) => {
           {children}
 
           {/* Bottom Sheet */}
-          <BottomSheetDrawer isOpen={sheetOpen} onClose={closeSheet} title={sheetTitle}>
+          <BottomSheetDrawer isOpen={sheetOpen} onClose={closeSheet} options={sheetOptions}>
             {sheetContent}
           </BottomSheetDrawer>
 

@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { MarkerClusterer, SuperClusterAlgorithm } from "@googlemaps/markerclusterer";
+import { useBreakpoint } from "@/src/shared/hooks/useBreakpoint";
 
 export function useMarkerCluster(
   map: google.maps.Map | null,
@@ -7,9 +8,10 @@ export function useMarkerCluster(
   renderer: ReturnType<typeof import("../utils/createClusterRenderer").createClusterRenderer> | null,
   zoom: number
 ) {
+  const isMobile = useBreakpoint("lg");
+  
   const clusterRef = useRef<MarkerClusterer | null>(null);
   const algorithmRef = useRef(new SuperClusterAlgorithm({ radius: 60, minPoints: 3, maxZoom: 16 }));
-
   useEffect(() => {
     if (!map || !renderer) return;
 

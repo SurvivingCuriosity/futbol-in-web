@@ -17,9 +17,12 @@ import { Separador } from "../LoginPage/LoginPage";
 import toast from "react-hot-toast";
 import { GoogleSignInButton } from "@/src/shared/components/SignInGoogleButton";
 import { API_URL } from "@/src/config";
+import { UserStatus } from "futbol-in-core/enum";
+import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
   const { login } = useAuth();
+  const router = useRouter();
 
   const {
     handleSubmit,
@@ -31,9 +34,9 @@ export default function RegisterPage() {
 
   const [error, setError] = useState<string | null>(null);
 
-  const onSubmit = async (data: LoginBody) => {
+  const onSubmit = async (data: RegisterBody) => {
     try {
-      const r = await fetch(`${API_URL}/auth/login`, {
+      const r = await fetch(`${API_URL}/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -41,6 +44,7 @@ export default function RegisterPage() {
       const json = await r.json();
       if (!json.success || !json.data.token) {
         setError(json.message);
+        toast.error(json.message);
         return;
       }
       const token = json.data.token as string;
@@ -55,6 +59,10 @@ export default function RegisterPage() {
         provider: payload.provider,
         imagen: payload.imagen,
       });
+
+      if (payload.status === UserStatus.MUST_CONFIRM_EMAIL) {
+        router.push(`/app/confirmar-email`);
+      }
     } catch (e) {
       toast.error("Ups... Algo salió mal" + String(e));
     }
@@ -166,19 +174,6 @@ export default function RegisterPage() {
 
         <GoogleSignInButton context="signup" />
 
-        {/* <GoogleSignInButton /> */}
-        {error && (
-          <p
-            style={{
-              color: "red",
-              textAlign: "center",
-              marginTop: 10,
-              fontFamily: "Poppins-Regular",
-            }}
-          >
-            {error}
-          </p>
-        )}
       </form>
     </>
   );

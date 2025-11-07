@@ -3,7 +3,6 @@
 import { JwtPayload, useAuth } from "@/src/client/context/AuthContext";
 import { API_URL } from "@/src/config";
 import { FormField, FormLabel } from "@/src/shared/components/FormField";
-import { AppLogo } from "@/src/shared/components/NavLayout/AppLogo";
 import { Button, TextInput } from "futbol-in-ui";
 import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
@@ -11,8 +10,6 @@ import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 
 const RESEND_COOLDOWN = 90; // segundos
-
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export default function ConfirmarEmailPage() {
   const router = useRouter();
@@ -57,7 +54,7 @@ export default function ConfirmarEmailPage() {
     setError(null);
     setLoading(true);
     try {
-      const res = await fetch(`${BASE_URL}/auth/verify-email`, {
+      const res = await fetch(`${API_URL}/auth/verify-email`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: validEmail, code }),

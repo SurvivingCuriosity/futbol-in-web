@@ -16,8 +16,13 @@ export const fondosFutbolines: Record<TipoFutbolin, string> = {
 
 export const defaultLogoFutbolin = "/futbolines/desconocido_200x200.png";
 
-export function ImagenFondoFutbolin({ tipo,isSelected=false }: { tipo: TipoFutbolin,isSelected?:boolean }) {
-  
+export function ImagenFondoFutbolin({
+  tipo,
+  isSelected = false,
+}: {
+  tipo: TipoFutbolin;
+  isSelected?: boolean;
+}) {
   const src = fondosFutbolines[tipo] || defaultLogoFutbolin;
 
   return (
@@ -31,7 +36,13 @@ export function ImagenFondoFutbolin({ tipo,isSelected=false }: { tipo: TipoFutbo
           className="object-contain ml-auto h-auto"
           priority={false}
         />
-        <div className={`absolute inset-0 bg-linear-to-r ${isSelected ? 'from-neutral-900 via-neutral-900/90' : 'from-neutral-950 via-neutral-950/90'}  to-transparent`} />
+        <div
+          className={`absolute inset-0 bg-linear-to-r ${
+            isSelected
+              ? "from-neutral-900 via-neutral-900/90"
+              : "from-neutral-950 via-neutral-950/90"
+          }  to-transparent`}
+        />
       </div>
     </div>
   );

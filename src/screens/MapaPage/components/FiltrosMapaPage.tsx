@@ -14,7 +14,7 @@ export const BotonAbrirFiltros = () => {
   const { closeModal, openModal } = useModal();
 
   const handleClickMobile = (e: React.MouseEvent<HTMLButtonElement>) => {
-    openSheet(<div className="min-h-90"><PanelFiltros closeCallback={() => closeSheet()} /></div>);
+    openSheet(<div className="min-h-90"><PanelFiltros closeCallback={() => closeSheet()} /></div>,{});
     e.stopPropagation();
   };
 
@@ -53,8 +53,12 @@ export const BotonAbrirFiltros = () => {
 export const BotonCambiarView = () => {
   const view = useMapaStore((s) => s.view);
   const toggleView = useMapaStore((s) => s.toggleView);
+  const setShowTarjeta = useMapaStore((s) => s.setShowTarjeta);
+  const select = useMapaStore((s) => s.select);
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    select(null)
+    setShowTarjeta(false);
     toggleView();
     e.stopPropagation();
   };

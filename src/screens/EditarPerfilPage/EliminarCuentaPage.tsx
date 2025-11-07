@@ -4,13 +4,20 @@ import { GoBackWrapper } from "@/src/shared/components/GoBackWrapper";
 import { Button, TextInput } from "futbol-in-ui";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useEliminarCuenta } from "./hooks";
 
 export const EliminarCuentaPage = () => {
   const [text, setText] = useState("");
 
+  const { mutate: eliminarCuenta, isPending: isEliminandoCuenta } =
+    useEliminarCuenta();
+
   const router = useRouter();
 
-  const handleEliminarCuenta = () => {};
+  const handleEliminarCuenta = () => {
+    eliminarCuenta();
+    router.push("/app/login");
+  };
 
   return (
     <GoBackWrapper heading="Editar perfil">
@@ -28,11 +35,13 @@ export const EliminarCuentaPage = () => {
             label="Cancelar"
             onClick={() => router.back()}
             variant="outline"
+            disabled={isEliminandoCuenta}
           />
           <Button
             label="Eliminar cuenta"
             disabled={text !== "Quiero eliminar mi cuenta"}
             onClick={handleEliminarCuenta}
+            loading={isEliminandoCuenta}
           />
         </div>
       </div>
