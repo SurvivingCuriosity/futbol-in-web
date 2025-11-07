@@ -5,16 +5,20 @@ import { API_URL } from "@/src/config";
 import { FormField, FormLabel } from "@/src/shared/components/FormField";
 import { Button, TextInput } from "futbol-in-ui";
 import { jwtDecode } from "jwt-decode";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 
 const RESEND_COOLDOWN = 90; // segundos
 
 export default function ConfirmarEmailPage() {
+
+  const searchParams = useSearchParams();
+  const nuevoEmail = searchParams.get("new-email");
+
   const router = useRouter();
   const { user, login, logout } = useAuth();
-  const validEmail = user?.email;
+  const validEmail = nuevoEmail || user?.email;
 
   const [code, setCode] = useState("");
   const [error, setError] = useState<string | null>(null);

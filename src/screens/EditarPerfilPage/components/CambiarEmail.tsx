@@ -21,14 +21,14 @@ export const CambiarEmail = (props: CambiarEmailProps) => {
   const { mutate: actualizarEmail, isPending, isError } = useCambiarEmail();
 
   const handleClickCambiarEmail = async () => {
-    await actualizarEmail({
+    actualizarEmail({
       currentEmail: emailActual,
       nuevoEmail,
       confirmNuevoEmail,
       currentPassword: password,
     });
     if (!isPending && !isError) {
-      router.replace("/app/verificar-email");
+      router.replace(`/app/confirmar-email?new-email=${nuevoEmail}`);
     }
   };
 

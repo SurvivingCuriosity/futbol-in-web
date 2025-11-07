@@ -103,9 +103,8 @@ export default async function LandingCiudadRoute({
     description: `Descubre futbolines en ${ciudad.name}. Filtra por tipo, añade nuevos futbolines y compite en el ranking con el resto de jugadores.`,
     url: `https://futbolin.app/ciudad/${encodeURIComponent(ciudadParam)}`,
     numberOfItems: futbolines.length,
-    itemListElement: futbolines.slice(0, 10).map((f, i) => ({
+    itemListElement: futbolines.slice(0, 10).map((f) => ({
       "@type": "SportsActivityLocation",
-      position: i + 1,
       name: f.nombre || "Futbolín",
       address: {
         "@type": "PostalAddress",
