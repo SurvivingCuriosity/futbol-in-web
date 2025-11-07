@@ -1,8 +1,9 @@
-import { getAllFutbolines } from "@/src/actions/getAllFutbolines"
+import { getAllFutbolines } from "@/src/actions/getAllFutbolines";
 import { getRanking } from "@/src/actions/getRanking";
 import { getUserCount } from "@/src/actions/getUserCount";
 import { LandingPage } from "@/src/screens/LandingPage/LandingPage";
 import { Metadata } from "next";
+import Head from "next/head";
 
 export const revalidate = 600;
 
@@ -54,5 +55,37 @@ export default async function LandingPageRoute() {
     getUserCount(),
   ]);
 
-  return <LandingPage spots={spots} ranking={ranking} nUsuarios={nUsuarios} />;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Futbol-in App",
+    url: "https://futbolin.app",
+    description:
+      "Encuentra futbolines cerca de ti, añade nuevos y compite en el ranking de jugadores.",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: "https://futbolin.app/ciudad?query={search_term_string}",
+      "query-input": "required name=search_term_string",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Futbol-in App",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://futbolin.app/favicon.png",
+      },
+    },
+  };
+
+  return (
+    <>
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </Head>
+      <LandingPage spots={spots} ranking={ranking} nUsuarios={nUsuarios} />
+    </>
+  );
 }
