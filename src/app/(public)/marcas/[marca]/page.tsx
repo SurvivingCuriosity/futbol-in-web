@@ -1,7 +1,6 @@
 import { getFutbolinesMarca } from "@/src/actions/getFutbolinesCiudad";
 import { LandingMarcaPage } from "@/src/screens/LandingMarcaPage/LandingMarcaPage";
 import { marcas } from "@/src/shared/db/marcas";
-import Head from "next/head";
 import Link from "next/link";
 
 export const revalidate = 3600;
@@ -25,6 +24,18 @@ export async function generateMetadata({
 
   const title = `Futbolines ${marca.label}`;
   const description = `Descubre los futbolines de la marca ${marca.label}. Consulta ubicaciones, estilos y modelos destacados de futbolines ${marca.label}.`;
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: `Futbolines ${marca.label}`,
+    brand: {
+      "@type": "Brand",
+      name: marca.label,
+    },
+    description: `Descubre futbolines ${marca.label} en Futbol-in App.`,
+    url: `https://futbolin.app/marcas/${encodeURIComponent(marcaParam)}`,
+  };
 
   return {
     title,
@@ -56,6 +67,9 @@ export async function generateMetadata({
       description,
       images: ["https://futbolin.app/GraficoDeFunciones.png"],
     },
+    other:{
+      "script:ld+json": JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+    }
   };
 }
 
@@ -91,28 +105,8 @@ export default async function MarcaRoute({
     );
   }
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: `Futbolines ${marca.label}`,
-    brand: {
-      "@type": "Brand",
-      name: marca.label,
-    },
-    description: `Descubre futbolines ${marca.label} en Futbol-in App.`,
-    url: `https://futbolin.app/marcas/${encodeURIComponent(marcaParam)}`,
-  };
-
   return (
     <>
-      <Head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
-          }}
-        />
-      </Head>
       <LandingMarcaPage marca={marca} futbolines={futbolines} />
     </>
   );
