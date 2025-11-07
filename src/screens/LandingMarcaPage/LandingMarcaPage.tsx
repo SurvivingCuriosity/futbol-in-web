@@ -11,7 +11,7 @@ export const LandingMarcaPage = ({marca, futbolines}:{marca:Marca, futbolines:Sp
   return (
     <main className="min-h-screen">
       <MarcaHero marca={marca} />
-      <InfoMarca />
+      <InfoMarca brand={marca}/>
       <MapaMarca marca={marca} futbolines={futbolines} />
       <Footer />
     </main>
