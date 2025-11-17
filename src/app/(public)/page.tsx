@@ -3,7 +3,6 @@ import { getRanking } from "@/src/actions/getRanking";
 import { getUserCount } from "@/src/actions/getUserCount";
 import { LandingPage } from "@/src/screens/LandingPage/LandingPage";
 import { Metadata } from "next";
-import Head from "next/head";
 import { WebSite, WithContext } from "schema-dts";
 
 export const revalidate = 600;

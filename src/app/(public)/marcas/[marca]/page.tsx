@@ -1,7 +1,6 @@
 import { getFutbolinesMarca } from "@/src/actions/getFutbolinesCiudad";
 import { LandingMarcaPage } from "@/src/screens/LandingMarcaPage/LandingMarcaPage";
 import { marcas } from "@/src/shared/db/marcas";
-import Head from "next/head";
 import Link from "next/link";
 import { Product, WithContext } from "schema-dts";
 
@@ -92,15 +91,11 @@ export default async function MarcaRoute({
     );
   }
 
-  const jsonLd:WithContext<Product> = {
+  const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Product",
+    "@type": "CollectionPage",
     name: `Futbolines ${marca.label}`,
-    brand: {
-      "@type": "Brand",
-      name: marca.label,
-    },
-    description: `Descubre futbolines ${marca.label} en Futbol-in App.`,
+    description: `Información sobre los futbolines ${marca.label} en Futbol-in App.`,
     url: `https://futbolin.app/marcas/${encodeURIComponent(marcaParam)}`,
   };
 
