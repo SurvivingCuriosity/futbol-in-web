@@ -1,11 +1,9 @@
-import {
-  getBaresFromPlaceIds,
-  getFutbolinesCiudad,
-} from "@/src/actions/getFutbolinesCiudad";
-import { ciudades } from "@/src/client/shared/assets/ciudades/ciudades";
-import { LandingCiudadPage } from "@/src/screens/LandingCiudadPage/LandingCiudadPage";
+
+import { ciudades } from "@/src/shared/assets/ciudades/ciudades";
+import { LandingCiudadPage } from "@/src/features/ciudades/components/LandingCiudadPage";
 import Link from "next/link";
 import { ItemList, WithContext } from "schema-dts";
+import { getBaresFromPlaceIds, getFutbolinesCiudad } from "@/src/features/landing/actions/getFutbolinesCiudad";
 export const revalidate = 3600;
 
 export async function generateMetadata({

@@ -1,7 +1,7 @@
 "use client";
 
-import { RankingPage } from "@/src/screens/RankingPage/RankingPage";
-import { useGetRanking } from "@/src/shared/hooks/useRanking";
+import { RankingPage } from "@/src/features/ranking/components/RankingPage";
+import { useGetRanking } from "@/src/features/ranking/hooks/useRanking";
 
 export default function RankingRoute() {
   const { data: usuarios, isLoading, error } = useGetRanking();

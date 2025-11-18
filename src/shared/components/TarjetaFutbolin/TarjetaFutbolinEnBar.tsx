@@ -1,17 +1,17 @@
 "use client";
 
 // import { useIncidenciasBySpot } from "@/src/features/Incidencias/hooks";
+import { useAuth } from "@/src/features/auth/context/AuthContext";
+import { BotonReportar } from "@/src/features/futbolines/detalle/components/BotonReportar";
+import { Incidencias } from "@/src/features/futbolines/incidencias/Incidencias";
+import { faPen } from "@fortawesome/free-solid-svg-icons";
+import { UserRole } from "futbol-in-core/enum";
 import { SpotDTO } from "futbol-in-core/types";
+import { Button } from "futbol-in-ui";
+import { useRouter } from "next/navigation";
 import { cn } from "../../utils/cn";
 import { ImagenFondoFutbolin } from "../ImagenFondoFutbolin";
 import { LogoFutbolin } from "../LogoFutbolin";
-import { Button } from "futbol-in-ui";
-import { BotonReportar } from "@/src/screens/DetalleFutbolinPage/components/BotonReportar";
-import { useAuth } from "@/src/client/context/AuthContext";
-import { UserRole } from "futbol-in-core/enum";
-import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { useRouter } from "next/navigation";
-import { Incidencias } from "@/src/screens/DetalleFutbolinPage/incidencias/Incidencias";
 
 export function TarjetaFutbolinEnBar({
   futbolin,

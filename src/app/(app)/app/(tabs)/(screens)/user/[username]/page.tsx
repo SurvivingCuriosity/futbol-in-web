@@ -1,7 +1,7 @@
 "use client";
 
-import { PerfilPublicoPage } from "@/src/screens/PerfilPublicoPage/PerfilPublicoPage";
-import { useGetFullUserByUsername } from "@/src/shared/hooks/useGetFullUser";
+import { PerfilPublicoPage } from "@/src/features/user/publico/PerfilPublicoPage";
+import { useGetFullUserByUsername } from "@/src/features/user/detalle/hooks/useGetFullUser";
 import { useParams } from "next/navigation";
 
 export default function Perfil() {

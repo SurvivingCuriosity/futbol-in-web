@@ -1,7 +1,7 @@
-import { getAllFutbolines } from "@/src/actions/getAllFutbolines";
-import { getRanking } from "@/src/actions/getRanking";
-import { getUserCount } from "@/src/actions/getUserCount";
-import { LandingPage } from "@/src/screens/LandingPage/LandingPage";
+import { getAllFutbolines } from "@/src/features/landing/actions/getAllFutbolines";
+import { getRanking } from "@/src/features/landing/actions/getRanking";
+import { getUserCount } from "@/src/features/landing/actions/getUserCount";
+import { LandingPage } from "@/src/features/landing/components/LandingPage";
 import { Metadata } from "next";
 import { WebSite, WithContext } from "schema-dts";
 

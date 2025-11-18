@@ -1,8 +1,8 @@
 "use client";
 
-import { useAuth } from "@/src/client/context/AuthContext";
-import { MiPerfilPage } from "@/src/screens/MiPerfilPage/MiPerfilPage";
-import { FullUser, useGetFullUser } from "@/src/shared/hooks/useGetFullUser";
+import { useAuth } from "@/src/features/auth/context/AuthContext";
+import { MiPerfilPage } from "@/src/features/user/detalle/components/MiPerfilPage";
+import { FullUser, useGetFullUser } from "@/src/features/user/detalle/hooks/useGetFullUser";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { UserStatus } from "futbol-in-core/enum";

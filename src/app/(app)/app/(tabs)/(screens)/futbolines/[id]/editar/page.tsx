@@ -1,8 +1,8 @@
 "use client";
 
-import { useAllFutbolines } from "@/src/client/hooks/useGetAllFutbolines";
-import { EditarFutbolinPage } from "@/src/screens/EditarFutbolinPage/EditarFutbolinPage";
-import { useGetFullUser } from "@/src/shared/hooks/useGetFullUser";
+import { useAllFutbolines } from "@/src/shared/hooks/useGetAllFutbolines";
+import { EditarFutbolinPage } from "@/src/features/futbolines/editar/components/EditarFutbolinPage";
+import { useGetFullUser } from "@/src/features/user/detalle/hooks/useGetFullUser";
 import { useParams } from "next/navigation";
 
 export default function Page() {

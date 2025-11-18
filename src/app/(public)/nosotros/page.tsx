@@ -1,6 +1,6 @@
 "use client";
 
-import { Footer } from "@/src/screens/LandingPage/components/footer";
+import { Footer } from "@/src/features/landing/components/footer";
 
 export default function SobreNosotrosPage() {
   return (

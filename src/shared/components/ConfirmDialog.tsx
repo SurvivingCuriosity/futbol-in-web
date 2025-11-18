@@ -1,7 +1,7 @@
 // components/ConfirmDialog.tsx
 import { type ReactNode, useEffect } from "react";
 import { Portal } from "./Portal";
-import { useLayerZ } from "../hooks/useLayerZ";
+import { useLayerZ } from "../hooks/ui/useLayerZ";
 
 type ConfirmDialogProps = {
   isOpen: boolean;

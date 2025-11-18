@@ -1,8 +1,8 @@
 "use client"
 
-import { useAuth } from "@/src/client/context/AuthContext";
-import { EditarPassPage } from "@/src/screens/EditarPerfilPage/EditarPassPage";
-import { useGetFullUser } from "@/src/shared/hooks/useGetFullUser";
+import { useAuth } from "@/src/features/auth/context/AuthContext";
+import { EditarPassPage } from "@/src/features/user/editar/components/EditarPassPage";
+import { useGetFullUser } from "@/src/features/user/detalle/hooks/useGetFullUser";
 import { UserDTO } from "futbol-in-core/types";
 
 export default function Perfil() {

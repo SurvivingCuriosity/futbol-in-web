@@ -1,7 +1,7 @@
 "use client";
 
-import { useAllFutbolines } from "@/src/client/hooks/useGetAllFutbolines";
-import { MapaPage } from "@/src/screens/MapaPage/MapaPage";
+import { useAllFutbolines } from "@/src/shared/hooks/useGetAllFutbolines";
+import { MapaPage } from "@/src/features/mapa/MapaPage";
 import { Suspense } from "react";
 
 export default function MapaRoute() {

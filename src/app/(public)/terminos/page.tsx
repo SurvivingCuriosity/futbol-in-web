@@ -1,4 +1,4 @@
-import { Footer } from "@/src/screens/LandingPage/components/footer";
+import { Footer } from "@/src/features/landing/components/footer";
 
 const UPDATED_AT = "3 de noviembre de 2025";
 

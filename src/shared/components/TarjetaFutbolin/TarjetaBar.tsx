@@ -1,7 +1,6 @@
 "use client";
 
-import { useAllFutbolines } from "@/src/client/hooks/useGetAllFutbolines";
-import { Incidencias } from "@/src/screens/DetalleFutbolinPage/incidencias/Incidencias";
+import { useAllFutbolines } from "@/src/shared/hooks/useGetAllFutbolines";
 import {
   faEye,
   faPhone,
@@ -12,8 +11,9 @@ import { SpotDTO } from "futbol-in-core/types";
 import { Button } from "futbol-in-ui";
 import { Star } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useGetBarInfo } from "../../hooks/useGetBarInfo";
+import { useGetBarInfo } from "../../../features/futbolines/detalle/hooks/useGetBarInfo";
 import { TarjetaFutbolinEnBar } from "./TarjetaFutbolinEnBar";
+import { Incidencias } from "@/src/features/futbolines/incidencias/Incidencias";
 
 export function TarjetaBar({
   futbolin,

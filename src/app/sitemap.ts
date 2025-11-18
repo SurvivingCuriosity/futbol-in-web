@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { ciudades } from "@/src/client/shared/assets/ciudades/ciudades";
+import { ciudades } from "@/src/shared/assets/ciudades/ciudades";
 import { marcas } from "../shared/db/marcas";
 
 export const revalidate = 3600;

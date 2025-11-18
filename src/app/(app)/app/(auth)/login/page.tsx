@@ -1,6 +1,6 @@
 "use client";
 
-import LoginPage from "@/src/screens/LoginPage/LoginPage";
+import LoginPage from "@/src/features/auth/components/LoginPage";
 
 export default function LoginRoute() {
   return <LoginPage />;

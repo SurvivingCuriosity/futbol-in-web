@@ -1,4 +1,4 @@
-import ConfirmarEmailPage from "@/src/screens/ConfirmarEmailPage/ConfirmarEmailPage";
+import ConfirmarEmailPage from "@/src/features/auth/components/ConfirmarEmailPage";
 import { Suspense } from "react";
 
 export default function ConfirmarEmailRoute() {

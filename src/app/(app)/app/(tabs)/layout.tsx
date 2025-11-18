@@ -1,5 +1,5 @@
 "use client";
-import { useAuth } from "@/src/client/context/AuthContext";
+import { useAuth } from "@/src/features/auth/context/AuthContext";
 import { BottomNav } from "@/src/shared/components/BottomNav/BottomNav";
 import { UserStatus } from "futbol-in-core/enum";
 import Image from "next/image";

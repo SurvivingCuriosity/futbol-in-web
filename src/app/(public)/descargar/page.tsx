@@ -1,6 +1,6 @@
 "use client";
 
-import { Footer } from "@/src/screens/LandingPage/components/footer";
+import { Footer } from "@/src/features/landing/components/footer";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";

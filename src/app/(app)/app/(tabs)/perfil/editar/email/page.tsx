@@ -1,8 +1,8 @@
 "use client";
 
-import { useAuth } from "@/src/client/context/AuthContext";
-import { EditarEmailPage } from "@/src/screens/EditarPerfilPage/EditarEmailPage";
-import { useGetFullUser } from "@/src/shared/hooks/useGetFullUser";
+import { useAuth } from "@/src/features/auth/context/AuthContext";
+import { EditarEmailPage } from "@/src/features/user/editar/components/EditarEmailPage";
+import { useGetFullUser } from "@/src/features/user/detalle/hooks/useGetFullUser";
 
 export default function Perfil() {
   const { user, loading: loadingAuth } = useAuth();

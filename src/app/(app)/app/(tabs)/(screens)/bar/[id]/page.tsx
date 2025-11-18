@@ -1,9 +1,9 @@
 "use client";
 
-import { useAllFutbolines } from "@/src/client/hooks/useGetAllFutbolines";
-import DetalleBarScreen from "@/src/screens/DetalleFutbolinPage/DetalleFutbolinScreen";
-import { useGetBarInfo } from "@/src/shared/hooks/useGetBarInfo";
-import { useGetFullUser } from "@/src/shared/hooks/useGetFullUser";
+import { useAllFutbolines } from "@/src/shared/hooks/useGetAllFutbolines";
+import DetalleBarScreen from "@/src/features/futbolines/detalle/components/DetalleFutbolinScreen";
+import { useGetBarInfo } from "@/src/features/futbolines/detalle/hooks/useGetBarInfo";
+import { useGetFullUser } from "@/src/features/user/detalle/hooks/useGetFullUser";
 import { useParams } from "next/navigation";
 
 export default function Page() {

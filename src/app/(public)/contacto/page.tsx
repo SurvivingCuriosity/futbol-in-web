@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { Instagram } from "lucide-react";
-import { Footer } from "@/src/screens/LandingPage/components/footer";
+import { Footer } from "@/src/features/landing/components/footer";
 
 export default function ContactoPage() {
   return (

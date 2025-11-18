@@ -1,8 +1,7 @@
-import { getFutbolinesMarca } from "@/src/actions/getFutbolinesCiudad";
-import { LandingMarcaPage } from "@/src/screens/LandingMarcaPage/LandingMarcaPage";
+import { getFutbolinesMarca } from "@/src/features/landing/actions/getFutbolinesCiudad";
+import { LandingMarcaPage } from "@/src/features/marcas/components/LandingMarcaPage";
 import { marcas } from "@/src/shared/db/marcas";
 import Link from "next/link";
-import { Product, WithContext } from "schema-dts";
 
 export const revalidate = 3600;
 

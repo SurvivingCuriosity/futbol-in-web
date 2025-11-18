@@ -1,7 +1,7 @@
 'use client';
 
-import { queryClient } from "@/src/client/query/queryClient";
-import imagen_fondo from "@/src/client/shared/assets/background.jpg";
+import { queryClient } from "@/src/shared/client/queryClient";
+import imagen_fondo from "@/src/shared/assets/background.jpg";
 import { NavLayout } from "@/src/shared/components/NavLayout/NavLayout";
 import { QueryClientProvider } from "@tanstack/react-query";
 import Image from "next/image";

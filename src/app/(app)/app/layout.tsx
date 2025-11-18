@@ -1,7 +1,7 @@
 "use client";
 
-import { AuthProvider, useAuth } from "@/src/client/context/AuthContext";
-import { queryClient } from "@/src/client/query/queryClient";
+import { AuthProvider, useAuth } from "@/src/features/auth/context/AuthContext";
+import { queryClient } from "@/src/shared/client/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
