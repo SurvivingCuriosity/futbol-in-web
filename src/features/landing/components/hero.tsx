@@ -33,6 +33,7 @@ export async function Hero({ spots, users = 0 }: HeroProps) {
             className="w-full h-full object-cover opacity-30"
             width={300}
             height={300}
+            priority
           />
           <div className="absolute inset-0 bg-linear-to-b from-background/95 via-background/40 to-background" />
         </div>
