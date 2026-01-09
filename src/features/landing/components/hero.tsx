@@ -8,7 +8,8 @@ import { SpotDTO } from "futbol-in-core/types";
 import { MapPin, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { MapaLandingClient } from "./MapaLanding";
+import { MapFacade } from "./MapFacade";
+// import { MapaLandingClient } from "./MapaLanding";
 import { TypewriterClient } from "./TypeWriter";
 import { ScrollTopBtn } from "./scrollTopBtn";
 
@@ -106,7 +107,7 @@ export async function Hero({ spots, users = 0 }: HeroProps) {
               id="mapa-landing"
               className="w-full h-[450px] rounded-xl overflow-hidden scroll-m-10"
             >
-              <MapaLandingClient markers={spots ?? []} />
+              <MapFacade markers={spots ?? []} />
             </div>
             <Link href="/app/mapa" className="w-full md:hidden">
               <ButtonClient
