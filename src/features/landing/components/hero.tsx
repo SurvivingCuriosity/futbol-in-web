@@ -35,6 +35,7 @@ export async function Hero({ spots, users = 0 }: HeroProps) {
             width={300}
             height={300}
             priority
+            fetchPriority="high"
           />
           <div className="absolute inset-0 bg-linear-to-b from-background/95 via-background/40 to-background" />
         </div>
