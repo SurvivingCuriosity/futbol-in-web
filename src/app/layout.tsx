@@ -43,6 +43,7 @@ export default function RootLayout({
           data-website-id="a27f7392-1ad5-4dd2-b60d-282e9cecfa69"
           strategy="afterInteractive"
         />
+        <link rel="preconnect" href="https://api-gateway.umami.dev" />
         <Toaster toastOptions={{ duration: 2000 }} />
         {children}
       </body>
