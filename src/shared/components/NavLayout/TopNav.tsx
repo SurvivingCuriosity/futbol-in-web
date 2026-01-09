@@ -16,45 +16,59 @@ export const TopNav = () => {
         <HamburguerIcon isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} />
         <HamburguerMenu isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <ul className="flex flex-col gap-2 items-center py-12">
-            <Link href={"/app/login"} className="text-accent">
-              Acceder
-            </Link>
-            <Link
-              href={"/#caracteristicas"}
-              className="text-neutral-300 p-2 px-5 rounded-xl hover:bg-neutral-900"
-            >
-              Características
-            </Link>
-            <Link
-              href={"/#how-it-works"}
-              className="text-neutral-300 p-2 px-5 rounded-xl hover:bg-neutral-900"
-            >
-              Cómo funciona
-            </Link>
-            <Link
-              href={"/#ranking"}
-              className="text-neutral-300 p-2 px-5 rounded-xl hover:bg-neutral-900"
-            >
-              Ranking
-            </Link>
-            <Link
-              href={"/#cities"}
-              className="text-neutral-300 p-2 px-5 rounded-xl hover:bg-neutral-900"
-            >
-              Ciudades
-            </Link>
-            <Link
-              href={"/#marcas"}
-              className="text-neutral-300 p-2 px-5 rounded-xl hover:bg-neutral-900"
-            >
-              Marcas
-            </Link>
-            <Link
-              href={"/#descargar"}
-              className="text-neutral-300 p-2 px-5 rounded-xl hover:bg-neutral-900"
-            >
-              Descargar
-            </Link>
+            <li>
+              <Link href={"/app/login"} className="text-accent">
+                Acceder
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={"/#caracteristicas"}
+                className="text-neutral-300 p-2 px-5 rounded-xl hover:bg-neutral-900"
+              >
+                Características
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={"/#how-it-works"}
+                className="text-neutral-300 p-2 px-5 rounded-xl hover:bg-neutral-900"
+              >
+                Cómo funciona
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={"/#ranking"}
+                className="text-neutral-300 p-2 px-5 rounded-xl hover:bg-neutral-900"
+              >
+                Ranking
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={"/#cities"}
+                className="text-neutral-300 p-2 px-5 rounded-xl hover:bg-neutral-900"
+              >
+                Ciudades
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={"/#marcas"}
+                className="text-neutral-300 p-2 px-5 rounded-xl hover:bg-neutral-900"
+              >
+                Marcas
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={"/#descargar"}
+                className="text-neutral-300 p-2 px-5 rounded-xl hover:bg-neutral-900"
+              >
+                Descargar
+              </Link>
+            </li>
           </ul>
         </HamburguerMenu>
       </div>
@@ -64,42 +78,54 @@ export const TopNav = () => {
         <div className="flex items-center gap-20">
           {/* TODO: Links para navegación */}
           <ul className="items-center gap-2 lg:flex hidden">
-            <Link
-              href={"/#caracteristicas"}
-              className="text-neutral-300 p-2 px-5 rounded-xl hover:bg-neutral-900"
-            >
-              Características
-            </Link>
-            <Link
-              href={"/#how-it-works"}
-              className="text-neutral-300 p-2 px-5 rounded-xl hover:bg-neutral-900"
-            >
-              Cómo funciona
-            </Link>
-            <Link
-              href={"/#ranking"}
-              className="text-neutral-300 p-2 px-5 rounded-xl hover:bg-neutral-900"
-            >
-              Ranking
-            </Link>
-            <Link
-              href={"/#cities"}
-              className="text-neutral-300 p-2 px-5 rounded-xl hover:bg-neutral-900"
-            >
-              Ciudades
-            </Link>
-            <Link
-              href={"/#marcas"}
-              className="text-neutral-300 p-2 px-5 rounded-xl hover:bg-neutral-900"
-            >
-              Marcas
-            </Link>
-            <Link
-              href={"/#descargar"}
-              className="text-neutral-300 p-2 px-5 rounded-xl hover:bg-neutral-900"
-            >
-              Descargar
-            </Link>
+            <li>
+              <Link
+                href={"/#caracteristicas"}
+                className="text-neutral-300 p-2 px-5 rounded-xl hover:bg-neutral-900"
+              >
+                Características
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={"/#how-it-works"}
+                className="text-neutral-300 p-2 px-5 rounded-xl hover:bg-neutral-900"
+              >
+                Cómo funciona
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={"/#ranking"}
+                className="text-neutral-300 p-2 px-5 rounded-xl hover:bg-neutral-900"
+              >
+                Ranking
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={"/#cities"}
+                className="text-neutral-300 p-2 px-5 rounded-xl hover:bg-neutral-900"
+              >
+                Ciudades
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={"/#marcas"}
+                className="text-neutral-300 p-2 px-5 rounded-xl hover:bg-neutral-900"
+              >
+                Marcas
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={"/#descargar"}
+                className="text-neutral-300 p-2 px-5 rounded-xl hover:bg-neutral-900"
+              >
+                Descargar
+              </Link>
+            </li>
           </ul>
           <Link href={"/app/login"} className="text-accent">
             Acceder
