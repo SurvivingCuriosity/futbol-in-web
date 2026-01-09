@@ -12,20 +12,20 @@ export type JwtPayload = {
   imagen?: string;
   exp: number;
 };
-export type User = Omit<JwtPayload, "exp">;
+export type AuthUser = Omit<JwtPayload, "exp">;
 
 interface AuthContextType {
-  user: User | null;
+  user: AuthUser | null;
   token: string | null;
   loading: boolean;
-  login: (token: string, user: User) => void;
+  login: (token: string, user: AuthUser) => void;
   logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<AuthUser | null>(null);
   const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, []);
 
-  const login = (token: string, user: User) => {
+  const login = (token: string, user: AuthUser) => {
     setToken(token);
     setUser(user);
     localStorage.setItem("auth", JSON.stringify({ token, user }));

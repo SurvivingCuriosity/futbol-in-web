@@ -1,23 +1,23 @@
 "use client";
 
-import { JwtPayload, useAuth } from "@/src/features/auth/context/AuthContext";
+import { GoogleSignInButton } from "@/src/features/auth/components/SignInGoogleButton";
+import { useAuth } from "@/src/features/auth/context/AuthContext";
 import { FormField, FormLabel } from "@/src/shared/components/FormField";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  LoginBody,
-  RegisterBody,
-  registerSchema,
-} from "futbol-in-core/schemas";
+import { UserStatus } from "futbol-in-core/enum";
+import { RegisterBody } from "futbol-in-core/schemas";
 import { Button, PasswordInput, TextInput } from "futbol-in-ui";
-import { jwtDecode } from "jwt-decode";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { GoogleSignInButton } from "@/src/features/auth/components/SignInGoogleButton";
-import { API_URL } from "@/src/config";
-import { UserStatus } from "futbol-in-core/enum";
-import { useRouter } from "next/navigation";
+import { registerRequest } from "../api/registerRequest";
+import {
+  RegisterLocalBody,
+  registerLocalSchema,
+} from "../schemas/registerLocalSchema";
+import { mapTokenToUser } from "../utils/mapTokenToUser";
 import { Separador } from "./LoginPage";
 
 export default function RegisterPage() {
@@ -28,40 +28,27 @@ export default function RegisterPage() {
     handleSubmit,
     control,
     formState: { errors, isSubmitting },
-  } = useForm<RegisterBody>({
-    resolver: zodResolver(registerSchema),
+  } = useForm<RegisterLocalBody>({
+    resolver: zodResolver(registerLocalSchema),
   });
 
   const [error, setError] = useState<string | null>(null);
 
   const onSubmit = async (data: RegisterBody) => {
     try {
-      const r = await fetch(`${API_URL}/auth/register`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      const json = await r.json();
-      if (!json.success || !json.data.token) {
+      const json = await registerRequest(data);
+
+      if (!json.success || !json.data?.token) {
         setError(json.message);
         toast.error(json.message);
         return;
       }
-      const token = json.data.token as string;
-      const payload = jwtDecode<JwtPayload>(token);
 
-      login(token, {
-        id: payload.id,
-        email: payload.email,
-        name: payload.name,
-        role: payload.role,
-        status: payload.status,
-        provider: payload.provider,
-        imagen: payload.imagen,
-      });
+      const { user } = mapTokenToUser(json.data.token);
+      login(json.data.token, user);
 
-      if (payload.status === UserStatus.MUST_CONFIRM_EMAIL) {
-        router.push(`/app/confirmar-email`);
+      if (user.status === UserStatus.MUST_CONFIRM_EMAIL) {
+        router.replace(`/app/confirmar-email`);
       }
     } catch (e) {
       toast.error("Ups... Algo salió mal" + String(e));
@@ -145,7 +132,7 @@ export default function RegisterPage() {
             </FormLabel>
             <Controller
               control={control}
-              name="password"
+              name="confirmPassword"
               render={({ field }) => (
                 <PasswordInput
                   id="register-confirm-pass"
@@ -154,6 +141,7 @@ export default function RegisterPage() {
                   onChangeText={field.onChange}
                   value={field.value}
                   autoComplete="new-password"
+                  errorText={errors.confirmPassword?.message}
                 />
               )}
             />
@@ -173,7 +161,6 @@ export default function RegisterPage() {
         <Separador />
 
         <GoogleSignInButton context="signup" />
-
       </form>
     </>
   );

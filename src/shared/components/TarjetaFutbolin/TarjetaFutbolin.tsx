@@ -1,6 +1,5 @@
 "use client";
 
-// import { useIncidenciasBySpot } from "@/src/features/Incidencias/hooks";
 import { faBuilding, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SpotDTO } from "futbol-in-core/types";
@@ -21,11 +20,9 @@ export function TarjetaFutbolin({
 }) {
   if (!futbolin) return null;
 
+  const partes = futbolin.ciudad.split(",").map((p) => p.trim());
   const ciudad =
-    futbolin.ciudad.split(",")[0].trim() ===
-    futbolin.ciudad.split(",")[1].trim()
-      ? futbolin.ciudad.split(",")[0]
-      : `${futbolin.ciudad}`;
+    partes.length > 1 && partes[0] === partes[1] ? partes[0] : partes[0];
 
   return (
     <button

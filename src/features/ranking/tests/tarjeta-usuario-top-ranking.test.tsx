@@ -1,46 +1,47 @@
-import { render, screen, fireEvent } from "@testing-library/react";
 import TarjetaUsuarioTopRanking from "@/src/features/ranking/components/TarjetaUsuarioTopRanking";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { vi } from "vitest";
 
-// mock router
 const pushMock = vi.fn();
 
 vi.mock("next/navigation", () => ({
-    useRouter: () => ({
-        push: pushMock,
-    }),
+  useRouter: () => ({
+    push: pushMock,
+  }),
 }));
 
 describe("TarjetaUsuarioTopRanking", () => {
-    const usuario = {
-        id: '0',
-        posicion: 1,
-        usuario: 'Ferchy',
-        spotsCreados: 20,
-        puntuacion: 100,
-        imagen: 'string'
-    };
+  const usuarioRanking = {
+    id: "0",
+    posicion: 1,
+    usuario: "Ferchy",
+    spotsCreados: 20,
+    puntuacion: 100,
+    imagen: "placeholder.jpg",
+  };
 
-    it("renderiza el nombre de usuario y puntuación", () => {
-        render(<TarjetaUsuarioTopRanking usuario={usuario} />);
+  const { usuario: nombreUsuario, puntuacion } = usuarioRanking;
 
-        expect(screen.getByText("Ferchy")).toBeInTheDocument();
-        expect(screen.getByText("100")).toBeInTheDocument();
-    });
+  it("renderiza el nombre de usuario y puntuación", () => {
+    render(<TarjetaUsuarioTopRanking usuario={usuarioRanking} />);
 
-    it("llama a router.push al hacer click", () => {
-        render(<TarjetaUsuarioTopRanking usuario={usuario} />);
+    expect(screen.getByText(nombreUsuario)).toBeInTheDocument();
+    expect(screen.getByText(puntuacion)).toBeInTheDocument();
+  });
 
-        fireEvent.click(screen.getByText("Ferchy"));
+  it("llama a router.push al hacer click", () => {
+    render(<TarjetaUsuarioTopRanking usuario={usuarioRanking} />);
 
-        expect(pushMock).toHaveBeenCalledWith("/app/user/Ferchy");
-    });
+    fireEvent.click(screen.getByText(nombreUsuario));
 
-    it("muestra el icono del top1 (posición 0)", () => {
-        const { container } = render(
-            <TarjetaUsuarioTopRanking usuario={usuario} />
-        );
+    expect(pushMock).toHaveBeenCalledWith(`/app/user/${nombreUsuario}`);
+  });
 
-        expect(container.querySelector("svg")).toBeTruthy();
-    });
+  it("muestra el icono del top 1 (posición 0)", () => {
+    const { container } = render(
+      <TarjetaUsuarioTopRanking usuario={usuarioRanking} />
+    );
+
+    expect(container.querySelector("svg")).toBeTruthy();
+  });
 });

@@ -4,7 +4,6 @@ import { UsuarioEnRanking } from "futbol-in-core/types";
 import { Award, Medal, Trophy } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 
 export default function TarjetaUsuarioTopRanking({
   usuario,
@@ -12,7 +11,6 @@ export default function TarjetaUsuarioTopRanking({
   usuario: UsuarioEnRanking;
 }) {
   const router = useRouter();
-  const [image] = useState<string>("");
 
   const handleNavigateToUser = () => {
     router.push(`/app/user/${usuario.usuario}`);

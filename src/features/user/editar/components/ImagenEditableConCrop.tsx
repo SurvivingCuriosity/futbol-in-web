@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import Image from "next/image";
 import ReactCrop, { Crop, PixelCrop } from "react-image-crop";
+import "react-image-crop/dist/ReactCrop.css";
 
 interface ImagenEditableConCropProps {
   url: string;

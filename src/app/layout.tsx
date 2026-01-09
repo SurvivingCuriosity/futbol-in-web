@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import Script from "next/script";
 import { Toaster } from "react-hot-toast";
-import "react-image-crop/dist/ReactCrop.css";
+
 import "../globals.css";
 
 export const metadata: Metadata = {

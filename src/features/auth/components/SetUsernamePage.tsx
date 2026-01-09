@@ -1,18 +1,17 @@
 "use client";
 
-import { JwtPayload, useAuth } from "@/src/features/auth/context/AuthContext";
+import { useAuth } from "@/src/features/auth/context/AuthContext";
 import { FormField, FormLabel } from "@/src/shared/components/FormField";
 import { Button, TextInput } from "futbol-in-ui";
-import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
-
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+import { setUsernameRequest } from "../api/setUsernameRequest";
+import { mapTokenToUser } from "../utils/mapTokenToUser";
 
 export default function SetUsernamePage() {
   const router = useRouter();
-  const { token:authToken, login, logout } = useAuth();
+  const { token: authToken, login, logout } = useAuth();
 
   const [username, setUsername] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -21,36 +20,20 @@ export default function SetUsernamePage() {
   const onSubmit = async () => {
     setError(null);
     setLoading(true);
-    try {
-      const res = await fetch(`${BASE_URL}/auth/set-username`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${authToken}`,
-        },
-        body: JSON.stringify({ username }),
-      });
 
-      const json = await res.json();
-      if (!json.success) {
+    try {
+      const json = await setUsernameRequest(username, authToken);
+
+      if (!json.success || !json.data?.token) {
         setError(json.message);
-        setLoading(false);
+        toast.error(json.message || "Error al iniciar sesión");
         return;
       }
 
       toast.success("Nombre establecido. Te damos la bienvenida!");
-      const token = json.data.token as string;
-      const payload = jwtDecode<JwtPayload>(token);
 
-      login(token, {
-        id: payload.id,
-        email: payload.email,
-        name: payload.name,
-        role: payload.role,
-        status: payload.status,
-        provider: payload.provider,
-        imagen: payload.imagen,
-      });
+      const { user } = mapTokenToUser(json.data.token);
+      login(json.data.token, user);
 
       router.replace("/app/home");
     } catch {
@@ -79,6 +62,7 @@ export default function SetUsernamePage() {
           placeholder="johny123"
           value={username}
           onChangeText={setUsername}
+          errorText={error || ''}
         />
       </FormField>
 
@@ -89,6 +73,7 @@ export default function SetUsernamePage() {
       />
 
       <button
+        aria-label="logout-button"
         onClick={logout}
         className="block mx-auto mt-4 text-xs text-neutral-500 hover:text-red-400"
       >
