@@ -1,6 +1,5 @@
 import { ciudades } from "@/src/shared/assets/ciudades/ciudades";
-import ButtonClient from "@/src/shared/components/ButtonClient";
-import { Button } from "futbol-in-ui";
+import { LandingButton } from "./LandingButton";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -36,7 +35,7 @@ export const FutbolinesCities = () => {
                 Futbolines en <span className="text-primary">{city.name}</span>
               </p>
               <div className="absolute bottom-3 left-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <ButtonClient label="Ver más" />
+                <LandingButton label="Ver más" />
               </div>
             </Link>
           ))}

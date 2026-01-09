@@ -26,7 +26,7 @@ export const MapFacade = ({ markers }: MapFacadeProps) => {
                 fill
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
                 sizes="(max-width: 768px) 100vw, 50vw"
-                priority // We want this placeholder to load fast as it's above the fold mostly
+                sizes="(max-width: 768px) 100vw, 50vw"
             />
 
             {/* Overlay to darken and show CTA */}
