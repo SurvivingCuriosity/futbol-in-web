@@ -1,4 +1,5 @@
-import ButtonClient from "@/src/shared/components/ButtonClient";
+// import ButtonClient from "@/src/shared/components/ButtonClient";
+import { LandingButton } from "./LandingButton";
 import {
   faLocationDot,
   faMagnifyingGlass,
@@ -63,21 +64,21 @@ export async function Hero({ spots, users = 0 }: HeroProps) {
 
               <div className="flex flex-col sm:flex-row items-center gap-4 max-w-xl">
                 <Link href="/app/mapa" className="w-full hidden md:block">
-                  <ButtonClient
+                  <LandingButton
                     label="Mapa completo"
                     size="lg"
                     icon={faMagnifyingGlass}
                   />
                 </Link>
                 <Link href="/#mapa-landing" className="w-full md:hidden">
-                  <ButtonClient
+                  <LandingButton
                     label="Ver mapa"
                     size="lg"
                     icon={faLocationDot}
                   />
                 </Link>
                 <Link href="/app/agregar" className="w-full">
-                  <ButtonClient
+                  <LandingButton
                     label="Añadir futbolín"
                     size="lg"
                     variant="outline"
@@ -111,7 +112,7 @@ export async function Hero({ spots, users = 0 }: HeroProps) {
               <MapFacade markers={spots ?? []} />
             </div>
             <Link href="/app/mapa" className="w-full md:hidden">
-              <ButtonClient
+              <LandingButton
                 label="Mapa completo"
                 size="lg"
                 icon={faMagnifyingGlass}
