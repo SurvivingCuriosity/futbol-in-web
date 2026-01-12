@@ -29,7 +29,6 @@ export default function LoginPage() {
   const onSubmit = async (data: LoginBody) => {
     try {
       const json = await loginRequest(data);
-
       if (!json.success || !json.data?.token) {
         toast.error(json.message || "Error al iniciar sesión");
         return;

@@ -12,6 +12,8 @@ export const HomePage = () => {
     distancesInMeters,
     isLoading: isLoadingCercanos,
     error,
+    permissionStatus,
+    requestLocation,
   } = useGetNearestFutbolines(5);
 
   const {
@@ -55,6 +57,30 @@ export const HomePage = () => {
           <p className="text-center p-5 text-neutral-500">Cargando...</p>
         ) : error ? (
           <p>Ups...</p>
+        ) : permissionStatus === "denied" ? (
+          <div className="flex flex-col items-center p-6 text-center">
+            <p className="text-neutral-400 mb-2">
+              No tienes acceso a la ubicación.
+            </p>
+            <p className="text-sm text-neutral-500">
+              Actívala en los ajustes de tu navegador para ver futbolines
+              cercanos.
+            </p>
+          </div>
+        ) : permissionStatus === "unavailable" ||
+          permissionStatus === "prompt" ||
+          !nearestFutbolines.length ? (
+          <div className="flex flex-col items-center p-6 text-center">
+            <p className="text-neutral-400 mb-4">
+              Necesitamos tu ubicación para mostrarte los futbolines más cercanos.
+            </p>
+            <button
+              onClick={() => requestLocation?.()}
+              className="px-4 py-2 bg-primary text-black font-bold rounded-lg hover:bg-primary/90 transition-colors"
+            >
+              Activar Ubicación
+            </button>
+          </div>
         ) : (
           <ul className="flex gap-2 items-center overflow-x-auto snap-x snap-mandatory pb-2">
             {nearestFutbolines.map((f, index) => (

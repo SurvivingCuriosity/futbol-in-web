@@ -13,7 +13,7 @@ export const MapaPage = ({ futbolines }: { futbolines: SpotDTO[] }) => {
   const searchParams = useSearchParams();
   const idSelected = searchParams.get("selected");
 
-  const userLocation = useUserLocation();
+  const { location: userLocation } = useUserLocation();
 
   const filtered = useMapaStore((s) => s.filtered);
   const setFutbolines = useMapaStore((s) => s.setFutbolines);

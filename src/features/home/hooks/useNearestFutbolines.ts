@@ -26,7 +26,12 @@ export const useGetNearestFutbolines = (cantidad = 1) => {
     isLoading: futbolinesLoading,
     error,
   } = useAllFutbolines();
-  const coords = useUserLocation();
+  const {
+    location: coords,
+    isLoading: locationLoading,
+    permissionStatus,
+    requestLocation,
+  } = useUserLocation();
 
   const { nearest, distances } = useMemo(() => {
     if (!coords || !allFutbolines.length)
@@ -54,7 +59,9 @@ export const useGetNearestFutbolines = (cantidad = 1) => {
   return {
     nearestFutbolines: nearest, // Array de SpotDTO (los N más cercanos)
     distancesInMeters: distances.map((d) => Math.trunc(d)), // Array de distancias en metros
-    isLoading: futbolinesLoading || !coords, // loading hasta tener coords y datos
+    isLoading: (futbolinesLoading || locationLoading) && !!coords, // loading real
     error,
+    permissionStatus,
+    requestLocation,
   };
 };

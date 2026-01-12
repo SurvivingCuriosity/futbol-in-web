@@ -30,17 +30,15 @@ export const MapaPageOverlay = () => {
     <div className="pointer-events-none absolute inset-0 z-99999">
       {viajando && <OverlayViajando />}
       <span
-        className={`w-full h-full -z-1 fixed ${
-          view === "map"
+        className={`w-full h-full -z-1 fixed ${view === "map"
             ? "lg:hidden"
             : "lg:backdrop-blur-none backdrop-blur-xs lg:bg-transparent bg-neutral-300/10"
-        }`}
+          }`}
       ></span>
 
       <div
-        className={`h-full flex-col lg:max-w-sm flex ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        } transition-transform duration-300`}
+        className={`h-full flex-col lg:max-w-sm flex ${isOpen ? "translate-x-0" : "-translate-x-full"
+          } transition-transform duration-300`}
       >
         <div className="w-full flex flex-col h-full">
           <div className="flex items-center gap-1 p-2">
@@ -70,11 +68,10 @@ export const MapaPageOverlay = () => {
           </div>
 
           <div
-            className={`p-2 pt-0 grow pointer-events-auto transition-transform duration-300 ${
-              view === "map"
+            className={`p-2 pt-0 grow pointer-events-auto transition-transform duration-300 ${view === "map"
                 ? "lg:translate-x-0 translate-x-full"
                 : "translate-x-0"
-            }
+              }
             lg:block!`}
           >
             <ListaFutbolines
@@ -97,7 +94,7 @@ export const MapaPageOverlay = () => {
 };
 
 export const LocateSelfButton = () => {
-  const userLocation = useUserLocation();
+  const { location: userLocation } = useUserLocation();
   const setFocusCoords = useMapaStore((state) => state.setFocusCoords);
   return (
     userLocation && (
