@@ -64,7 +64,7 @@ export default function TarjetaUsuarioTopRanking({
         />
 
         <span className="flex flex-col gap-0.5">
-          <p>{usuario?.usuario}</p>
+          <p translate="no">{usuario?.usuario}</p>
           <MedallasUsuario createdAt={usuario.createdAt} userId={usuario.id} provincias={usuario.provincias} perfilCompleto={usuario.perfilCompleto} size={20} showLabel={false} />
         </span>
 

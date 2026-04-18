@@ -32,11 +32,11 @@ export const MainInfo = ({
           />
         )}
         <div className="space-y-1">
-          <p className="text-xl md:text-4xl font-bold text-primary">
+          <p translate="no" className="text-xl md:text-4xl font-bold text-primary">
             {user.name}
           </p>
           {user.nombre && (
-            <p className="text-sm md:text-lg text-neutral-500">{user.nombre}</p>
+            <p translate="no" className="text-sm md:text-lg text-neutral-500">{user.nombre}</p>
           )}
           {user.posicion && <ChipPosicion posicion={user.posicion} />}
         </div>
