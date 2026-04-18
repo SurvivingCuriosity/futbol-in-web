@@ -20,7 +20,7 @@ export const LandingButton = ({
     className,
 }: LandingButtonProps) => {
     const baseStyles =
-        "rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-2 active:scale-95";
+        "whitespace-nowrap w-full rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-2 active:scale-95";
 
     const variants = {
         primary:

@@ -107,7 +107,7 @@ export async function Hero({ spots, users = 0 }: HeroProps) {
             {/* Right Column - Interactive Map */}
             <div
               id="mapa-landing"
-              className="w-full h-[450px] rounded-xl overflow-hidden scroll-m-10"
+              className="w-full md:h-[450px] h-[650px] rounded-xl overflow-hidden scroll-m-18"
             >
               <MapFacade markers={spots ?? []} />
             </div>
