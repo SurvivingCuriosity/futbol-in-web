@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export interface LatLngLiteral {
   lat: number;
@@ -14,6 +14,9 @@ export type PermissionStatus =
   | "unavailable"
   | "unknown";
 
+// ~2 meters at equator — filters GPS jitter when stationary
+const MIN_DELTA = 1.8e-5;
+
 export function useUserLocation() {
   const [userLocation, setUserLocation] = useState<LatLngLiteral | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -21,7 +24,13 @@ export function useUserLocation() {
   const [permissionStatus, setPermissionStatus] =
     useState<PermissionStatus>("unknown");
 
+  // Stores the active watcher cleanup so requestLocation() never leaks watchers
+  const cleanupRef = useRef<(() => void) | null>(null);
+
   const getLocation = () => {
+    cleanupRef.current?.();
+    cleanupRef.current = null;
+
     setIsLoading(true);
     setError(null);
 
@@ -34,18 +43,11 @@ export function useUserLocation() {
 
     navigator.permissions
       .query({ name: "geolocation" })
-      .then((permissionStatus) => {
-        setPermissionStatus(permissionStatus.state as PermissionStatus);
-
-        // Listen for changes
-        permissionStatus.onchange = () => {
-          setPermissionStatus(permissionStatus.state as PermissionStatus);
-        };
+      .then((result) => {
+        setPermissionStatus(result.state as PermissionStatus);
+        result.onchange = () => setPermissionStatus(result.state as PermissionStatus);
       })
-      .catch(() => {
-        // Fallback for browsers that don't support permissions API
-        setPermissionStatus("unknown");
-      });
+      .catch(() => setPermissionStatus("unknown"));
 
     const watchId = navigator.geolocation.watchPosition(
       (pos) => {
@@ -53,14 +55,14 @@ export function useUserLocation() {
         setUserLocation((prev) => {
           if (
             !prev ||
-            prev.lat !== latitude ||
-            prev.lng !== longitude
+            Math.abs(prev.lat - latitude) > MIN_DELTA ||
+            Math.abs(prev.lng - longitude) > MIN_DELTA
           ) {
             return { lat: latitude, lng: longitude };
           }
           return prev;
         });
-        setIsLoading(false);
+        setIsLoading((prev) => (prev ? false : prev));
         setPermissionStatus("granted");
       },
       (err) => {
@@ -76,18 +78,16 @@ export function useUserLocation() {
       {
         enableHighAccuracy: true,
         maximumAge: 5000,
-        timeout: 5000,
+        timeout: 10000,
       }
     );
 
-    return () => {
-      navigator.geolocation.clearWatch(watchId);
-    };
+    cleanupRef.current = () => navigator.geolocation.clearWatch(watchId);
   };
 
   useEffect(() => {
-    const cleanup = getLocation();
-    return cleanup;
+    getLocation();
+    return () => cleanupRef.current?.();
   }, []);
 
   return {

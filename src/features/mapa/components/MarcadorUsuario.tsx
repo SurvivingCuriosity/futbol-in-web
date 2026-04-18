@@ -28,20 +28,21 @@ function buildMarkerContent(): {
     "position:absolute;top:30px;left:30px;width:0;height:0;" +
     "transform-origin:0 0;transition:transform 0.15s linear;pointer-events:none;opacity:0;";
 
-  // SVG arrow — head + shaft, pointing up, centered on pivot
+  // Triangle: tip at top, base overlaps dot edge so it looks like it "emerges" from the dot
+  // Pivot is at dot center (30,30). Dot radius ≈ 11px (9px + 2.5px border).
+  // Triangle: 10px wide, 18px tall. top:-29 → base lands at y=-11 (dot edge), tip at y=-29.
   const NS = "http://www.w3.org/2000/svg";
   const svg = document.createElementNS(NS, "svg");
-  svg.setAttribute("width", "12");
+  svg.setAttribute("width", "10");
   svg.setAttribute("height", "18");
-  svg.setAttribute("viewBox", "0 0 12 18");
-  svg.style.cssText = "position:absolute;top:-48px;left:-6px;overflow:visible;";
+  svg.setAttribute("viewBox", "0 0 10 18");
+  svg.style.cssText = "position:absolute;top:-29px;left:-5px;overflow:visible;";
 
   const path = document.createElementNS(NS, "path");
-  // Arrowhead 0-9px, shaft 9-18px, 12px wide
-  path.setAttribute("d", "M6 0 L12 9 L8 9 L8 18 L4 18 L4 9 L0 9 Z");
+  path.setAttribute("d", "M5 0 L10 18 L0 18 Z");
   path.setAttribute("fill", "#4285F4");
   path.setAttribute("stroke", "white");
-  path.setAttribute("stroke-width", "1.5");
+  path.setAttribute("stroke-width", "1");
   path.setAttribute("stroke-linejoin", "round");
   svg.appendChild(path);
   rotator.appendChild(svg);
@@ -105,19 +106,26 @@ export function MarcadorUsuario({
       });
     };
 
+    let removeListeners = () => {};
+
     const register = () => {
-      // deviceorientationabsolute gives true-north heading directly on Android
-      window.addEventListener(
-        "deviceorientationabsolute",
-        onOrientation as EventListener,
-        { passive: true }
-      );
-      // Fallback for iOS / browsers without absolute variant
-      window.addEventListener(
-        "deviceorientation",
-        onOrientation as EventListener,
-        { passive: true }
-      );
+      let hasAbsolute = false;
+
+      const onAbsolute: EventListener = (e) => {
+        hasAbsolute = true;
+        onOrientation(e as DeviceOrientationEvent);
+      };
+      const onFallback: EventListener = (e) => {
+        if (!hasAbsolute) onOrientation(e as DeviceOrientationEvent);
+      };
+
+      window.addEventListener("deviceorientationabsolute", onAbsolute, { passive: true });
+      window.addEventListener("deviceorientation", onFallback, { passive: true });
+
+      removeListeners = () => {
+        window.removeEventListener("deviceorientationabsolute", onAbsolute);
+        window.removeEventListener("deviceorientation", onFallback);
+      };
     };
 
     // iOS 13+ requires explicit permission
@@ -144,14 +152,7 @@ export function MarcadorUsuario({
     }
 
     return () => {
-      window.removeEventListener(
-        "deviceorientationabsolute",
-        onOrientation as EventListener
-      );
-      window.removeEventListener(
-        "deviceorientation",
-        onOrientation as EventListener
-      );
+      removeListeners();
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
     };
   }, []);
