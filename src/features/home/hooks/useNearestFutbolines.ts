@@ -57,9 +57,9 @@ export const useGetNearestFutbolines = (cantidad = 1) => {
   }, [coords, allFutbolines, cantidad]);
 
   return {
-    nearestFutbolines: nearest, // Array de SpotDTO (los N más cercanos)
-    distancesInMeters: distances.map((d) => Math.trunc(d)), // Array de distancias en metros
-    isLoading: (futbolinesLoading || locationLoading) && !!coords, // loading real
+    nearestFutbolines: nearest,
+    distancesInMeters: distances.map((d) => Math.trunc(d)),
+    isLoading: locationLoading || futbolinesLoading,
     error,
     permissionStatus,
     requestLocation,
