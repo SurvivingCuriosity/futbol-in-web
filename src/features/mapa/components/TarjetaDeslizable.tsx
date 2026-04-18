@@ -34,9 +34,7 @@ const TarjetaDeslizableMovil = () => {
   const { openSheet, closeSheet } = useBottomSheet();
 
   useEffect(() => {
-    console.log("Cambia a " + showTarjeta);
     if (!showTarjeta || !isMobile) {
-      console.log('Debe cerrarse')
       closeSheet();
     } else {
       openSheet(

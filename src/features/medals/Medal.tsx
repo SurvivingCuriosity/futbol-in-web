@@ -1,7 +1,7 @@
 import { cn } from "@/src/shared/utils/cn";
 import { type LucideIcon } from "lucide-react";
 
-export type MedalTier = 1 | 2 | 3 | 4 | 5;
+export type MedalTier = 1 | 2 | 3 | 4 | 5 | "neutral";
 
 export type MedalShape =
   | "shield"
@@ -96,27 +96,34 @@ const TIER_STYLES: Record<
   },
   4: {
     label: "Platino",
-    // Holográfico cyan/magenta
-    bg: "conic-gradient(from 180deg at 50% 50%, oklch(0.75 0.20 200), oklch(0.7 0.25 320), oklch(0.8 0.18 180), oklch(0.75 0.22 280), oklch(0.75 0.20 200))",
+    bg: "conic-gradient(from 180deg at 50% 50%, oklch(0.75 0.22 220), oklch(0.7 0.26 250), oklch(0.8 0.20 200), oklch(0.75 0.24 235), oklch(0.75 0.22 220))",
     inner:
       "radial-gradient(circle at 30% 25%, oklch(0.98 0.05 220 / 0.9), transparent 55%)",
     glow:
-      "0 0 30px oklch(0.7 0.25 320 / 0.7), 0 0 60px oklch(0.75 0.22 200 / 0.5)",
-    ring: "oklch(0.78 0.22 280)",
-    iconColor: "oklch(0.98 0.02 250)",
-    rim: "linear-gradient(135deg, oklch(0.85 0.20 200), oklch(0.7 0.25 320))",
+      "0 0 30px oklch(0.7 0.26 250 / 0.7), 0 0 60px oklch(0.75 0.22 220 / 0.5)",
+    ring: "oklch(0.78 0.24 235)",
+    iconColor: "oklch(0.98 0.02 230)",
+    rim: "linear-gradient(135deg, oklch(0.85 0.20 215), oklch(0.7 0.26 250))",
   },
   5: {
     label: "Diamante",
-    // Máxima complejidad: prisma con neón intenso
-    bg: "conic-gradient(from 0deg at 50% 50%, oklch(0.75 0.27 0), oklch(0.78 0.25 50), oklch(0.85 0.22 100), oklch(0.78 0.25 160), oklch(0.75 0.27 220), oklch(0.7 0.28 290), oklch(0.75 0.27 360))",
+    bg: "conic-gradient(from 0deg at 50% 50%, oklch(0.72 0.28 280), oklch(0.75 0.26 300), oklch(0.80 0.22 260), oklch(0.73 0.27 290), oklch(0.70 0.29 270), oklch(0.74 0.26 285), oklch(0.72 0.28 280))",
     inner:
-      "radial-gradient(circle at 30% 25%, oklch(1 0 0 / 0.95), transparent 50%), radial-gradient(circle at 70% 80%, oklch(0.9 0.2 320 / 0.5), transparent 55%)",
+      "radial-gradient(circle at 30% 25%, oklch(1 0 0 / 0.95), transparent 50%), radial-gradient(circle at 70% 80%, oklch(0.85 0.22 290 / 0.5), transparent 55%)",
     glow:
-      "0 0 35px oklch(0.78 0.27 320 / 0.85), 0 0 70px oklch(0.75 0.27 220 / 0.6), 0 0 110px oklch(0.78 0.25 50 / 0.45)",
-    ring: "oklch(0.85 0.25 320)",
+      "0 0 35px oklch(0.75 0.28 285 / 0.85), 0 0 70px oklch(0.72 0.27 270 / 0.6), 0 0 110px oklch(0.74 0.26 295 / 0.45)",
+    ring: "oklch(0.82 0.26 285)",
     iconColor: "oklch(0.99 0 0)",
-    rim: "conic-gradient(from 0deg, oklch(0.9 0.25 0), oklch(0.85 0.25 100), oklch(0.85 0.25 200), oklch(0.85 0.25 300), oklch(0.9 0.25 360))",
+    rim: "conic-gradient(from 0deg, oklch(0.88 0.26 270), oklch(0.85 0.25 285), oklch(0.88 0.24 300), oklch(0.85 0.26 275), oklch(0.88 0.26 270))",
+  },
+  neutral: {
+    label: "Neutral",
+    bg: "oklch(0.15 0 0)",
+    inner: "oklch(0.15 0 0)",
+    glow: "0 0 0 transparent",
+    ring: "oklch(0.55 0 0)",
+    iconColor: "oklch(0.55 0 0)",
+    rim: "linear-gradient(135deg, oklch(0.96 0 0), oklch(0.48 0 0))",
   },
 };
 
@@ -130,11 +137,11 @@ export function Medal({
   const style = TIER_STYLES[tier];
   const clipPath = SHAPE_CLIPS[shape];
 
-  const isHighTier = tier >= 4;
+  const isHighTier = typeof tier === "number" && tier >= 4;
   const isMaxTier = tier === 5;
 
   return (
-    <div className="flex flex-col items-center gap-1 group w-fit">
+    <div className="flex flex-col items-center gap-1 group">
       <div
         className="relative transition-transform duration-300"
         style={{
@@ -192,7 +199,7 @@ export function Medal({
         />
 
         {/* Reflejo diagonal (tiers 3+) */}
-        {tier >= 3 && (
+        {typeof tier === "number" && tier >= 3 && (
           <div
             className="absolute pointer-events-none"
             style={{
@@ -259,9 +266,7 @@ export function Medal({
       </div>
 
       {label && (
-        <div className="text-center">
-          <p className="text-sm font-semibold text-foreground">{label}</p>
-        </div>
+          <p className="text-xs font-extralight">{label}</p>
       )}
     </div>
   );

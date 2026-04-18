@@ -85,7 +85,7 @@ export function Tooltip({
             {...getFloatingProps()}
           >
             {typeof content === "string" ? (
-              <div className="rounded-md bg-neutral-800 border border-neutral-600 px-2.5 py-1.5 text-xs text-white shadow-md">
+              <div className="max-w-50 rounded-md bg-neutral-800 border border-neutral-600 px-2.5 py-1.5 text-xs text-white shadow-md">
                 {content}
               </div>
             ) : (

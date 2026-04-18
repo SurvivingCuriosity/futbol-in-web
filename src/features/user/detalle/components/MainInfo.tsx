@@ -50,10 +50,6 @@ export const MainInfo = ({
             </p>
           </div>
         )}
-        <p className="text-sm md:text-lg text-neutral-300">
-          Miembro desde{" "}
-          {new Date(user?.createdAt as unknown as string).toLocaleDateString()}
-        </p>
       </div>
     </div>
   );

@@ -19,12 +19,13 @@ export const MedallaAntiguedad = ({
 }: MedallaAntiguedadProps) => {
   if (!createdAt || new Date(createdAt) >= CUTOFF) return null;
 
-  const medal = <Medal icon={Timer} tier={3} shape="rosette" label={showLabel ? "Fundador" : ""} size={size} />;
+  const medal = <Medal icon={Timer} tier={5} shape="rosette" label={showLabel ? "Fundador" : ""} size={size} />;
 
   if (!showTooltip) return medal;
 
+  const content = `Miembro desde ${new Date(createdAt).toLocaleDateString()}`;
   return (
-    <Tooltip content="Miembro fundador" placement="bottom">
+    <Tooltip content={content} placement="bottom">
       {medal}
     </Tooltip>
   );

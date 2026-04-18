@@ -11,7 +11,7 @@ export const PerfilPublicoPage = ({ user }: { user: FullUser }) => {
     <GoBackWrapper>
       <div className="p-3 flex flex-col gap-2 h-full max-w-5xl mx-auto w-full">
         <MainInfo user={user.user} imagen={user.imagen || ""} />
-        <MedallasUsuario createdAt={user.user.createdAt} />
+        <MedallasUsuario createdAt={user.user.createdAt} user={user.user} futbolines={user.futbolines} />
         <MisFutbolines futbolines={user.futbolines} />
       </div>
     </GoBackWrapper>

@@ -50,7 +50,7 @@ export const useMapaStore = create<MapaState>((set, get) => ({
       if (merged.marca && f.tipoFutbolin !== merged.marca) return false;
       if (
         merged.ciudad &&
-        f.ciudad.split(",")[1].trim() !== merged.ciudad.trim()
+        f.ciudad.split(",").at(-1)!.trim() !== merged.ciudad.trim()
       )
         return false;
       return true;

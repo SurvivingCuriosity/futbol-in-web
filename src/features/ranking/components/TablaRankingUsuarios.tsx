@@ -49,7 +49,7 @@ const columns: Column<UsuarioEnRanking>[] = [
     accessor: (row) => row.createdAt ?? "",
     sortable: false,
     cell: ({ row }) => (
-      <MedallasUsuario createdAt={row.createdAt} size={22} showTooltip={false} />
+      <MedallasUsuario createdAt={row.createdAt} userId={row.id} provincias={row.provincias} perfilCompleto={row.perfilCompleto} size={22} showTooltip={false} showLabel={false} />
     ),
   },
   {

@@ -58,6 +58,7 @@ export const CambiarContrasena = () => {
           variant="outline"
           size="sm"
           onClick={handleClickCambiarContrasena}
+          loading={isPending}
         />
       </span>
     </>

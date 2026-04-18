@@ -48,7 +48,7 @@ export function TarjetaFutbolinEnBar({
       <div className="z-10 max-w-2/3 px-2">
         <Incidencias futbolin={futbolin} />
       </div>
-      <p className="p-3">Distribución: {futbolin.distribucion}</p>
+      <p className="p-3 z-2">Distribución: {futbolin.distribucion}</p>
 
       {futbolin.comentarios && (
         <div className="mx-2 p-1.5 bg-neutral-700/20 rounded-lg z-20 w-fit">

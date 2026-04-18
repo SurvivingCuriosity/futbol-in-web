@@ -26,7 +26,7 @@ export function ImagenFondoFutbolin({
   const src = fondosFutbolines[tipo] || defaultLogoFutbolin;
 
   return (
-    <div className="absolute right-0 top-0 h-full w-auto">
+    <div className="absolute right-0 top-0 h-full w-auto pointer-events-none">
       <div className="relative h-full w-full">
         <Image
           src={src}

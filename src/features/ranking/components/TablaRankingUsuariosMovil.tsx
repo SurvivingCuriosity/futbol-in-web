@@ -29,7 +29,7 @@ export default function TablaRankingUsuariosMovil({
               <div className="flex flex-col gap-0">
 
               <p>{user.usuario}</p>
-              <MedallasUsuario createdAt={user.createdAt} size={20} showLabel={false}/>
+              <MedallasUsuario createdAt={user.createdAt} userId={user.id} provincias={user.provincias} perfilCompleto={user.perfilCompleto} size={20} showLabel={false} />
               </div>
             </span>
             <div className="flex flex-col gap-0">
