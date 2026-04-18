@@ -2,6 +2,7 @@ import { TarjetaFutbolin } from "@/src/shared/components/TarjetaFutbolin/Tarjeta
 import { useGetUltimosFutbolines } from "@/src/features/home/hooks/useLatestFutbolines";
 import { useGetNearestFutbolines } from "@/src/features/home/hooks/useNearestFutbolines";
 import { timeAgo } from "@/src/shared/utils/timeAgo";
+import { formatDistance } from "@/src/features/home/utils/formatDistance";
 import { useRouter } from "next/navigation";
 
 export const HomePage = () => {
@@ -91,7 +92,7 @@ export const HomePage = () => {
                 <TarjetaFutbolin
                   futbolin={f}
                   onClick={() => router.push(`/app/bar/${f.id}`)}
-                  bottomText={`Está a ${distancesInMeters[index]} metros`}
+                  bottomText={`Está a ${formatDistance(distancesInMeters[index])}`}
                 />
               </div>
             ))}
