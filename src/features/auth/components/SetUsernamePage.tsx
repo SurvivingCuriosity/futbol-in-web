@@ -33,7 +33,7 @@ export default function SetUsernamePage() {
       toast.success("Nombre establecido. Te damos la bienvenida!");
 
       const { user } = mapTokenToUser(json.data.token);
-      login(json.data.token, user);
+      await login(json.data.token, user);
 
       router.replace("/app/home");
     } catch {

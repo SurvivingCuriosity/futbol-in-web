@@ -45,7 +45,7 @@ export default function RegisterPage() {
       }
 
       const { user } = mapTokenToUser(json.data.token);
-      login(json.data.token, user);
+      await login(json.data.token, user);
 
       if (user.status === UserStatus.MUST_CONFIRM_EMAIL) {
         router.replace(`/app/confirmar-email`);

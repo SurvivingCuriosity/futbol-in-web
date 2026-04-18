@@ -2,8 +2,8 @@ import { vi } from "vitest";
 import { UserRole } from "futbol-in-core/enum";
 import { AuthUser } from "@/src/features/auth/context/AuthContext";
 
-export const loginMock = vi.fn<(token: string, user: AuthUser) => void>();
-export const logoutMock = vi.fn<() => void>();
+export const loginMock = vi.fn<(token: string, user: AuthUser) => Promise<void>>();
+export const logoutMock = vi.fn<() => Promise<void>>();
 
 export const userMock: AuthUser | null = {
   id: "123",

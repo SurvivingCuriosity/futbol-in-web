@@ -2,24 +2,34 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import SetUsernamePage from "@/src/features/auth/components/SetUsernamePage";
+import { setUsernameRequest } from "@/src/features/auth/api/setUsernameRequest";
+import { mapTokenToUser } from "@/src/features/auth/utils/mapTokenToUser";
 
-import "@/src/tests/mocks/authContext.mock";
 import { loginMock, logoutMock } from "@/src/tests/mocks/authContext.mock";
-
-import "@/src/tests/mocks/router.mock";
 import { replaceMock } from "@/src/tests/mocks/router.mock";
-
-import "@/src/tests/mocks/toast.mock";
 import toast from "react-hot-toast";
 
 import { createGoogleOAuthWrapper } from "@/src/tests/utils/wrappers";
-import { mapTokenToUserMock } from "../tests/mocks/mapTokenToUserMock";
-import { setUsernameRequestMock } from "../tests/mocks/setUsernameRequestMock";
+import { AuthUser } from "@/src/features/auth/context/AuthContext";
+import { UserRole, UserStatus, AuthProvider } from "futbol-in-core/enum";
 
 vi.mock("@/src/features/auth/api/setUsernameRequest");
 vi.mock("@/src/features/auth/utils/mapTokenToUser");
 
 const wrapper = createGoogleOAuthWrapper();
+
+function createAuthUser(overrides: Partial<AuthUser> = {}): AuthUser {
+  return {
+    id: "1",
+    email: "a@a.com",
+    name: "Test",
+    role: [UserRole.USER],
+    status: UserStatus.DONE,
+    provider: AuthProvider.CREDENTIALS,
+    imagen: "",
+    ...overrides,
+  };
+}
 
 describe("SetUsernamePage", () => {
   beforeEach(() => {
@@ -41,16 +51,15 @@ describe("SetUsernamePage", () => {
 
     expect(screen.getByText(/crea tu nickname/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/username/i)).toBeInTheDocument();
-    expect(
-      screen.getByRole("button", { name: /confirmar/i })
-    ).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /confirmar/i })).toBeInTheDocument();
     expect(screen.getByLabelText("logout-button")).toBeInTheDocument();
   });
 
   it("muestra error si el backend retorna success=false", async () => {
-    setUsernameRequestMock.mockResolvedValueOnce({
+    vi.mocked(setUsernameRequest).mockResolvedValueOnce({
       success: false,
       message: "El nombre ya existe",
+      data: null,
     });
 
     render(<SetUsernamePage />, { wrapper });
@@ -58,14 +67,14 @@ describe("SetUsernamePage", () => {
     typeUsername("juanito");
     submit();
 
-    expect(await screen.findByText("El nombre ya existe")).toBeInTheDocument();
+    expect(await screen.findAllByText("El nombre ya existe")).not.toHaveLength(0);
     expect(toast.success).not.toHaveBeenCalled();
     expect(loginMock).not.toHaveBeenCalled();
     expect(replaceMock).not.toHaveBeenCalled();
   });
 
   it("muestra error si ocurre un error de red", async () => {
-    setUsernameRequestMock.mockRejectedValueOnce(new Error("Network error"));
+    vi.mocked(setUsernameRequest).mockRejectedValueOnce(new Error("Network error"));
 
     render(<SetUsernamePage />, { wrapper });
 
@@ -77,22 +86,15 @@ describe("SetUsernamePage", () => {
 
   it("hace login, muestra toast y redirige si success=true", async () => {
     const TOKEN = "TOKEN123";
+    const user = createAuthUser();
 
-    setUsernameRequestMock.mockResolvedValueOnce({
+    vi.mocked(setUsernameRequest).mockResolvedValueOnce({
       success: true,
       data: { token: TOKEN },
+      message: "",
     });
 
-    mapTokenToUserMock.mockReturnValue({
-      token: TOKEN,
-      user: {
-        id: "1",
-        email: "a@a.com",
-        name: "Test",
-        status: "DONE",
-        role: ["USER"],
-      },
-    });
+    vi.mocked(mapTokenToUser).mockReturnValue({ token: TOKEN, user });
 
     render(<SetUsernamePage />, { wrapper });
 

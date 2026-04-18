@@ -41,7 +41,7 @@ export const GoogleSignInButton = ({ context }: { context?: Context }) => {
       const token = json.data.token as string;
       const payload = jwtDecode<JwtPayload>(token);
 
-      login(token, {
+      await login(token, {
         id: payload.id,
         email: payload.email,
         name: payload.name,

@@ -35,7 +35,7 @@ export default function LoginPage() {
       }
 
       const { user } = mapTokenToUser(json.data.token);
-      login(json.data.token, user);
+      await login(json.data.token, user);
 
       router.replace(
         user.status === UserStatus.MUST_CONFIRM_EMAIL

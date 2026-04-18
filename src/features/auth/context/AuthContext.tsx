@@ -18,8 +18,8 @@ interface AuthContextType {
   user: AuthUser | null;
   token: string | null;
   loading: boolean;
-  login: (token: string, user: AuthUser) => void;
-  logout: () => void;
+  login: (token: string, user: AuthUser) => Promise<void>;
+  logout: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -30,28 +30,52 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    try {
-      const stored = localStorage.getItem("auth");
-      if (stored) {
-        const parsed = JSON.parse(stored);
-        setToken(parsed.token);
-        setUser(parsed.user);
+    const init = async () => {
+      try {
+        // Migration: transparently move old localStorage token to httpOnly cookie
+        const stored = localStorage.getItem("auth");
+        if (stored) {
+          try {
+            const parsed = JSON.parse(stored);
+            if (parsed?.token) {
+              await fetch("/api/auth/set-token", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ token: parsed.token }),
+              });
+            }
+          } finally {
+            localStorage.removeItem("auth");
+          }
+        }
+
+        const res = await fetch("/api/auth/me");
+        const data = await res.json();
+        if (data.token && data.user) {
+          setToken(data.token);
+          setUser(data.user);
+        }
+      } finally {
+        setLoading(false);
       }
-    } finally {
-      setLoading(false);
-    }
+    };
+    init();
   }, []);
 
-  const login = (token: string, user: AuthUser) => {
+  const login = async (token: string, user: AuthUser) => {
+    await fetch("/api/auth/set-token", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token }),
+    });
     setToken(token);
     setUser(user);
-    localStorage.setItem("auth", JSON.stringify({ token, user }));
   };
 
-  const logout = () => {
+  const logout = async () => {
     setToken(null);
     setUser(null);
-    localStorage.removeItem("auth");
+    await fetch("/api/auth/set-token", { method: "DELETE" });
   };
 
   return (
