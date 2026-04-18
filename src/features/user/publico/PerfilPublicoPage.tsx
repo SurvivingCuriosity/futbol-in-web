@@ -1,4 +1,5 @@
 import { FullUser } from "@/src/features/user/detalle/hooks/useGetFullUser";
+import { MedallasUsuario } from "@/src/features/user/detalle/components/MedallasUsuario";
 import { GoBackWrapper } from "@/src/shared/components/GoBackWrapper";
 import { MainInfo } from "../detalle/components/MainInfo";
 import { MisFutbolines } from "../detalle/components/MisFutbolines";
@@ -10,6 +11,7 @@ export const PerfilPublicoPage = ({ user }: { user: FullUser }) => {
     <GoBackWrapper>
       <div className="p-3 flex flex-col gap-2 h-full max-w-5xl mx-auto w-full">
         <MainInfo user={user.user} imagen={user.imagen || ""} />
+        <MedallasUsuario createdAt={user.user.createdAt} />
         <MisFutbolines futbolines={user.futbolines} />
       </div>
     </GoBackWrapper>

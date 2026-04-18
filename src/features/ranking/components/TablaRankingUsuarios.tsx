@@ -1,5 +1,6 @@
 "use client";
 
+import { MedallasUsuario } from "@/src/features/user/detalle/components/MedallasUsuario";
 import { DataTable } from "@/src/shared/components/Tabla/Table";
 import { Column } from "@/src/shared/components/Tabla/types";
 import { UsuarioEnRanking } from "futbol-in-core/types";
@@ -41,6 +42,15 @@ const columns: Column<UsuarioEnRanking>[] = [
         </Link>
       );
     },
+  },
+  {
+    key: "createdAt",
+    header: "Medallas",
+    accessor: (row) => row.createdAt ?? "",
+    sortable: false,
+    cell: ({ row }) => (
+      <MedallasUsuario createdAt={row.createdAt} size={22} showTooltip={false} />
+    ),
   },
   {
     key: "spotsCreados",

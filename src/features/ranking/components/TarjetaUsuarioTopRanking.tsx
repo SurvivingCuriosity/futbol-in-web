@@ -1,5 +1,6 @@
 "use client";
 
+import { MedallasUsuario } from "@/src/features/user/detalle/components/MedallasUsuario";
 import { UsuarioEnRanking } from "futbol-in-core/types";
 import { Award, Medal, Trophy } from "lucide-react";
 import Image from "next/image";
@@ -62,8 +63,9 @@ export default function TarjetaUsuarioTopRanking({
           alt="Imagen de usuario"
         />
 
-        <span>
+        <span className="flex flex-col gap-0.5">
           <p>{usuario?.usuario}</p>
+          <MedallasUsuario createdAt={usuario.createdAt} size={24} showLabel={false}/>
         </span>
 
         <div className="flex flex-col ml-auto">

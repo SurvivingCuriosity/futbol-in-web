@@ -1,5 +1,6 @@
 "use client";
 
+import { MedallasUsuario } from "@/src/features/user/detalle/components/MedallasUsuario";
 import { UsuarioEnRanking } from "futbol-in-core/types";
 import Image from "next/image";
 import Link from "next/link";
@@ -25,7 +26,11 @@ export default function TablaRankingUsuariosMovil({
                 className="size-8 rounded-full object-top object-cover flex items-center justify-center relative"
                 alt="Imagen de usuario"
               />
+              <div className="flex flex-col gap-0">
+
               <p>{user.usuario}</p>
+              <MedallasUsuario createdAt={user.createdAt} size={20} showLabel={false}/>
+              </div>
             </span>
             <div className="flex flex-col gap-0">
               <p className="text-xl text-primary text-right font-bold">

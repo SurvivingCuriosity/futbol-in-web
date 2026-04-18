@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { MainInfo } from "./MainInfo";
 import { MisFutbolines } from "./MisFutbolines";
 import { useAuth } from "@/src/features/auth/context/AuthContext";
+import { MedallasUsuario } from "@/src/features/user/detalle/components/MedallasUsuario";
 
 export const MiPerfilPage = ({ user }: { user: FullUser }) => {
   const router = useRouter();
@@ -15,6 +16,7 @@ export const MiPerfilPage = ({ user }: { user: FullUser }) => {
   return (
     <div className="p-3 flex flex-col gap-2 h-full max-w-4xl mx-auto">
       <MainInfo user={user.user} imagen={user.imagen || ""} />
+      <MedallasUsuario createdAt={user.user.createdAt} />
       <div className="flex items-center gap-2 my-3">
         <Button
           label="Editar perfil"
