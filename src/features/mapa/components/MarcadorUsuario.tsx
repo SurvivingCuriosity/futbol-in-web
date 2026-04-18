@@ -6,6 +6,7 @@ interface MarcadorUsuarioProps {
   map: google.maps.Map | null;
   position: google.maps.LatLngLiteral | null;
   show?: boolean;
+  debugHeading?: number;
 }
 
 function buildMarkerContent(): {
@@ -36,10 +37,10 @@ function buildMarkerContent(): {
   svg.setAttribute("width", "10");
   svg.setAttribute("height", "18");
   svg.setAttribute("viewBox", "0 0 10 18");
-  svg.style.cssText = "position:absolute;top:-29px;left:-5px;overflow:visible;";
+  svg.style.cssText = "position:absolute;top:-21px;left:-5px;overflow:visible;";
 
   const path = document.createElementNS(NS, "path");
-  path.setAttribute("d", "M5 0 L10 18 L0 18 Z");
+  path.setAttribute("d", "M5 0 L10 10 L0 10 Z");
   path.setAttribute("fill", "#4285F4");
   path.setAttribute("stroke", "white");
   path.setAttribute("stroke-width", "1");
@@ -65,6 +66,7 @@ export function MarcadorUsuario({
   map,
   position,
   show = false,
+  debugHeading,
 }: MarcadorUsuarioProps) {
   const markerRef = useRef<google.maps.marker.AdvancedMarkerElement | null>(null);
   const rafRef = useRef<number | null>(null);
@@ -74,6 +76,15 @@ export function MarcadorUsuario({
   const [{ wrapper: content, rotator }] = useState(buildMarkerContent);
   const contentRef = useRef(content);
   const rotatorRef = useRef(rotator);
+
+  useEffect(() => {
+    if (debugHeading === undefined) return;
+    const rotator = rotatorRef.current;
+    if (!rotator) return;
+    rotator.style.transform = `rotate(${debugHeading}deg)`;
+    rotator.style.transition = "none";
+    rotator.style.opacity = "1";
+  }, [debugHeading]);
 
   // Orientation listener — direct DOM writes, zero React re-renders
   useEffect(() => {
