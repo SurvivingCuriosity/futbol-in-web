@@ -31,7 +31,7 @@ export function TarjetaFutbolinEnBar({
     <div
       onClick={onClick}
       className={cn(
-        `w-full relative flex flex-col overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-950 text-left`
+        `w-full relative flex flex-col justify-between overflow-hidden rounded-2xl border border-neutral-800 bg-neutral-950 text-left min-h-38`,
       )}
     >
       <ImagenFondoFutbolin tipo={futbolin.tipoFutbolin} isSelected={false} />
@@ -45,19 +45,21 @@ export function TarjetaFutbolinEnBar({
           </h3>
         </div>
       </div>
+      <div className="z-10 max-w-2/3 px-2">
+        <Incidencias futbolin={futbolin} />
+      </div>
+      <p className="p-3">Distribución: {futbolin.distribucion}</p>
 
       {futbolin.comentarios && (
-        <div className="mx-2 p-2 bg-neutral-600/30 rounded-lg z-20 w-fit">
-          <p className="font-light text-neutral-400 text-sm">Comentario</p>
-          <p className="font-light text-neutral-200 text-sm line-clamp-2">
+        <div className="mx-2 p-1.5 bg-neutral-700/20 rounded-lg z-20 w-fit">
+          <p className="font-light text-neutral-500 text-xs mb-2">
+            Comentarios:
+          </p>
+          <p className="font-light text-neutral-300 text-[13px] line-clamp-2">
             {futbolin.comentarios}
           </p>
         </div>
       )}
-
-      <div className="z-10 px-2">
-        <Incidencias futbolin={futbolin} />
-      </div>
 
       <div className="flex items-center gap-2 p-2 w-full z-10">
         {(isOwner || isAdmin) && (

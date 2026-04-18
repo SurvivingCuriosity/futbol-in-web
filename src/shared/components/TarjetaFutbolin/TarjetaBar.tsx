@@ -13,7 +13,6 @@ import { Star } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useGetBarInfo } from "../../../features/futbolines/detalle/hooks/useGetBarInfo";
 import { TarjetaFutbolinEnBar } from "./TarjetaFutbolinEnBar";
-import { Incidencias } from "@/src/features/futbolines/incidencias/Incidencias";
 
 export function TarjetaBar({
   futbolin,
@@ -30,9 +29,9 @@ export function TarjetaBar({
   } = useGetBarInfo(futbolin?.googlePlaceId);
 
   const { data: allFutbolines } = useAllFutbolines();
-
+  
   if (isLoading) return <p>Cargando...</p>;
-  if (error || !bar) return <p>Error al obtener info del bar</p>;
+  if (error || !bar) return <p className="p-3">Error al obtener info del bar</p>;
 
   const futbolines = allFutbolines?.filter(
     (f) => f.googlePlaceId === bar.placeId
@@ -62,7 +61,7 @@ export function TarjetaBar({
     <article key={bar.placeId} className="mt-3 w-full pointer-events-auto pb-4">
       <div
         className={`w-full relative pointer-events-none flex flex-col items-center justify-between ${
-          !bar.fotoUrl ? "" : "h-40"
+          !bar.fotoUrl ? "" : "h-48"
         }`}
         style={{
           backgroundImage: `url('${bar.fotoUrl}')`,
@@ -150,10 +149,8 @@ export function TarjetaBar({
         </div>
         <div className="absolute inset-0 bg-linear-to-b from-neutral-900 via-neutral-900/80 to-transparent" />
       </div>
-      <Incidencias futbolin={futbolin} />
 
       <div className="p-3 space-y-1">
-        <p className="font-bold text-xl">Futbolines:</p>
 
         <ul className="flex items-start gap-2 overflow-x-auto pointer-events-auto">
           {futbolines?.map((futbolin) => (

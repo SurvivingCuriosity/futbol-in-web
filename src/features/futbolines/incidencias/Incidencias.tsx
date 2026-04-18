@@ -37,10 +37,7 @@ export const Incidencias = ({ futbolin }: { futbolin: SpotDTO }) => {
             className="text-red-500"
           />
           <div>
-            <p className="text-sm line-clamp-2 text-neutral-400">{i.texto}</p>
-            <p className="text-xs font-light">
-              {new Date(i.createdAt).toLocaleDateString()}
-            </p>
+            <p className="font-light text-xs line-clamp-2 text-neutral-300">{i.texto}</p>
           </div>
         </div>
       ))}

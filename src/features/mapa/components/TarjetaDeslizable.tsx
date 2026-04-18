@@ -51,7 +51,7 @@ const TarjetaDeslizableMovil = () => {
         }
       );
     }
-  }, [showTarjeta, selected]);
+  }, [showTarjeta, selected, isMobile]);
 
   return null;
 };

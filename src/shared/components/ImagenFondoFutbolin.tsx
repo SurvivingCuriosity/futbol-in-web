@@ -31,8 +31,8 @@ export function ImagenFondoFutbolin({
         <Image
           src={src}
           alt={`Imagen de fondo de futbolin ${tipo}`}
-          width={200}
-          height={200}
+          width={300}
+          height={300}
           className="object-contain ml-auto h-auto"
           priority={false}
         />
