@@ -15,7 +15,7 @@ export default function MapaRoute() {
     );
   if (error)
     return (
-      <p className="text-center p-10 text-red-500">Ups...{String(error)}</p>
+      <p className="text-center p-10 text-red-500">Ups...{String(error || " Algo salió mal")}</p>
     );
 
   return (

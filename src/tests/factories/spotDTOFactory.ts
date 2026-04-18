@@ -21,6 +21,7 @@ export function createSpotDTO(overrides: Partial<SpotDTO> = {}): SpotDTO {
     tipoLugar: TipoLugar.FUBTOLIN,
     verificado: null,
     votes: { up: [], down: [] },
+    incidencias: [],
     ...overrides,
   };
 }

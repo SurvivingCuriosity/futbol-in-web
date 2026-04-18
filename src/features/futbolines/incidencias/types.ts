@@ -1,9 +1,1 @@
-export type IncidenciaDTO = {
-  id: string;
-  spotId: string;
-  userId: string;
-  texto: string;
-  resuelto: boolean;
-  createdAt: string | Date;
-  updatedAt: string | Date;
-};
+export type { Incidencia as IncidenciaDTO } from "futbol-in-core/types";

@@ -15,8 +15,11 @@ export function useSelectedOverlay(
     const prev = document.querySelector("#selected-marker");
     if (prev) prev.remove();
 
+    const hasIncidencia =
+      selectedMarker.incidencias?.some((i) => !i.resuelto) ?? false;
     const el = MarcadorFutbolin.getHTML(
       selectedMarker.tipoFutbolin,
+      hasIncidencia,
       selectedMarker.id
     );
     el.id = "selected-marker";

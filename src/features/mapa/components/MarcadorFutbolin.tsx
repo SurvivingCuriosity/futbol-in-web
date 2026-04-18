@@ -75,18 +75,21 @@ export function MarcadorFutbolin({
   return null;
 }
 
+const INCIDENCIA_BADGE = `<div style="position:absolute;top:-4px;right:-4px;width:18px;height:18px;background:#ff0f0f;border-radius:50%;display:flex;align-items:center;justify-content:center;pointer-events:none;box-shadow:0 1px 3px rgba(0,0,0,0.6)" aria-label="Tiene incidencias abiertas"><svg width="10" height="10" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.134 1.5a1 1 0 011.732 0l6.062 10.5A1 1 0 0114.062 13.5H1.938a1 1 0 01-.866-1.5L7.134 1.5z" fill="white"/><path d="M8 5.5v3" stroke="#92400e" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="10.5" r="0.75" fill="#92400e"/></svg></div>`;
+
 MarcadorFutbolin.getHTML = (
   tipoFutbolin: TipoFutbolin,
+  hasIncidencia: boolean,
   id?: string
 ): HTMLElement => {
-
   const wrapper = document.createElement("div");
   wrapper.className = `relative marker-wrapper bg-neutral-900 rounded-full border border-transparent size-10 p-0.5 flex items-center justify-center shadow-md shadow-black`;
   if (id) wrapper.dataset.id = id;
 
   wrapper.innerHTML =
-    htmlContentMap[tipoFutbolin] ??
-    `<img alt="Logo genérico" src="/futbolin-logo.svg" width="22" height="22" />`;
+    (htmlContentMap[tipoFutbolin] ??
+      `<img alt="Logo genérico" src="/futbolin-logo.svg" width="22" height="22" />`) +
+    (hasIncidencia ? INCIDENCIA_BADGE : "");
 
   return wrapper;
 };

@@ -1,87 +1,52 @@
 import { useAuth } from "@/src/features/auth/context/AuthContext";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { IncidenciaDTO } from "./types";
 import { API_URL } from "@/src/config";
 
-export const incidenciaKeys = {
-  root: ["incidencias"] as const,
-  allAdmin: () => [...incidenciaKeys.root, "all"] as const,
-  spot: (spotId: string) => [...incidenciaKeys.root, "spot", spotId] as const,
-};
+// Clave del cache de futbolines — invalidar aquí refresca el mapa entero
+const FUTBOLINES_ALL_KEY = ["futbolines", "all"];
 
-// 🔹 Crear incidencia
+// 🔹 Crear incidencia — POST /futbolines/:spotId/incidencias
 function useCrearIncidenciaService() {
   const { token } = useAuth();
 
-  return async (payload: { spotId: string; texto?: string }): Promise<IncidenciaDTO> => {
-    const res = await fetch(`${API_URL}/incidencias`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(payload),
-    });
-
-    const data = await res.json();
-    if (!res.ok || !data.success) throw new Error(data.error || "Error creando incidencia");
-    return data.data;
-  };
-}
-
-// 🔹 Listar incidencias (solo admin)
-function useListarIncidenciasAllAdminService() {
-  const { token } = useAuth();
-
-  return async (): Promise<IncidenciaDTO[]> => {
-    const res = await fetch(`${API_URL}/incidencias`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    const data = await res.json();
-    if (!res.ok || !data.success) throw new Error(data.error || "Error obteniendo incidencias");
-    return data.data;
-  };
-}
-
-// 🔹 Listar incidencias por futbolín (pública)
-function useListarIncidenciasPorSpotService() {
-  const { token } = useAuth();
-
-  return async (spotId: string): Promise<IncidenciaDTO[]> => {
-    const res = await fetch(`${API_URL}/incidencias/spot/${spotId}`, {
-      method: "GET",
-      headers: {
-        Authorization: token ? `Bearer ${token}` : "",
-      },
-    });
+  return async (payload: { spotId: string; texto?: string }) => {
+    const res = await fetch(
+      `${API_URL}/futbolines/${payload.spotId}/incidencias`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ texto: payload.texto }),
+      }
+    );
 
     const data = await res.json();
     if (!res.ok || !data.success)
-      throw new Error(data.error || "Error cargando incidencias del futbolín");
-    return data.data;
+      throw new Error(data.error || "Error creando incidencia");
+    return data.data as { spotId: string };
   };
 }
 
-// 🔹 Borrar incidencia (admin o creador)
+// 🔹 Borrar incidencia — DELETE /futbolines/:spotId/incidencias/:id
 function useBorrarIncidenciaService() {
   const { token } = useAuth();
 
-  return async ({ id }: { id: string }): Promise<{ id: string }> => {
-    const res = await fetch(`${API_URL}/incidencias/${id}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+  return async ({ id, spotId }: { id: string; spotId: string }) => {
+    const res = await fetch(
+      `${API_URL}/futbolines/${spotId}/incidencias/${id}`,
+      {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
 
     const data = await res.json();
-    if (!res.ok || !data.success) throw new Error(data.error || "Error borrando incidencia");
-    return data.data;
+    if (!res.ok || !data.success)
+      throw new Error(data.error || "Error borrando incidencia");
+    return data.data as { id: string };
   };
 }
 
@@ -89,34 +54,15 @@ function useBorrarIncidenciaService() {
 // 🔹 React Query hooks
 // -----------------------------
 
-export function useIncidenciasBySpot(spotId: string) {
-  const listar = useListarIncidenciasPorSpotService();
-
-  return useQuery({
-    queryKey: incidenciaKeys.spot(spotId),
-    queryFn: () => listar(spotId),
-    enabled: !!spotId,
-  });
-}
-
-export function useIncidenciasAllAdmin() {
-  const listarAll = useListarIncidenciasAllAdminService();
-
-  return useQuery({
-    queryKey: incidenciaKeys.allAdmin(),
-    queryFn: listarAll,
-  });
-}
-
 export function useCrearIncidencia() {
   const crear = useCrearIncidenciaService();
   const qc = useQueryClient();
 
   return useMutation({
     mutationFn: crear,
-    onSuccess: (data) => {
+    onSuccess: () => {
       toast.success("Incidencia creada correctamente");
-      qc.invalidateQueries({ queryKey: incidenciaKeys.spot(data.spotId) });
+      qc.invalidateQueries({ queryKey: FUTBOLINES_ALL_KEY });
     },
     onError: (err: any) => {
       toast.error(err.message || "Error creando incidencia");
@@ -130,31 +76,14 @@ export function useBorrarIncidencia() {
   const qc = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ id, spotId }: { id: string; spotId: string }) => borrar({ id }),
-
-    onMutate: async ({ id, spotId }) => {
-      await qc.cancelQueries({ queryKey: incidenciaKeys.spot(spotId) });
-      const key = incidenciaKeys.spot(spotId);
-      const prev = qc.getQueryData<IncidenciaDTO[]>(key);
-      if (prev) {
-        qc.setQueryData(
-          key,
-          prev.filter((i) => i.id !== id)
-        );
-      }
-      return { prev, key };
+    mutationFn: borrar,
+    onSuccess: () => {
+      toast.success("Incidencia eliminada");
+      qc.invalidateQueries({ queryKey: FUTBOLINES_ALL_KEY });
     },
-
-    onError: (err: any, _vars, ctx) => {
-      if (ctx?.prev && ctx?.key) qc.setQueryData(ctx.key, ctx.prev);
+    onError: (err: any) => {
       toast.error(err.message || "Error borrando incidencia");
       console.error("[useBorrarIncidencia]", err);
-    },
-
-    onSuccess: (_data, { spotId }) => {
-      toast.success("Incidencia eliminada");
-      qc.invalidateQueries({ queryKey: incidenciaKeys.allAdmin() });
-      qc.invalidateQueries({ queryKey: incidenciaKeys.spot(spotId) });
     },
   });
 }
