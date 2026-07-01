@@ -38,6 +38,9 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.90.5
         version: 5.101.2(react@19.2.0)
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
       futbol-in-core:
         specifier: ^1.0.53
         version: 1.0.53
