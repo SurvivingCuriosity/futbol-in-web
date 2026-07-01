@@ -23,7 +23,7 @@
     "@react-oauth/google": "^0.12.2",
     "@tanstack/react-query": "^5.90.5",
     "clsx": "^2.1.1",
-    "futbol-in-core": "^1.0.53",
+    "futbol-in-core": "^1.0.54",
     "futbol-in-ui": "^0.0.29",
     "jwt-decode": "^4.0.0",
     "lucide-react": "^0.547.0",

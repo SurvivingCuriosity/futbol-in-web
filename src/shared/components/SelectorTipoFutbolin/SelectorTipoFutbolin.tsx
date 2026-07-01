@@ -21,12 +21,13 @@ const SelectorTipoFutbolin = memo((props: SelectorTipoFutbolinProps) => {
   const futbolinOptions = [
     { value: TipoFutbolin.TSUNAMI, label: "Tsunami", imageUrl: '/logos/tsunami.png' },
     { value: TipoFutbolin.INFINITY, label: "Infinity", imageUrl: '/logos/infinity.png' },
-    { value: TipoFutbolin.PRESAS, label: "Presas 2000", imageUrl: '/logos/presas.png' },
     { value: TipoFutbolin.PRESAS_EVO, label: "Presas Evo", imageUrl: '/logos/presas_evo.png' },
-    { value: TipoFutbolin.TECNO, label: "Tecno", imageUrl: '/logos/tecno.png' },
-    { value: TipoFutbolin.REM, label: "Rem", imageUrl: '/logos/rem.webp' },
-    { value: TipoFutbolin.DESCONOCIDO, label: "Desconocido", imageUrl: '/logos/desconocido.png' },
+    { value: TipoFutbolin.CORDOBA, label: "Cordoba", imageUrl: '/logos/cordoba_200x200.png' },
     { value: TipoFutbolin.MADERA, label: "De madera", imageUrl: '/logos/madera.png' },
+    { value: TipoFutbolin.REM, label: "Rem", imageUrl: '/logos/rem.webp' },
+    { value: TipoFutbolin.TECNO, label: "Tecno", imageUrl: '/logos/tecno.png' },
+    { value: TipoFutbolin.PRESAS, label: "Presas 2000", imageUrl: '/logos/presas.png' },
+    { value: TipoFutbolin.DESCONOCIDO, label: "Desconocido", imageUrl: '/logos/desconocido.png' },
   ];
 
   const options = incluirOpcionTodos

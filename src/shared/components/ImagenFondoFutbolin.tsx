@@ -5,6 +5,7 @@ import { TipoFutbolin } from "futbol-in-core/enum";
 export const fondosFutbolines: Record<TipoFutbolin, string> = {
   [TipoFutbolin.INFINITY]: "/fondos/infinity.jpg",
   [TipoFutbolin.MADERA]: "/fondos/madera.jpg",
+  [TipoFutbolin.CORDOBA]: "/fondos/madera.jpg",
   [TipoFutbolin.PRESAS_EVO]: "/fondos/presas_evo.jpg",
   [TipoFutbolin.PRESAS]: "/fondos/presas.jpg",
   [TipoFutbolin.TSUNAMI]: "/fondos/tsunami.jpg",

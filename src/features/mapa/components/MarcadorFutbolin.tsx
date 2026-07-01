@@ -14,6 +14,7 @@ const htmlContentMap: Record<TipoFutbolin, string> = {
   [TipoFutbolin.PRESAS_EVO]: `<img alt="Logo presas evo" src="/logos/presas_evo.png" width="32" height="32" />`,
   [TipoFutbolin.DESCONOCIDO]: `<img alt="Logo desconocido" src="/logos/desconocido.png" width="32" height="32" />`,
   [TipoFutbolin.MADERA]: `<img alt="Logo madera" src="/logos/madera.png" width="32" height="32" />`,
+  [TipoFutbolin.CORDOBA]: `<img alt="Logo cordoba" src="/logos/cordoba_200x200.png" width="32" height="32" />`,
   [TipoFutbolin.INFINITY]: `<img alt="Logo infinity" src="/logos/infinity.png" width="32" height="32" />`,
   [TipoFutbolin.TECNO]: `<img alt="Logo infinity" src="/logos/tecno.png" width="32" height="32" />`,
   [TipoFutbolin.REM]: `<img alt="Logo infinity" src="/logos/rem.webp" width="32" height="32" />`,
