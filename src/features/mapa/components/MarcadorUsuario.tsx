@@ -13,9 +13,19 @@ function buildMarkerContent(): {
   wrapper: HTMLDivElement;
   rotator: HTMLDivElement;
 } {
-  // 60x60 wrapper; overflow visible so the arrow can poke above it
+  // AdvancedMarkerElement anchors `content` at the bottom-center of its bounding
+  // box, and rotates that whole box around the anchor when the map heading/tilt
+  // changes. A zero-size wrapper makes Google's anchor transform a no-op (it has
+  // nothing to offset), so our own centering below is the only positioning math
+  // in play — the dot no longer swings off-position when the map is rotated.
   const wrapper = document.createElement("div");
-  wrapper.style.cssText = "position:relative;width:60px;height:60px;overflow:visible;";
+  wrapper.style.cssText = "position:relative;width:0;height:0;overflow:visible;";
+
+  // 60x60 box, centered on the wrapper's zero point.
+  const inner = document.createElement("div");
+  inner.style.cssText =
+    "position:absolute;top:0;left:0;width:60px;height:60px;" +
+    "transform:translate(-50%,-50%);pointer-events:none;";
 
   // Outer semi-transparent accuracy ring
   const ring = document.createElement("div");
@@ -31,7 +41,7 @@ function buildMarkerContent(): {
 
   // Triangle: tip at top, base overlaps dot edge so it looks like it "emerges" from the dot
   // Pivot is at dot center (30,30). Dot radius ≈ 11px (9px + 2.5px border).
-  // Triangle: 10px wide, 18px tall. top:-29 → base lands at y=-11 (dot edge), tip at y=-29.
+  // Triangle: 10px wide, 18px tall. top:-21 → base lands at y=-11 (dot edge), tip at y=-21.
   const NS = "http://www.w3.org/2000/svg";
   const svg = document.createElementNS(NS, "svg");
   svg.setAttribute("width", "10");
@@ -55,9 +65,10 @@ function buildMarkerContent(): {
     "border-radius:50%;background:#4285F4;border:2.5px solid #fff;" +
     "box-shadow:0 2px 5px rgba(0,0,0,0.35);z-index:1;";
 
-  wrapper.appendChild(ring);
-  wrapper.appendChild(rotator);
-  wrapper.appendChild(dot);
+  inner.appendChild(ring);
+  inner.appendChild(rotator);
+  inner.appendChild(dot);
+  wrapper.appendChild(inner);
 
   return { wrapper, rotator };
 }
@@ -70,7 +81,14 @@ export function MarcadorUsuario({
 }: MarcadorUsuarioProps) {
   const markerRef = useRef<google.maps.marker.AdvancedMarkerElement | null>(null);
   const rafRef = useRef<number | null>(null);
-  const lastHeadingRef = useRef<number | null>(null);
+  // Raw compass heading (0-360°) of the last applied update, used to compute
+  // the shortest signed delta on the next reading.
+  const lastRawHeadingRef = useRef<number | null>(null);
+  // Unbounded accumulated rotation actually written to `transform: rotate()`.
+  // Keeping it unbounded (instead of always 0-360) means crossing north
+  // (e.g. 359° -> 1°) advances by +2° instead of the CSS transition
+  // interpolating the long way around (-358°).
+  const accumulatedHeadingRef = useRef<number | null>(null);
 
   // useState lazy initializer runs once on mount (client-only), never during SSR
   const [{ wrapper: content, rotator }] = useState(buildMarkerContent);
@@ -102,16 +120,27 @@ export function MarcadorUsuario({
       if (heading === null) return;
       // Skip trivial updates (< 1°) to avoid unnecessary rAF scheduling
       if (
-        lastHeadingRef.current !== null &&
-        Math.abs(heading - lastHeadingRef.current) < 1
+        lastRawHeadingRef.current !== null &&
+        Math.abs(heading - lastRawHeadingRef.current) < 1
       )
         return;
 
-      lastHeadingRef.current = heading;
+      // Shortest signed delta in (-180, 180] from the last raw reading, so
+      // the accumulator never wraps abruptly across the 0°/360° boundary.
+      const delta =
+        lastRawHeadingRef.current === null
+          ? 0
+          : ((heading - lastRawHeadingRef.current + 540) % 360) - 180;
+
+      accumulatedHeadingRef.current =
+        (accumulatedHeadingRef.current ?? heading) + delta;
+      lastRawHeadingRef.current = heading;
+
+      const nextRotation = accumulatedHeadingRef.current;
 
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
       rafRef.current = requestAnimationFrame(() => {
-        rotator.style.transform = `rotate(${heading}deg)`;
+        rotator.style.transform = `rotate(${nextRotation}deg)`;
         rotator.style.opacity = "1";
         rafRef.current = null;
       });
