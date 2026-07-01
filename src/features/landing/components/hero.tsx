@@ -43,7 +43,7 @@ export async function Hero({ spots, users = 0 }: HeroProps) {
 
         {/* Content */}
         <div className="relative z-10 lg:container sm:mt-12 mx-auto px-4 sm:px-8 py-3">
-          <div className="grid md:grid-cols-2 gap-25 items-center">
+          <div className="grid md:grid-cols-2 gap-12 sm:gap-25 items-center">
             {/* Left Column - Text Content */}
             <div className="flex flex-col justify-between h-full gap-6">
               {/* <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 w-fit">
@@ -107,16 +107,16 @@ export async function Hero({ spots, users = 0 }: HeroProps) {
             {/* Right Column - Interactive Map */}
             <div
               id="mapa-landing"
-              className="w-full md:h-[450px] h-[650px] rounded-xl overflow-hidden scroll-m-18"
+              className="w-full h-[70dvh] md:h-[450px] rounded-xl overflow-hidden scroll-m-18"
             >
               <MapFacade markers={spots ?? []} />
             </div>
             <Link href="/app/mapa" className="w-full md:hidden">
               <LandingButton
-                label="Mapa completo"
+                label="Ver mapa completo"
                 size="lg"
                 icon={faMagnifyingGlass}
-                variant="neutral-outline"
+                variant="primary"
               />
             </Link>
           </div>
