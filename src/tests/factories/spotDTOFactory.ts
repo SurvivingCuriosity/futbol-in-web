@@ -15,12 +15,9 @@ export function createSpotDTO(overrides: Partial<SpotDTO> = {}): SpotDTO {
     direccion: "Calle X",
     distribucion: DistribucionFutbolin.F4,
     googlePlaceId: "",
-    idOperador: null,
     nombre: "Test",
     tipoFutbolin: TipoFutbolin.INFINITY,
     tipoLugar: TipoLugar.FUBTOLIN,
-    verificado: null,
-    votes: { up: [], down: [] },
     incidencias: [],
     ...overrides,
   };

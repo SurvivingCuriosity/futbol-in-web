@@ -3,7 +3,7 @@ allowBuilds:
   unrs-resolver: true
 
 minimumReleaseAgeExclude:
-  - futbol-in-core@1.0.54
+  - futbol-in-core@1.0.54 || 1.0.55
 
 overrides:
   postcss: '>=8.5.10'

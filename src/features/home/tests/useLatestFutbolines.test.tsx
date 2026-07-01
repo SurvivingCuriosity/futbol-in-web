@@ -13,8 +13,6 @@ describe("useGetUltimosFutbolines", () => {
     createdAt: new Date().toISOString(),
     coordinates: [0, 0] as [number, number],
     nombre: "Test",
-    verificado: null,
-    votes: { up: [], down: [] },
     tipoLugar: "FUBTOLIN",
     tipoFutbolin: "TSUNAMI",
     distribucion: "F4",
@@ -23,7 +21,6 @@ describe("useGetUltimosFutbolines", () => {
     direccion: "",
     googlePlaceId: "",
     addedByUserId: "",
-    idOperador: null,
     ...overrides,
   });
 

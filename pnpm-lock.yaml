@@ -42,8 +42,8 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       futbol-in-core:
-        specifier: ^1.0.54
-        version: 1.0.54
+        specifier: ^1.0.55
+        version: 1.0.55
       futbol-in-ui:
         specifier: ^0.0.29
         version: 0.0.29(@types/react@19.2.17)(clsx@2.1.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(tailwind-merge@3.6.0)
@@ -1815,8 +1815,8 @@ packages:
   functions-have-names@1.2.3:
     resolution: {integrity: sha512-xckBUXyTIqT97tq2x2AMb+g163b5JFysYk0x4qxNFwbfQkmNZoiRHb6sPzI9/QV33WeuvVYBUIiD4NzNIyqaRQ==}
 
-  futbol-in-core@1.0.54:
-    resolution: {integrity: sha512-6fnkdpRC6ebYT/AZHnz+PIbnaxpv4Tx0qf7LTFJ5nFpkW+vXVy86RILKZMm5CHYDAc+xLk0WDdtAwAa1OYmiMg==}
+  futbol-in-core@1.0.55:
+    resolution: {integrity: sha512-1dKAEN1/suKm8SzV+j9AgFbi6A0I81Sv+bM2v33ciy7YYg3FLvAbVT5lbVC40gI/wbbuGU4v3c8L9XnTUC3VUA==}
 
   futbol-in-ui@0.0.29:
     resolution: {integrity: sha512-fFP4a0SzHTvaZmir60Rp7BCbHDlUovpJfjQeS9dpOoxHGLmi9FzGoHBoaxWiLPHhb1oiqZLJsAyoRmKn5f/N7w==}
@@ -4837,7 +4837,7 @@ snapshots:
 
   functions-have-names@1.2.3: {}
 
-  futbol-in-core@1.0.54: {}
+  futbol-in-core@1.0.55: {}
 
   futbol-in-ui@0.0.29(@types/react@19.2.17)(clsx@2.1.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(tailwind-merge@3.6.0):
     dependencies:
