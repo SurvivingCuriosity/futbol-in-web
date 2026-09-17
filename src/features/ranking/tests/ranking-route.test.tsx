@@ -1,7 +1,13 @@
 import { render, screen } from "@testing-library/react";
 import RankingRoute from "@/src/app/(app)/app/(tabs)/ranking/page";
-import { Mock } from "vitest";
+import { Mock, vi } from "vitest";
 import { useGetRanking } from "../hooks/useRanking";
+
+// Las medallas usan react-query y no son lo que se prueba aquí.
+vi.mock("@/src/features/user/detalle/components/MedallasUsuario", () => ({
+  MedallasUsuario: () => null,
+}));
+
 
 // mock del hook real
 vi.mock("@/src/features/ranking/hooks/useRanking", () => ({

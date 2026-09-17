@@ -1,6 +1,13 @@
+import { vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { RankingPage } from "@/src/features/ranking/components/RankingPage";
 import { UsuarioEnRanking } from "futbol-in-core/types";
+
+// Las medallas usan react-query y no son lo que se prueba aquí.
+vi.mock("@/src/features/user/detalle/components/MedallasUsuario", () => ({
+  MedallasUsuario: () => null,
+}));
+
 
 describe("RankingPage", () => {
     const usuarios: UsuarioEnRanking[] = [

@@ -2,6 +2,12 @@ import TarjetaUsuarioTopRanking from "@/src/features/ranking/components/TarjetaU
 import { fireEvent, render, screen } from "@testing-library/react";
 import { vi } from "vitest";
 
+// Las medallas usan react-query y no son lo que se prueba aquí.
+vi.mock("@/src/features/user/detalle/components/MedallasUsuario", () => ({
+  MedallasUsuario: () => null,
+}));
+
+
 const pushMock = vi.fn();
 
 vi.mock("next/navigation", () => ({

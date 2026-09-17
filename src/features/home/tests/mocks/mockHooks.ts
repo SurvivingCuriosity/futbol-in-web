@@ -1,6 +1,6 @@
 import { SpotDTO } from "futbol-in-core/types";
 import { useGetUltimosFutbolines } from "../../hooks/useLatestFutbolines";
-import { Mock } from "vitest";
+import { Mock, vi } from "vitest";
 import { useGetNearestFutbolines } from "../../hooks/useNearestFutbolines";
 
 type MockHooksParams = Partial<{
@@ -34,5 +34,7 @@ export function mockHooks(params: MockHooksParams = {}) {
     distancesInMeters: distances,
     isLoading: loadingCercanos,
     error: errorCercanos,
+    permissionStatus: "granted",
+    requestLocation: vi.fn(),
   });
 }

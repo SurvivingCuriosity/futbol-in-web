@@ -24,11 +24,17 @@ describe("useUserLocation", () => {
       value: mockGeolocation,
       configurable: true,
     });
+
+    Object.defineProperty(global.navigator, "permissions", {
+      value: { query: vi.fn().mockResolvedValue({ state: "prompt" }) },
+      configurable: true,
+    });
   });
 
   it("devuelve null inicialmente", () => {
     const { result } = renderHook(() => useUserLocation());
-    expect(result.current).toBeNull();
+    expect(result.current.location).toBeNull();
+    expect(result.current.isLoading).toBe(true);
   });
 
   it("actualiza coordenadas cuando watchPosition llama al callback", () => {
@@ -54,7 +60,9 @@ describe("useUserLocation", () => {
 
     act(() => successCallback(fakePos));
 
-    expect(result.current).toEqual({ lat: 40, lng: -3 });
+    expect(result.current.location).toEqual({ lat: 40, lng: -3 });
+    expect(result.current.isLoading).toBe(false);
+    expect(result.current.permissionStatus).toBe("granted");
   });
 
   it("llama a clearWatch al desmontar", () => {

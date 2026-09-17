@@ -39,7 +39,7 @@ describe("HomePage (usuario logeado)", () => {
     mockHooks({ loadingCercanos: true });
     render(<HomePage />);
 
-    expect(screen.getByText(/cargando/i)).toBeInTheDocument();
+    expect(screen.getByText(/obteniendo tu ubicación/i)).toBeInTheDocument();
   });
 
   it("renderiza la lista de últimos futbolines", () => {
@@ -64,7 +64,7 @@ describe("HomePage (usuario logeado)", () => {
     render(<HomePage />);
 
     expect(
-      screen.getByText(new RegExp(`${FAKE_DISTANCIA} metros`, "i"))
+      screen.getByText(new RegExp(`está a ${FAKE_DISTANCIA} m`, "i"))
     ).toBeInTheDocument();
   });
 

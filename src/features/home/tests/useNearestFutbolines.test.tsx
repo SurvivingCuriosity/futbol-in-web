@@ -14,13 +14,22 @@ vi.mock("@/src/shared/hooks/useUserLocation", () => ({
   useUserLocation: vi.fn(),
 }));
 
+const mockLocation = (location: { lat: number; lng: number } | null) =>
+  (useUserLocation as Mock).mockReturnValue({
+    location,
+    isLoading: false,
+    error: null,
+    permissionStatus: location ? "granted" : "prompt",
+    requestLocation: vi.fn(),
+  });
+
 describe("useGetNearestFutbolines", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
   it("devuelve vacío si no hay coords", () => {
-    (useUserLocation as Mock).mockReturnValue(null);
+    mockLocation(null);
     (useAllFutbolines as Mock).mockReturnValue({
       data: [createSpotDTO()],
       isLoading: false,
@@ -30,11 +39,12 @@ describe("useGetNearestFutbolines", () => {
     const { result } = renderHook(() => useGetNearestFutbolines(5));
 
     expect(result.current.nearestFutbolines.length).toBe(0);
-    expect(result.current.isLoading).toBe(true); // loading hasta tener coords
+    expect(result.current.isLoading).toBe(false);
+    expect(result.current.permissionStatus).toBe("prompt");
   });
 
   it("devuelve vacío si no hay futbolines", () => {
-    (useUserLocation as Mock).mockReturnValue({ lat: 40, lng: -3 });
+    mockLocation({ lat: 40, lng: -3 });
     (useAllFutbolines as Mock).mockReturnValue({
       data: [],
       isLoading: false,
@@ -48,7 +58,7 @@ describe("useGetNearestFutbolines", () => {
 
   it("ordena por distancia ascendente y toma la cantidad correcta", () => {
     // Coordenadas del usuario (0,0)
-    (useUserLocation as Mock).mockReturnValue({ lat: 0, lng: 0 });
+    mockLocation({ lat: 0, lng: 0 });
 
     const f1 = createSpotDTO({ coordinates: [0.001, 0] });  // el más cercano
     const f2 = createSpotDTO({ coordinates: [0.01, 0] });   // medio
@@ -72,7 +82,7 @@ describe("useGetNearestFutbolines", () => {
   });
 
   it("devuelve distances truncadas", () => {
-    (useUserLocation as Mock).mockReturnValue({ lat: 40, lng: -3 });
+    mockLocation({ lat: 40, lng: -3 });
 
     const f1 = createSpotDTO({ coordinates: [-3.5, 40.4] });
 
@@ -90,7 +100,7 @@ describe("useGetNearestFutbolines", () => {
   });
 
   it("loading es true si loading de futbolines es true", () => {
-    (useUserLocation as Mock).mockReturnValue({ lat: 40, lng: -3 });
+    mockLocation({ lat: 40, lng: -3 });
 
     (useAllFutbolines as Mock).mockReturnValue({
       data: [],
@@ -104,7 +114,7 @@ describe("useGetNearestFutbolines", () => {
   });
 
   it("propaga el error recibido", () => {
-    (useUserLocation as Mock).mockReturnValue({ lat: 40, lng: -3 });
+    mockLocation({ lat: 40, lng: -3 });
 
     (useAllFutbolines as Mock).mockReturnValue({
       data: [],
