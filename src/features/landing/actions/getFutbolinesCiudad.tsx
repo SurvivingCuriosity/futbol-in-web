@@ -3,7 +3,7 @@ import { ApiResponse, Bar, SpotDTO } from "futbol-in-core/types";
 
 export const getFutbolinesCiudad = async (ciudad:string) => {
   const res = await fetch(`${API_URL}/futbolines/ciudad/${ciudad}`, {
-    next: { revalidate: 60 },
+    next: { revalidate: 3600 },
   });
   const { data } = (await res.json()) as ApiResponse<SpotDTO[]>;
   return data || [];
@@ -11,7 +11,7 @@ export const getFutbolinesCiudad = async (ciudad:string) => {
 
 export const getFutbolinesMarca = async (marca:string) => {
   const res = await fetch(`${API_URL}/futbolines/marca/${marca}`, {
-    next: { revalidate: 60 },
+    next: { revalidate: 3600 },
   });
   const { data } = (await res.json()) as ApiResponse<SpotDTO[]>;
   return data || [];
@@ -19,7 +19,7 @@ export const getFutbolinesMarca = async (marca:string) => {
 
 export const getBaresFromPlaceIds = async (placeIds:string[]) => {
   const res = await fetch(`${API_URL}/maps/getBaresFromPlaceIds?placeIds=${placeIds.join(",")}`, {
-    next: { revalidate: 60 },
+    next: { revalidate: 3600 },
   });
   const { data } = (await res.json()) as ApiResponse<Bar[]>;
   return data || [];
