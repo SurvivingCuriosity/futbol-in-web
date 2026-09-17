@@ -1,10 +1,16 @@
 
 import { ciudades } from "@/src/shared/assets/ciudades/ciudades";
 import { LandingCiudadPage } from "@/src/features/ciudades/components/LandingCiudadPage";
-import Link from "next/link";
+import { notFound } from "next/navigation";
 import { ItemList, WithContext } from "schema-dts";
 import { getBaresFromPlaceIds, getFutbolinesCiudad } from "@/src/features/landing/actions/getFutbolinesCiudad";
 export const revalidate = 3600;
+
+// Sin esto Next trata la ruta como dinámica y la renderiza en cada visita,
+// ignorando `revalidate`. Con [] se genera en la primera visita y se cachea.
+export function generateStaticParams() {
+  return [];
+}
 
 export async function generateMetadata({
   params,
@@ -66,6 +72,7 @@ export default async function LandingCiudadRoute({
   const { ciudad: ciudadParam } = await params;
 
   const ciudad = ciudades.find((c) => c.name === ciudadParam);
+  if (!ciudad) notFound();
 
   const futbolines = await getFutbolinesCiudad(ciudadParam);
 
@@ -73,26 +80,6 @@ export default async function LandingCiudadRoute({
     futbolines.filter((f) => f.destacado).map((s) => s.googlePlaceId)
   );
 
-  if (!ciudad) {
-    return (
-      <main className="min-h-screen bg-background">
-        <div className="container mx-auto px-4 py-20 text-center">
-          <h1 className="text-4xl font-bold text-foreground mb-4">
-            Ciudad no encontrada
-          </h1>
-          <p className="text-muted-foreground mb-8">
-            La ciudad que buscas no está disponible en Futbol-in.
-          </p>
-          <Link
-            href="/#cities"
-            className="inline-flex items-center gap-2 bg-accent text-accent-foreground px-6 py-3 rounded-lg font-semibold hover:opacity-90"
-          >
-            Ver todas las ciudades
-          </Link>
-        </div>
-      </main>
-    );
-  }
 
   const jsonLd: WithContext<ItemList> = {
     "@context": "https://schema.org",
